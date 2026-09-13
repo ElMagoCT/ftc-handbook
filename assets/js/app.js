@@ -238,6 +238,10 @@
   }
   const aliasList = [...aliasMap.keys()].sort((a, b) => b.length - a.length);
   const esc = s => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  // real check: which original-case names are ALL CAPS
+  const capsNames = new Set();
+  for (const k of glossKeys) for (const n of [GLOSS[k].term, ...(GLOSS[k].aliases || [])]) if (n.length >= 2 && n === n.toUpperCase() && /[A-Z]/.test(n)) capsNames.add(n);
+  const caseOk = (found) => { const upper = found.toUpperCase(); if (!capsNames.has(upper)) return true; return found === upper; };
   const termRe = aliasList.length ? new RegExp("(?<![\\w-])(" + aliasList.map(esc).join("|") + ")(?![\\w-])", "gi") : null;
 
   function autoTagTerms() {
@@ -249,6 +253,7 @@
     const sections = [...root.querySelectorAll(":scope > section")];
     if (!sections.length) sections.push(root);
     for (const sec of sections) {
+      if (sec.hasAttribute("data-no-terms") || sec.classList.contains("no-terms")) continue;
       const seen = new Set();
       const walker = document.createTreeWalker(sec, NodeFilter.SHOW_TEXT, {
         acceptNode(n) {
@@ -265,6 +270,8 @@
         while ((m = termRe.exec(text))) {
           const key = aliasMap.get(m[1].toLowerCase());
           if (!key || seen.has(key)) continue;
+          // all-caps names (FIRST, PID, COTS) must match case exactly, so "the first week" is left alone
+          if (!caseOk(m[1])) continue;
           // skip if the term is the glossary entry's own heading context
           seen.add(key);
           frag = frag || document.createDocumentFragment();
