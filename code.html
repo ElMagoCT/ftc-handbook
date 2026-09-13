@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en" data-theme="midnight" data-accent="rose" data-font="grotesk" data-density="comfortable" data-bg="grid">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Code · Everything FTC</title>
+<meta name="description" content="FTC programming in Java: SDK setup in Android Studio, OpModes, hardware map, TeleOp and drive code, PID and feedforward, encoders and odometry, Road Runner and Pedro Pathing, AprilTags and Limelight, command-based structure, and debugging.">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Atkinson+Hyperlegible:wght@400;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>/* apply saved display settings before first paint */try{var s=JSON.parse(localStorage.getItem('ftc-handbook-settings')||'{}'),d={theme:'midnight',accent:'rose',font:'grotesk',density:'comfortable',bg:'grid'};for(var k in d){document.documentElement.setAttribute('data-'+k,s[k]||d[k]);}}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">FTC</span><span>Everything FTC<small>Broncobots handbook</small></span></a>
+    <nav class="main-nav" id="main-nav" aria-label="Main"></nav>
+    <div class="header-actions">
+      <button class="icon-btn" type="button" data-open-search aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="txt">Search</span><kbd>/</kbd></button>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<div class="page">
+  <aside class="sidebar" aria-label="On this page"></aside>
+  <main class="content" id="main">
+<div class="hero">
+  <span class="eyebrow">Code</span>
+  <h1>A driving robot in a week, a reliable auto by the first event.</h1>
+  <p class="lede">FTC code is Java running on the Control Hub inside a project FIRST gives you. This page gets you from a blank laptop to a robot that drives, then through the control theory, localization, and path following that separate a robot that moves from one that scores in autonomous. Library versions checked September 2026.</p>
+  <div class="hero-meta"><span class="chip acc">SDK 12.0</span><span class="chip">Android Studio Narwhal 3+</span><span class="chip">Java 8 syntax</span></div>
+</div>
+
+<section id="setup">
+  <h2>Setup</h2>
+  <ol class="steps">
+    <li><strong>Install Android Studio</strong> (Narwhal 3 Feature Drop or newer for SDK 12). Download from <a href="https://developer.android.com/studio">developer.android.com</a>. Accept the SDK components it asks for.</li>
+    <li><strong>Get the FTC project.</strong> In Android Studio: <em>Get from VCS</em>, paste <code>https://github.com/FIRST-Tech-Challenge/FtcRobotController.git</code>, clone. The first Gradle sync takes a while. Your code goes in <code>TeamCode/src/main/java/org/firstinspires/ftc/teamcode/</code>.</li>
+    <li><strong>Put it in your own Git repo.</strong> Fork or push to a team GitHub. Commit after every working change. This is the fix for the "Control Hub got wiped two days before the qualifier" story.</li>
+    <li><strong>Update the hub.</strong> Use the REV Hardware Client to bring the Control Hub OS (1.1.6 or newer) and the Robot Controller app to the season's version. The Driver Station app must match major.minor.</li>
+    <li><strong>Connect and deploy.</strong> USB-C to the hub the first time, then set up wireless ADB so nobody has to crawl under the robot. <code>adb connect 192.168.43.1:5555</code> while on the robot's Wi-Fi.</li>
+    <li><strong>Configure the robot</strong> on the Driver Hub: name every motor, servo, and sensor by port. Those names are what <code>hardwareMap.get()</code> looks up.</li>
+  </ol>
+  <div class="grid cols-3">
+    <div class="card"><h4>Blocks</h4><p class="small">Drag-and-drop in the browser at <code>192.168.43.1:8080</code>. Fine for a first week and for a rookie who has never coded. You will outgrow it by the first event.</p></div>
+    <div class="card"><h4>OnBot Java</h4><p class="small">A Java editor served by the Control Hub itself, same address. No Android Studio, no Gradle. Great for emergency fixes at competition. No libraries, no Git.</p></div>
+    <div class="card accent"><h4>Android Studio (Java or Kotlin)</h4><p class="small">The real path. Libraries, Git, refactoring, autocomplete. Everything on this page assumes it.</p></div>
+  </div>
+  <details class="more">
+    <summary>Things that break setup, and the fixes <span class="hint">detail</span></summary>
+    <div class="body">
+      <ul>
+        <li><strong>Gradle sync fails</strong>: wrong Android Studio version, or no internet the first time. Match the version in the SDK's README.</li>
+        <li><strong>"App version mismatch"</strong> on the Driver Station: RC and DS apps must be the same major.minor. Update both.</li>
+        <li><strong>Deploy takes 40 seconds</strong>: normal for a full build. Sloth Load (Dairy Foundation) hot-reloads only TeamCode in about a second; worth setting up once the team is past week two.</li>
+        <li><strong>Hub not found over ADB</strong>: you are not on the robot's Wi-Fi, or the hub's Wi-Fi is on a band your laptop cannot see.</li>
+        <li><strong>Library dependency vanished</strong>: pin versions in <code>build.gradle</code> and keep the Gradle cache. Prefer libraries on Maven Central or a stable repo.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section id="opmodes">
+  <h2>OpModes and the hardware map</h2>
+  <div class="media">
+    <div>
+      <p>Every program is an <strong>OpMode</strong>: a class the Driver Station lists and runs. <code>LinearOpMode</code> runs top to bottom; TeleOp is a <code>while (opModeIsActive())</code> loop. Unlike Blocks or VEX, you declare every device in code, by the name from the robot configuration.</p>
+      <ul>
+        <li><code>@TeleOp(name="Drive")</code> or <code>@Autonomous(name="Left Auto")</code> puts it on the Driver Station menu. <code>@Disabled</code> hides it.</li>
+        <li><code>waitForStart()</code> blocks until the driver presses Play. Everything before it runs on Init.</li>
+        <li><code>telemetry.addData(...)</code> then <code>telemetry.update()</code> shows values on the Driver Hub. Your first debugger.</li>
+        <li>Never <code>sleep()</code> in a TeleOp loop. It freezes the drivers.</li>
+      </ul>
+    </div>
+    <pre><code>package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.Servo;
+
+@TeleOp(name = "Basic TeleOp")
+public class BasicTeleOp extends LinearOpMode {
+    @Override
+    public void runOpMode() {
+        DcMotorEx arm = hardwareMap.get(DcMotorEx.class, "arm");
+        Servo pinch = hardwareMap.get(Servo.class, "pinch");
+
+        waitForStart();
+        while (opModeIsActive()) {
+            arm.setPower(-gamepad1.left_stick_y);
+            if (gamepad1.a) pinch.setPosition(0.2);
+            if (gamepad1.b) pinch.setPosition(0.7);
+
+            telemetry.addData("arm ticks", arm.getCurrentPosition());
+            telemetry.update();
+        }
+    }
+}</code></pre>
+  </div>
+  <div class="grid cols-2">
+    <div class="card">
+      <h4>Device classes you will use</h4>
+      <div class="tbl dense"><table>
+        <thead><tr><th>Class</th><th>For</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td><code>DcMotorEx</code></td><td>Any motor</td><td>Adds velocity control and current reads over <code>DcMotor</code>. Always use Ex.</td></tr>
+          <tr><td><code>Servo</code> / <code>ServoImplEx</code></td><td>Position servos</td><td>Ex lets you set PWM range and disable when idle</td></tr>
+          <tr><td><code>CRServo</code></td><td>Continuous-rotation servos</td><td><code>setPower()</code> like a motor</td></tr>
+          <tr><td><code>IMU</code></td><td>Built-in gyro</td><td>Universal class for BNO055 and BHI260AP; give it the hub orientation</td></tr>
+          <tr><td><code>TouchSensor</code>, <code>DigitalChannel</code></td><td>Switches</td><td>Touch sensors are on the n+1 channel of the port</td></tr>
+          <tr><td><code>ColorRangeSensor</code>, <code>DistanceSensor</code></td><td>I²C sensors</td><td>Each read costs time; do not poll every loop</td></tr>
+          <tr><td><code>GoBildaPinpointDriver</code></td><td>Pinpoint odometry</td><td>Built into SDK 11.1+ including V2</td></tr>
+          <tr><td><code>Limelight3A</code></td><td>Limelight</td><td>Built in since SDK 10</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="card">
+      <h4>Motor setup that saves you later</h4>
+      <pre><code>arm.setDirection(DcMotorSimple.Direction.REVERSE);
+arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+// bulk reads: one transaction per hub per loop
+for (LynxModule hub : hardwareMap.getAll(LynxModule.class))
+    hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);</code></pre>
+      <ul class="small">
+        <li><code>BRAKE</code> holds a lift when power is zero (electrically, not against gravity).</li>
+        <li><code>RUN_WITHOUT_ENCODER</code> plus your own PID beats the hub's <code>RUN_TO_POSITION</code> once you know what you are doing. Start with <code>RUN_TO_POSITION</code> if you do not.</li>
+        <li>Bulk caching cuts loop time from tens of milliseconds to a few. Set it once at init.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="teleop">
+  <h2>TeleOp that drivers like</h2>
+  <div class="grid cols-2">
+    <div class="card">
+      <h4>Mecanum drive, robot-centric</h4>
+      <pre><code>double y  = -gamepad1.left_stick_y;   // forward
+double x  =  gamepad1.left_stick_x * 1.1; // strafe (counteract imperfect strafing)
+double rx =  gamepad1.right_stick_x;  // rotate
+
+double d = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
+fl.setPower((y + x + rx) / d);
+bl.setPower((y - x + rx) / d);
+fr.setPower((y - x - rx) / d);
+br.setPower((y + x - rx) / d);</code></pre>
+    </div>
+    <div class="card">
+      <h4>Field-centric: rotate the stick by the heading first</h4>
+      <pre><code>double h = imu.getRobotYawPitchRollAngles()
+              .getYaw(AngleUnit.RADIANS);
+double rotX = x * Math.cos(-h) - y * Math.sin(-h);
+double rotY = x * Math.sin(-h) + y * Math.cos(-h);
+// then use rotX, rotY in place of x, y above
+if (gamepad1.options) imu.resetYaw(); // re-zero facing away from driver</code></pre>
+    </div>
+  </div>
+  <figure class="sim" data-sim="field-centric"></figure>
+  <div class="grid cols-3">
+    <div class="card"><h4>Presets, not sticks</h4><p class="small">One button sends the lift to scoring height and another brings it home. The operator should never watch a mechanism and hold a stick. Use a PID or <code>RUN_TO_POSITION</code> toward a saved target.</p></div>
+    <div class="card"><h4>Do two things at once</h4><p class="small">Raise while driving, retract while returning. In a plain loop this means every mechanism updates every iteration with no blocking calls. Command-based libraries make this natural.</p></div>
+    <div class="card"><h4>Rising-edge buttons</h4><p class="small">Toggle the claw on the press, not while held. SDK 11.1+ gamepads have edge detection (<code>gamepad1.aWasPressed()</code>); otherwise track the previous state yourself.</p></div>
+    <div class="card"><h4>Deadband and curves</h4><p class="small">Ignore stick values under about 0.05. Cube the stick (<code>x*x*x</code>) for fine control at low speed and full power at the ends.</p></div>
+    <div class="card"><h4>Slow mode</h4><p class="small">Hold a bumper to scale drive power to 0.3 for lining up. Drivers use it more than you would expect.</p></div>
+    <div class="card"><h4>Telemetry that helps</h4><p class="small">Loop time in ms, battery voltage, lift position and target, "has element" from the intake sensor. If the driver cannot see it they cannot use it.</p></div>
+  </div>
+</section>
+
+<section id="control">
+  <h2>Control: getting a mechanism to a target</h2>
+  <p class="muted">The Control Award is mostly this section done well and written down.</p>
+  <figure class="sim" data-sim="pid"></figure>
+  <div class="grid cols-2">
+    <div class="card">
+      <h4>PID in ten lines</h4>
+      <pre><code>double kP = 0.01, kI = 0, kD = 0.0005, kG = 0.08; // tune these
+double integral = 0, lastError = 0;
+ElapsedTime timer = new ElapsedTime();
+
+double error = target - arm.getCurrentPosition();
+double dt = timer.seconds(); timer.reset();
+integral += error * dt;
+double derivative = (error - lastError) / dt;
+lastError = error;
+double power = kP * error + kI * integral + kD * derivative + kG;
+arm.setPower(Range.clip(power, -1, 1));</code></pre>
+      <ul class="small">
+        <li><strong>P</strong> does most of the work: power proportional to how far away you are.</li>
+        <li><strong>D</strong> damps the overshoot: brakes when the error is shrinking fast.</li>
+        <li><strong>I</strong> removes steady-state error, and causes windup if you let it grow. Most FTC mechanisms do not need it.</li>
+        <li><strong>kG</strong> (feedforward) is the constant power to hold against gravity. Add it and you can drop I entirely.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>How to tune, in order</h4>
+      <ol class="steps">
+        <li><strong>Find kG.</strong> With P at zero, what power just holds the arm level? That is kG (for an arm it scales with cos of the angle).</li>
+        <li><strong>Raise kP</strong> until it reaches the target fast and overshoots a little.</li>
+        <li><strong>Add kD</strong> until the overshoot is gone. Too much and it gets jittery.</li>
+        <li><strong>Only then consider kI</strong>, small, with a clamp on the integral.</li>
+        <li><strong>Graph it</strong> in FTC Dashboard or Panels. Tuning by eye takes ten times longer.</li>
+      </ol>
+      <p class="small muted">The SDK's built-in <code>RUN_TO_POSITION</code> and <code>setVelocity()</code> are PID loops running on the hub with fixed defaults. They are fine for a first version and for velocity control of flywheels. Your own loop wins once you need feedforward or motion profiling.</p>
+    </div>
+  </div>
+  <details class="more">
+    <summary>Beyond PID: profiles, velocity control, and state machines <span class="hint">detail</span></summary>
+    <div class="body">
+      <div class="grid cols-2 tight">
+        <div><h4>Motion profiling</h4><p class="small">Instead of asking a PID to jump to the target, feed it a target that moves along a trapezoid (accelerate, cruise, decelerate). Smoother, repeatable, and slides stop slamming. Road Runner and Pedro do this for the drivetrain; a 30-line class does it for a lift.</p></div>
+        <div><h4>Velocity control</h4><p class="small">Flywheels and intakes want a speed, not a position. <code>setVelocity(ticksPerSecond)</code> with the hub PIDF, or your own kV × target + PID on the error. Read the current draw to detect a jam.</p></div>
+        <div><h4>State machines</h4><p class="small">A scoring sequence (close claw, raise, extend, open, retract) is a set of named states with a transition condition each. Update it every loop. This is how you write a non-blocking auto or a one-button TeleOp macro without <code>sleep()</code>.</p></div>
+        <div><h4>Loop time</h4><p class="small">Aim under 20 ms. Bulk reads, no unneeded I²C reads, no <code>telemetry.update()</code> more than once per loop, and vision on a coprocessor or in its own thread.</p></div>
+      </div>
+      <p class="small">Deep dive: <a href="https://www.ctrlaltftc.com">CTRL ALT FTC</a> is the standard control-theory guide written for this level.</p>
+    </div>
+  </details>
+</section>
+
+<section id="localization">
+  <h2>Localization: knowing where the robot is</h2>
+  <p class="muted">A good autonomous is a localization problem first and a path problem second.</p>
+  <div class="grid cols-4 tight">
+    <div class="card"><span class="eyebrow">Level 0</span><h4>Time</h4><p class="small">Drive at power for milliseconds. Different every time the battery changes. Only for a robot that has to move tomorrow.</p></div>
+    <div class="card"><span class="eyebrow">Level 1</span><h4>Drive encoders + IMU</h4><p class="small">Distance from the wheels, heading from the gyro. Free, and wrong whenever a wheel slips (mecanum wheels slip a lot).</p></div>
+    <div class="card accent"><span class="eyebrow">Level 2</span><h4>Dead wheels or optical</h4><p class="small">Two or three unpowered odometry pods, fused by a Pinpoint, or an OTOS reading the floor. Accurate to a fraction of an inch over an auto. This is the standard.</p></div>
+    <div class="card"><span class="eyebrow">Level 3</span><h4>+ AprilTags</h4><p class="small">Odometry drifts; the tags on the field walls do not. A camera or Limelight corrects the estimate whenever it sees one.</p></div>
+  </div>
+  <figure class="sim" data-sim="odometry"></figure>
+  <div class="grid cols-2">
+    <div class="card">
+      <h4>Hardware choices</h4>
+      <div class="tbl dense"><table>
+        <thead><tr><th>Option</th><th>Cost</th><th>Good</th><th>Watch</th></tr></thead>
+        <tbody>
+          <tr><td>2 goBILDA pods + Pinpoint V2</td><td>~$280</td><td>Plug and play, fusion done for you, SDK driver</td><td>Pods need floor space at right angles</td></tr>
+          <tr><td>3 pods into encoder ports</td><td>~$300</td><td>No extra board; libraries support it</td><td>Uses three encoder ports; you do the math</td></tr>
+          <tr><td>SparkFun OTOS</td><td>$85</td><td>Tiny, no wheels, I²C</td><td>Exactly 10 mm off the floor; calibrate the scale</td></tr>
+          <tr><td>Limelight 3A + AprilTags</td><td>$189</td><td>Absolute position, no drift</td><td>Only when a tag is in view; add odometry for the rest</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="card">
+      <h4>Pinpoint in three calls</h4>
+      <pre><code>GoBildaPinpointDriver odo = hardwareMap.get(GoBildaPinpointDriver.class, "odo");
+odo.setOffsets(-84.0, -168.0, DistanceUnit.MM); // pod positions from robot center
+odo.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
+odo.resetPosAndIMU();
+
+// every loop:
+odo.update();
+Pose2D p = odo.getPosition();  // x, y, heading</code></pre>
+      <p class="small muted">Both Road Runner and Pedro Pathing have Pinpoint localizers built in, so usually you configure it there instead of calling it yourself.</p>
+    </div>
+  </div>
+</section>
+
+<section id="paths">
+  <h2>Path following</h2>
+  <div class="grid cols-2">
+    <div class="card accent">
+      <h3>Pedro Pathing <span class="chip acc">v3, Sept 2026</span></h3>
+      <p class="small">Bezier-curve paths with a reactive follower built for speed. Version 3 added the Foresight follower, a pose factory, a web-based AutoTune, and logging. The library most top teams moved to.</p>
+      <ul class="small">
+        <li>Docs and quickstart: <a href="https://pedropathing.com">pedropathing.com</a>. Visualizer: <a href="https://pedro-path-generator.vercel.app/">path generator</a>.</li>
+        <li>Pairs with <a href="https://nextftc.dev">NextFTC</a> for command-based structure.</li>
+        <li>Tuning is a checklist of OpModes; do them in order and write the constants down.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Road Runner 1.0</h3>
+      <p class="small">Trajectory planning with spline paths and motion profiles, plus an "Actions" system for sequencing mechanisms with movement. Stable and well documented; less active development than Pedro.</p>
+      <ul class="small">
+        <li>Docs: <a href="https://rr.brott.dev/docs/v1-0/">rr.brott.dev</a>. Not compatible with the old 0.5.x tutorials at learnroadrunner.com.</li>
+        <li><a href="https://github.com/acmerobotics/MeepMeep">MeepMeep</a> previews trajectories on a field image before you run them.</li>
+        <li>Tuning: the built-in tuning OpModes and FTC Dashboard.</li>
+      </ul>
+    </div>
+  </div>
+  <details class="more">
+    <summary>Writing an auto that survives an event <span class="hint">detail</span></summary>
+    <div class="body">
+      <ul>
+        <li><strong>Start position is everything.</strong> Mark it on the tile with tape and a printed jig. Half of "the auto broke" is the robot starting an inch off.</li>
+        <li><strong>Use the wall.</strong> Drive into a wall or field element to reset a coordinate when you can. Free localization.</li>
+        <li><strong>Timeouts on everything.</strong> Every wait-for-position has a time limit so one stuck mechanism does not freeze the whole 30 seconds.</li>
+        <li><strong>Park.</strong> Whatever else fails, end the auto in the parking zone if the game pays for it.</li>
+        <li><strong>Two versions.</strong> A safe auto that scores less and a full auto. Choose on the Driver Station based on your partner.</li>
+        <li><strong>Practice with a partner robot on the field.</strong> Autos that work alone collide at events.</li>
+        <li><strong>Log it.</strong> Write pose, targets, and timestamps to a file or the dashboard so you can see what happened after a bad run.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section id="vision">
+  <h2>Vision</h2>
+  <div class="grid cols-3">
+    <div class="card">
+      <h4>AprilTags on the SDK</h4>
+      <p class="small"><code>VisionPortal</code> + <code>AprilTagProcessor</code> with a webcam. SDK 12 adds tag clusters and the BIOBUZZ tag library via <code>getCurrentGameTagLibrary()</code>. Gives you range, bearing, and a field pose for each tag.</p>
+      <ul class="small"><li>Calibrated webcams: Logitech C270, C310, C920.</li><li>Costs loop time on the hub; stop streaming when you do not need it.</li></ul>
+    </div>
+    <div class="card accent">
+      <h4>Limelight 3A</h4>
+      <p class="small">Runs AprilTag, color, and neural pipelines on its own processor, and hands results to the hub over USB. <code>Limelight3A</code> class in the SDK. Tune pipelines in its web UI.</p>
+      <ul class="small"><li>The only programmable vision coprocessor allowed (R702). One per Control Hub.</li><li>MegaTag2 gives a fused field pose from multiple tags.</li></ul>
+    </div>
+    <div class="card">
+      <h4>Custom OpenCV</h4>
+      <p class="small">A <code>VisionProcessor</code> with OpenCV for color blobs, contours, and game-specific detection. The SDK includes color-locator processors for the common cases. Test under venue lighting; every gym is different.</p>
+    </div>
+  </div>
+</section>
+
+<section id="structure">
+  <h2>Structuring a codebase</h2>
+  <div class="grid cols-2">
+    <div class="card">
+      <h4>Subsystems</h4>
+      <p class="small">One class per mechanism: <code>Drivetrain</code>, <code>Lift</code>, <code>Intake</code>, <code>Claw</code>. Each owns its hardware, exposes intent (<code>lift.goTo(HIGH)</code>), and updates its own control loop. OpModes become short.</p>
+      <pre><code>public class Lift {
+    private final DcMotorEx motor;
+    private int target = 0;
+    public Lift(HardwareMap hw) {
+        motor = hw.get(DcMotorEx.class, "lift");
+        motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
+    public void goTo(int ticks) { target = ticks; }
+    public void update() { /* PID toward target */ }
+    public boolean atTarget() { return Math.abs(target - motor.getCurrentPosition()) &lt; 20; }
+}</code></pre>
+    </div>
+    <div class="card">
+      <h4>Command-based libraries</h4>
+      <p class="small">Commands are small actions (<code>RaiseLift</code>, <code>OpenClaw</code>) you sequence, run in parallel, and bind to buttons. A scheduler runs them each loop. Same idea as FRC's WPILib, so it transfers.</p>
+      <div class="tbl dense"><table>
+        <thead><tr><th>Library</th><th>Status</th><th>Pick it if</th></tr></thead>
+        <tbody>
+          <tr><td><a href="https://nextftc.dev">NextFTC</a> v2</td><td>Active</td><td>You use Pedro Pathing; you like minimal boilerplate</td></tr>
+          <tr><td><a href="https://docs.seattlesolvers.com">SolversLib</a></td><td>Active</td><td>You want FTCLib's API, maintained</td></tr>
+          <tr><td>FTCLib</td><td>Unmaintained since 2024</td><td>Only for old tutorials; use SolversLib instead</td></tr>
+          <tr><td><a href="https://docs.dairy.foundation">Dairy (Mercurial)</a></td><td>Active</td><td>Kotlin, modular, you like the ecosystem</td></tr>
+          <tr><td>Road Runner Actions</td><td>Stable</td><td>You are on Road Runner and want one library</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+  <div class="grid cols-3">
+    <div class="card"><h4>Constants in one place</h4><p class="small">A <code>Constants</code> class or <code>@Config</code> class for every tuned number: PID gains, servo positions, encoder targets. Dashboard can edit <code>@Config</code> fields live.</p></div>
+    <div class="card"><h4>Git discipline</h4><p class="small">Commit after every working change with a message a teammate understands. Tag the commit you ran at each event. Never edit on the hub without pushing the change back.</p></div>
+    <div class="card"><h4>Readme in the repo</h4><p class="small">Robot configuration names, which OpMode is competition TeleOp, how to tune, who to ask. Future you in February will be grateful.</p></div>
+  </div>
+</section>
+
+<section id="tools">
+  <h2>Debugging tools</h2>
+  <div class="grid cols-3">
+    <div class="card"><h4>Telemetry</h4><p class="small">Values on the Driver Hub screen. Always on for loop time and battery voltage.</p></div>
+    <div class="card"><h4>FTC Dashboard / Panels</h4><p class="small">Web dashboards served by the robot: live graphs, field overlay, live-editable constants, camera stream. <a href="https://github.com/acmerobotics/ftc-dashboard">FTC Dashboard</a> is the original; <a href="https://panels.bylazar.com">Panels</a> is the newer one. Both are banned during matches (R704); use them in the pit and at practice.</p></div>
+    <div class="card"><h4>Logcat</h4><p class="small">The Android log, viewed in Android Studio while connected over ADB. Stack traces for crashes live here. <code>RobotLog.d()</code> writes your own lines.</p></div>
+    <div class="card"><h4>Robot web interface</h4><p class="small"><code>192.168.43.1:8080</code> on the robot's Wi-Fi: manage OpModes, view logs, Blocks and OnBot Java editors, Wi-Fi settings.</p></div>
+    <div class="card"><h4>Sloth Load</h4><p class="small">Hot-reload TeamCode in about a second instead of a 40-second full deploy. From the Dairy Foundation. Set it up once, save hours over a season.</p></div>
+    <div class="card"><h4>The FTC Discord #programming channel</h4><p class="small">Someone has hit your exact stack trace. Search first, then ask with the trace and the code.</p></div>
+  </div>
+</section>
+
+<section id="learning">
+  <h2>Learning path</h2>
+  <ol class="steps">
+    <li><strong>Java basics.</strong> Variables, methods, classes, loops, if. Codecademy's free Learn Java course covers everything FTC needs.</li>
+    <li><strong>Drive the robot.</strong> The Basic TeleOp above with a mecanum drive. One evening once the hardware works.</li>
+    <li><strong>Read a sensor, move a servo, control a motor to a position.</strong> One mechanism at a time, with telemetry.</li>
+    <li><strong>PID on the lift, with feedforward.</strong> Graph it. This is where you start understanding instead of copying.</li>
+    <li><strong>Localization plus a path library.</strong> Tune it fully before writing the auto.</li>
+    <li><strong>Refactor into subsystems and commands.</strong> Now the TeleOp macros and the auto share code.</li>
+    <li><strong>AprilTags.</strong> Correct odometry from a tag, then use it in auto.</li>
+  </ol>
+  <ul class="links">
+    <li><div><a href="https://ftc-docs.firstinspires.org/en/latest/programming_resources/index.html">FTC Docs: Programming Resources</a><span class="d">Official tutorials for Blocks, OnBot Java, Android Studio, sensors, IMU, AprilTags.</span></div><span class="who">FIRST</span></li>
+    <li><div><a href="https://gm0.org/en/latest/docs/software/index.html">gm0: Software</a><span class="d">Concepts and code samples from the community guide.</span></div><span class="who">gm0</span></li>
+    <li><div><a href="https://www.ctrlaltftc.com">CTRL ALT FTC</a><span class="d">Control theory for FTC: PID, feedforward, motion profiling, with code.</span></div><span class="who">Community</span></li>
+    <li><div><a href="https://cookbook.dairy.foundation">FTC Cookbook</a><span class="d">Recipes for common problems: edge detection, state machines, servo tricks.</span></div><span class="who">Community</span></li>
+    <li><div><a href="https://youtube.com/playlist?list=PLRHdgFNRLyaPiZ5rvINwMmGMHEIL9usla">FTC programming playlist</a><span class="d">Probably the best FTC coding video series on YouTube.</span></div><span class="who">YouTube</span></li>
+    <li><div><a href="https://drive.google.com/file/d/1Dzk7xmGzfM2LIbHASX2WfAe6uWZXf2eA/view">FTC Java book (PDF)</a><span class="d">A whole book on FTC Java programming.</span></div><span class="who">Reference</span></li>
+    <li><div><a href="https://docs.wpilib.org/en/stable/">WPILib docs (FRC)</a><span class="d">Where command-based comes from. Useful when you move up to FRC.</span></div><span class="who">FRC</span></li>
+  </ul>
+</section>
+
+<section id="missions">
+  <h2>Missions</h2>
+  <div class="grid cols-2">
+    <div class="mission">
+      <div class="head"><span class="eyebrow">Mission C1</span><span class="lvl"><i class="on"></i><i></i><i></i></span></div>
+      <h3>Drive in a week</h3>
+      <ul><li>Clone the SDK, push it to a team repo, deploy a mecanum TeleOp with field-centric drive and slow mode.</li><li>Telemetry shows loop time and battery voltage.</li></ul>
+      <div class="done"><strong>Done when</strong> a non-coder drives it around the room and the loop time is under 20 ms.</div>
+    </div>
+    <div class="mission">
+      <div class="head"><span class="eyebrow">Mission C2</span><span class="lvl"><i class="on"></i><i class="on"></i><i></i></span></div>
+      <h3>Tune a lift</h3>
+      <ul><li>Your own PID plus kG on a slide or arm, three preset heights on buttons.</li><li>Graph position vs target in Dashboard or Panels during tuning.</li></ul>
+      <div class="done"><strong>Done when</strong> it settles within 20 ticks in under a second with no visible overshoot, and the gains are in a Constants class.</div>
+    </div>
+    <div class="mission">
+      <div class="head"><span class="eyebrow">Mission C3</span><span class="lvl"><i class="on"></i><i class="on"></i><i></i></span></div>
+      <h3>Localize</h3>
+      <ul><li>Pinpoint or OTOS reporting pose on telemetry.</li><li>Drive a 4-foot square by hand and return to the start. Record the error.</li></ul>
+      <div class="done"><strong>Done when</strong> the reported pose is within one inch and two degrees after the square.</div>
+    </div>
+    <div class="mission">
+      <div class="head"><span class="eyebrow">Mission C4</span><span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+      <h3>Score in auto</h3>
+      <ul><li>Pedro or Road Runner tuned, one path that scores a game element and parks.</li><li>Runs 10 times in a row with the same result.</li></ul>
+      <div class="done"><strong>Done when</strong> 9 of 10 runs score, and the one that fails still parks.</div>
+    </div>
+    <div class="mission">
+      <div class="head"><span class="eyebrow">Mission C5</span><span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+      <h3>Tag correction</h3>
+      <ul><li>Detect an AprilTag with a webcam or Limelight and print the robot's field pose.</li><li>Use it to correct odometry once per auto.</li></ul>
+      <div class="done"><strong>Done when</strong> a deliberately misplaced start position still ends in the right spot.</div>
+    </div>
+  </div>
+</section>
+  </main>
+</div>
+<footer class="site-footer">
+  <div class="inner">
+    <span>Everything FTC · a Broncobots handbook · not affiliated with <em>FIRST</em>. Rules quoted here can go stale; the <a href="https://ftc-resources.firstinspires.org/ftc/game/manual">Competition Manual</a> always wins.</span>
+    <span><a href="https://github.com/ElMagoCT/ftc-handbook">Edit on GitHub</a> · <a href="glossary.html">Glossary</a> · <a href="resources.html">Resources</a></span>
+  </div>
+</footer>
+<script src="assets/js/glossary.js"></script>
+<script src="assets/js/sims.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

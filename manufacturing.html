@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en" data-theme="midnight" data-accent="rose" data-font="grotesk" data-density="comfortable" data-bg="grid">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Materials & Manufacturing · Everything FTC</title>
+<meta name="description" content="FTC materials and manufacturing: goBILDA vs REV build systems, metals, plastics, filaments, 3D printing settings and tolerances, sheet metal and water jet, laser cutting, CNC, fasteners, and sourcing.">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Atkinson+Hyperlegible:wght@400;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>/* apply saved display settings before first paint */try{var s=JSON.parse(localStorage.getItem('ftc-handbook-settings')||'{}'),d={theme:'midnight',accent:'rose',font:'grotesk',density:'comfortable',bg:'grid'};for(var k in d){document.documentElement.setAttribute('data-'+k,s[k]||d[k]);}}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">FTC</span><span>Everything FTC<small>Broncobots handbook</small></span></a>
+    <nav class="main-nav" id="main-nav" aria-label="Main"></nav>
+    <div class="header-actions">
+      <button class="icon-btn" type="button" data-open-search aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="txt">Search</span><kbd>/</kbd></button>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<div class="page">
+  <aside class="sidebar" aria-label="On this page"></aside>
+  <main class="content" id="main">
+<div class="hero">
+  <span class="eyebrow">Materials &amp; Manufacturing</span>
+  <h1>Pick the material for the job, then make the part fit the first time.</h1>
+  <p class="lede">What each material is good for, how each process works, and the numbers (temperatures, tolerances, thicknesses) that took us a few seasons to get right. Nothing here needs a machine shop, but it tells you what to ask for if you have access to one.</p>
+</div>
+
+<section id="systems">
+  <h2>Build systems</h2>
+  <p class="muted">Pick one and standardize. Mixing hole patterns and screw sizes on one robot costs hours all season.</p>
+  <div class="grid cols-3">
+    <div class="card accent">
+      <span class="eyebrow">Most FTC teams</span><h3>goBILDA</h3>
+      <dl class="kv small">
+        <dt>Pattern</dt><dd>4 mm holes on an 8 mm grid</dd>
+        <dt>Hardware</dt><dd>M4 screws, 14 mm bearing pockets</dd>
+        <dt>Shaft</dt><dd>8 mm REX (rounded hex) and 5 mm hex motors</dd>
+        <dt>Structure</dt><dd>48 mm U-channel, low-side channel, goRAIL extrusion</dd>
+        <dt>Motion</dt><dd>Yellow Jacket motors, Viper slides, 8 mm pitch chain, HTD belts</dd>
+      </dl>
+      <div class="procon"><div class="pro"><ul><li>Everything bolts to everything</li><li>Huge catalog, great CAD library</li><li>25% FIRST discount</li></ul></div><div class="con"><ul><li>Slightly pricier</li><li>Channel is heavy if you overuse it</li></ul></div></div>
+    </div>
+    <div class="card">
+      <span class="eyebrow">Cheaper, more cutting</span><h3>REV DUO</h3>
+      <dl class="kv small">
+        <dt>Pattern</dt><dd>15 × 15 mm extrusion, slot-nut anywhere</dd>
+        <dt>Hardware</dt><dd>M3 screws</dd>
+        <dt>Shaft</dt><dd>5 mm hex</dd>
+        <dt>Structure</dt><dd>15 mm extrusion, 45 × 45 channel, brackets</dd>
+        <dt>Motion</dt><dd>HD Hex + UltraPlanetary, Core Hex, REV slides</dd>
+      </dl>
+      <div class="procon"><div class="pro"><ul><li>Lowest cost</li><li>Infinitely adjustable positions</li><li>Control system is REV anyway</li></ul></div><div class="con"><ul><li>Cut extrusion to length yourself</li><li>M3 and 5 mm hex bend under real load</li></ul></div></div>
+    </div>
+    <div class="card">
+      <span class="eyebrow">Alternatives</span><h3>Studica, TETRIX, AndyMark</h3>
+      <ul class="small">
+        <li><strong>Studica:</strong> 3 mm anodized aluminum with a pattern that allows 16 mounting angles, M3 fasteners, Maverick motors. Comes in colors. Holes are not goBILDA-sized, so parts need drilling to mix.</li>
+        <li><strong>TETRIX:</strong> the classic kit-of-parts. Simple, heavy, limited.</li>
+        <li><strong>AndyMark:</strong> NeveRest motors, the official StarterBot kits, and raw stock.</li>
+        <li><strong>Amazon / AliExpress:</strong> odd brackets, aluminum extrusion, silicone tubing, bearings by the bag. Check dimensions twice.</li>
+      </ul>
+    </div>
+  </div>
+  <details class="more">
+    <summary>Shafts, bearings, and hubs <span class="hint">detail</span></summary>
+    <div class="body">
+      <ul>
+        <li><strong>Hex shafts</strong> key into hubs with no set screws. 5 mm hex is the motor standard; goBILDA's 8 mm REX carries drivetrain loads.</li>
+        <li><strong>D-shafts</strong> (round with a flat) rely on set screws and slip under torque. Use them only where the vendor gives you no choice.</li>
+        <li><strong>Flanged ball bearings</strong> on every shaft that carries load, ideally two per shaft spaced apart. A shaft supported at one end is a lever that bends its bearing.</li>
+        <li><strong>Shaft collars</strong> hold axial position, not torque. Two collars per shaft, snug against the bearings.</li>
+        <li><strong>Dead axle vs live axle:</strong> a dead axle is fixed and the wheel spins on bearings around it (stronger, simpler). A live axle spins with the wheel (needed when you drive it from the end).</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section id="materials">
+  <h2>Materials</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Material</th><th>Density</th><th>Use it for</th><th>Good</th><th>Watch</th></tr></thead>
+    <tbody>
+      <tr><td><strong>6061 aluminum</strong></td><td>2.7 g/cm³</td><td>Plates, brackets, channel, anything structural</td><td>Strong for its weight, machines and cuts easily, cheap</td><td>Needs tools to cut; sharp edges must be deburred</td></tr>
+      <tr><td><strong>Steel</strong></td><td>7.8</td><td>Gears, shafts, high-load pins</td><td>Very durable, high torque</td><td>Heavy; rusts unless coated</td></tr>
+      <tr><td><strong>Polycarbonate (Lexan)</strong></td><td>1.2</td><td>Guards, ramps, side panels, intake floors</td><td>Tough, clear, bends cold, cuts and drills by hand</td><td>Scratches; cracks if you drill without a backer</td></tr>
+      <tr><td><strong>Delrin (acetal)</strong></td><td>1.4</td><td>Bushings, sliders, spacers, small gears</td><td>Slippery, stiff, machines beautifully</td><td>Expensive per sheet; does not print</td></tr>
+      <tr><td><strong>UHMW / HDPE</strong></td><td>0.95</td><td>Skids, slide pads, bumpers</td><td>Slipperiest common plastic; tough</td><td>Too soft for precise parts; nothing glues to it</td></tr>
+      <tr><td><strong>Carbon fiber / MAXComposite</strong></td><td>1.6</td><td>Long arms, drive plates when weight matters</td><td>Stiffest per gram</td><td>Expensive; carbide tools; dust is nasty; conductive (ESD path)</td></tr>
+      <tr><td><strong>Plywood / MDF</strong></td><td>0.6</td><td>Prototypes, field elements, practice structures</td><td>Cheap, fast</td><td>Not for the competition robot</td></tr>
+      <tr><td><strong>Cardboard / foam core</strong></td><td>0.1</td><td>First-week mockups</td><td>Tape and a knife</td><td>That is the point</td></tr>
+      <tr><td><strong>Rubber / silicone tubing</strong></td><td>—</td><td>Roller surfaces, gripper pads</td><td>Grip, compliance</td><td>Wears; replace mid-season</td></tr>
+      <tr><td><strong>PVC pipe</strong></td><td>1.4</td><td>Prototype arm extensions</td><td>Cheap, everywhere</td><td>Brittle; never laser cut it (chlorine gas)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout tip"><span class="ico">Tip</span><div><p>Aluminum for anything that carries load. Polycarbonate for anything that guides a game element. Printed plastic for anything with a complicated shape that does not carry much load. That rule of thumb covers 90 percent of an FTC robot.</p></div></div>
+</section>
+
+<section id="printing">
+  <h2>3D printing</h2>
+  <div class="grid cols-2">
+    <div class="card">
+      <h3>Filaments</h3>
+      <div class="tbl dense"><table>
+        <thead><tr><th>Filament</th><th>Nozzle</th><th>Bed</th><th>Use it for</th><th>Watch</th></tr></thead>
+        <tbody>
+          <tr><td><strong>PLA</strong></td><td>190–230 °C</td><td>20–70 °C</td><td>Prototypes, brackets with no load, jigs</td><td>Brittle; softens near motors and in a hot car</td></tr>
+          <tr><td><strong>PETG</strong></td><td>230–250 °C</td><td>60–80 °C</td><td>Real robot parts: mounts, guides, spacers</td><td>Stringing; glue stick so it does not weld to the bed</td></tr>
+          <tr><td><strong>TPU</strong></td><td>210–250 °C</td><td>40–60 °C</td><td>Gripper pads, intake flaps, bumpers</td><td>Direct-drive extruder, print slow, no PEI sheet</td></tr>
+          <tr><td><strong>ABS / ASA</strong></td><td>230–250 °C</td><td>90–110 °C</td><td>Heat-resistant, strong parts</td><td>Enclosure and ventilation required; fumes</td></tr>
+          <tr><td><strong>Nylon / Nylon-CF</strong></td><td>240–260 °C</td><td>70–90 °C</td><td>Gears, high-wear, structural</td><td>Dry it first (it drinks moisture); enclosure</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted">Temperatures are starting points; use the spool's range. Shore hardness for TPU: 95A is firm, 85A is grippy, 60A is squishy. Lower is softer.</p>
+    </div>
+    <div class="card">
+      <h3>Settings that matter</h3>
+      <ul>
+        <li><strong>Walls beat infill.</strong> 3 to 4 perimeters and 30–35% infill is the default for a structural part. Add walls before adding infill.</li>
+        <li><strong>Layer height</strong> 0.2 mm for most parts. 0.28 mm for big brackets you do not care about.</li>
+        <li><strong>Orientation</strong> decides strength. Parts are 30–50% weaker across layers. Orient so the load runs along the layers, and print gears flat.</li>
+        <li><strong>Thin sections under 0.15 in (4 mm)</strong> snap. Add a fillet or a rib instead of hoping.</li>
+        <li><strong>Overhangs past 45°</strong> need support. Design them out with chamfers when you can.</li>
+        <li><strong>Holes print small.</strong> Design them 0.2 mm oversize or drill to size after.</li>
+      </ul>
+    </div>
+  </div>
+  <h3 id="tolerance">Tolerancing printed parts</h3>
+  <div class="grid cols-2">
+    <div class="card">
+      <p>These are the numbers we use. Total clearance, applied to the CAD dimension of the printed part.</p>
+      <div class="tbl dense"><table>
+        <thead><tr><th>Fit</th><th>Total clearance</th><th>Use</th></tr></thead>
+        <tbody>
+          <tr><td>Loose</td><td>0.02 in (0.5 mm)</td><td>Screws through holes, parts that slide, quick assembly</td></tr>
+          <tr><td>Tight</td><td>0.01 in (0.25 mm)</td><td>Shafts that spin without wobble, pins, snug lids</td></tr>
+          <tr><td>Very tight (press)</td><td>0.005 in (0.13 mm)</td><td>Bearings, gears on hex shafts, anything that must not move</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout warn"><span class="ico">Note</span><div><p>For enclosed shapes (a round hole, a hex pocket, a square slot) split the clearance across both sides: a 0.01 in tight fit means 0.005 in per side, because every wall gets toleranced and the removal doubles.</p></div></div>
+    </div>
+    <figure class="sim" data-sim="tolerance"></figure>
+  </div>
+  <details class="more">
+    <summary>Heat-set inserts, self-tapping bosses, and printed threads <span class="hint">detail</span></summary>
+    <div class="body">
+      <ul>
+        <li><strong>Heat-set inserts</strong> (brass, M3 or M4) give printed parts real threads. Boss hole = insert outer diameter + about 0.3 mm. Press in with a soldering iron at 200 °C, slowly.</li>
+        <li><strong>Self-tapping into plastic:</strong> core hole at about 90% of the screw's major diameter (2.7 mm for M3). Fine for parts you will not disassemble often.</li>
+        <li><strong>Printed threads</strong> work above M8 with a thread FeatureScript. Below that, use an insert.</li>
+        <li><strong>Through-holes with a nut</strong> on the back are still the most reliable. Design a hex pocket for the nut so it cannot spin.</li>
+      </ul>
+    </div>
+  </details>
+  <details class="more">
+    <summary>Resin (SLA) printing <span class="hint">detail</span></summary>
+    <div class="body">
+      <ul>
+        <li>Very fine detail and smooth surfaces. Standard resin is brittle; tough or engineering resin is usable for small gears and precise jigs.</li>
+        <li>Nylon-like resins were the most durable material we found for differential swerve gears, ahead of every FDM filament we tried.</li>
+        <li>Wash in isopropyl alcohol, cure under UV, wear gloves. Resin is a skin irritant, and uncured resin is not allowed near a competition field.</li>
+        <li>Expensive per part and slow to post-process. Use it for the two parts that need it, not the whole robot.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section id="sheet">
+  <h2>Sheet metal and water jet</h2>
+  <div class="grid cols-2">
+    <div class="card">
+      <h3>Water jet</h3>
+      <ul>
+        <li>High-pressure water with garnet abrasive cuts aluminum plate with no heat and no burr worth mentioning.</li>
+        <li><strong>Design with no tolerancing.</strong> The water jet software compensates for the kerf. Draw the part at nominal size.</li>
+        <li>We use 1/16, 1/8, 3/16, and 1/4 in aluminum. 1/8 in is the workhorse for plates and brackets.</li>
+        <li>Part must fit the bed; on ours the cut area is under 12 × 12 in. Check the machine you are using.</li>
+        <li>Export a DXF of the flat face from Onshape. Include the holes; drilling later is where the misalignment comes from.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Bending and finishing</h3>
+      <ul>
+        <li>Use Onshape's sheet metal mode so the flat pattern accounts for bend allowance (the K-factor). A hand-drawn flat will be the wrong length.</li>
+        <li>Bend on a brake or in a vise with a hardwood block. Bend radius about equal to the thickness. Minimum flange about four times thickness.</li>
+        <li><strong>Tap the sheet</strong> instead of adding nuts: M4 in 1/8 in aluminum gives about 3 mm of thread, which is enough for a bracket. Use a tap guide and cutting fluid.</li>
+        <li>Deburr every edge with a file or deburring tool. Inspectors check for sharp edges, and so does your hand.</li>
+      </ul>
+    </div>
+  </div>
+  <details class="more">
+    <summary>Lightening patterns <span class="hint">detail</span></summary>
+    <div class="body">
+      <ul>
+        <li>Solid plate is heavy. Cut triangles or hexagons out of areas that are not on a load path.</li>
+        <li>Keep a minimum web (the material between holes) of about 0.1 in in 1/8 in aluminum. Thinner webs flex and tear on the water jet.</li>
+        <li>Do not lighten around bearing bores or motor mounts. Leave a solid ring at least one hole-diameter wide.</li>
+        <li>Onshape: sketch pattern of triangles, one extrude-remove. Drive the count with a variable so you can dial it back if the part flexes.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section id="processes">
+  <h2>Other processes</h2>
+  <div class="grid cols-2">
+    <div class="card">
+      <h3>Hand tools</h3>
+      <ul class="small">
+        <li>Hacksaw or miter saw with a non-ferrous blade for channel and extrusion. Deburr after.</li>
+        <li>Drill press with a center punch beats a hand drill every time for accuracy.</li>
+        <li>Step drill for polycarbonate; regular bits grab and crack it.</li>
+        <li>Score-and-snap polycarbonate up to about 1/8 in with a utility knife and a straightedge.</li>
+        <li>Metal ruler, calipers, and a marker. Measure twice; aluminum is not free.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Laser cutting</h3>
+      <ul class="small">
+        <li>Polycarbonate, acrylic, plywood, and cardboard. Not PVC, ever. Not metal unless it is a fiber laser.</li>
+        <li>Kerf 0.1–0.3 mm. Let the cutter software offset, or design tab-and-slot joints with thickness plus 0.1 mm.</li>
+        <li>Mask the material to avoid burn marks. Test a small cut first.</li>
+        <li>Great for intake side plates, sponsor panels, and quick prototype brackets in 1/4 in plywood.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>CNC router or mill</h3>
+      <ul class="small">
+        <li>Fusion 360 or Onshape CAM generates the toolpath from your CAD. A sponsor's shop can run it if you have a STEP and a drawing.</li>
+        <li>Inside corners get a radius at least equal to the end mill. Design 1/8 in fillets and you can use a 1/4 in tool.</li>
+        <li>Tolerance ±0.005 in is normal for aluminum. Press-fit bearings want a proper bore, not a drilled hole.</li>
+        <li>6061 for nearly everything. 7075 for hubs and high-stress parts.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Fastening and assembly</h3>
+      <ul class="small">
+        <li>Screws with nylon-insert lock nuts for anything you might remove. Rivets for polycarbonate panels you will not.</li>
+        <li>Blue thread locker on set screws and anything that vibrates. Never red.</li>
+        <li>Pilot holes: 3.3 mm for an M4 tap, 4.3–4.5 mm for M4 clearance.</li>
+        <li>Zip ties and adhesive are for wires and quick fixes, not structure.</li>
+        <li>Document the process in the notebook with photos. Judges ask how you made it.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="prototyping">
+  <h2>Prototyping ladder</h2>
+  <p class="muted">Cheap and fast first. Commit to aluminum only after the idea works.</p>
+  <ol class="steps">
+    <li><strong>Cardboard and a drill.</strong> Prove the geometry and the grab. One afternoon.</li>
+    <li><strong>Plywood or PLA on kit parts.</strong> Prove the mechanism on the actual robot with a real motor. Test 100 cycles.</li>
+    <li><strong>PETG and polycarbonate.</strong> Competition version one. Fix what broke in step two.</li>
+    <li><strong>Aluminum where it failed.</strong> Replace only the parts that bent, wore, or cracked. Keep the rest printed.</li>
+  </ol>
+</section>
+
+<section id="rules">
+  <h2>Rules that touch manufacturing</h2>
+  <div class="grid cols-2">
+    <div class="card">
+      <dl class="kv">
+        <dt>R101</dt><dd>The team builds the robot and its major mechanisms. Sponsor machining is fine; sponsor designing and building a mechanism is not.</dd>
+        <dt>R302</dt><dd>Raw materials and COTS parts can be cut, drilled, painted, and modified.</dd>
+        <dt>R301</dt><dd>No COTS mechanism purpose-built for a game task, except COTS drive chassis and official StarterBots.</dd>
+        <dt>R305</dt><dd>No replicas of game elements built into the robot.</dd>
+      </dl>
+    </div>
+    <div class="card">
+      <dl class="kv">
+        <dt>R202</dt><dd>No hazardous materials. That includes uncured resin and anything that flakes or leaks onto the field.</dd>
+        <dt>Sharp edges</dt><dd>Inspectors check. Deburr, fillet printed parts, cap zip ties flush.</dd>
+        <dt>3D printing</dt><dd>No specific rule. Printed parts are custom parts like any other.</dd>
+        <dt>Cost</dt><dd>No cost limit, but a first season runs roughly $2,000–3,000 including registration. Budget for spares.</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section id="sourcing">
+  <h2>Sourcing</h2>
+  <ul class="links">
+    <li><div><a href="https://www.gobilda.com">goBILDA</a><span class="d">Build system, motors, servos, slides, odometry. Ask for the FIRST discount.</span></div><span class="who">Vendor</span></li>
+    <li><div><a href="https://www.revrobotics.com">REV Robotics</a><span class="d">Control system, DUO build system, sensors, servos.</span></div><span class="who">Vendor</span></li>
+    <li><div><a href="https://www.andymark.com">AndyMark</a><span class="d">StarterBot kits, NeveRest motors, raw stock, field elements.</span></div><span class="who">Vendor</span></li>
+    <li><div><a href="https://www.studica.com">Studica</a><span class="d">Anodized structure in colors, Maverick motors.</span></div><span class="who">Vendor</span></li>
+    <li><div><a href="https://www.mcmaster.com">McMaster-Carr</a><span class="d">Every fastener, bearing, and raw material with CAD downloads. Fast shipping.</span></div><span class="who">Hardware</span></li>
+    <li><div><a href="https://www.sendcutsend.com">SendCutSend</a><span class="d">Upload a DXF, get laser-cut or water-jet aluminum in a week. Cheaper than you expect for small parts.</span></div><span class="who">Service</span></li>
+    <li><div><a href="https://ftc-docs.firstinspires.org/en/latest/manufacturing/index.html">FTC Docs: Manufacturing</a><span class="d">FIRST's own 3D printing and manufacturing guides.</span></div><span class="who">FIRST</span></li>
+    <li><div><a href="https://gm0.org/en/latest/docs/custom-manufacturing/index.html">gm0: Custom Manufacturing</a><span class="d">3D printing, laser cutting, and CNC from a team perspective.</span></div><span class="who">gm0</span></li>
+  </ul>
+</section>
+
+<section id="missions">
+  <h2>Missions</h2>
+  <div class="grid cols-2">
+    <div class="mission">
+      <div class="head"><span class="eyebrow">Mission M1</span><span class="lvl"><i class="on"></i><i></i><i></i></span></div>
+      <h3>Tolerance test coupon</h3>
+      <ul><li>Print a plate with 5 mm hex pockets at 0.005, 0.01, and 0.02 in total clearance.</li><li>Test-fit a real hex shaft in each.</li><li>Record which fit is which for your printer and filament.</li></ul>
+      <div class="done"><strong>Done when</strong> the team has a printed reference card taped to the printer.</div>
+    </div>
+    <div class="mission">
+      <div class="head"><span class="eyebrow">Mission M2</span><span class="lvl"><i class="on"></i><i class="on"></i><i></i></span></div>
+      <h3>Bracket, three ways</h3>
+      <ul><li>Design one motor bracket. Make it in PETG, in polycarbonate by hand, and in 1/8 in aluminum (water jet or SendCutSend).</li><li>Weigh each and load-test each until it fails or deforms.</li></ul>
+      <div class="done"><strong>Done when</strong> you have a table of weight, cost, time, and failure load for all three.</div>
+    </div>
+    <div class="mission">
+      <div class="head"><span class="eyebrow">Mission M3</span><span class="lvl"><i class="on"></i><i class="on"></i><i></i></span></div>
+      <h3>Sheet metal tray</h3>
+      <ul><li>Model a battery tray in Onshape sheet metal mode.</li><li>Export the flat pattern, cut it, bend it, tap two holes for mounting.</li></ul>
+      <div class="done"><strong>Done when</strong> the battery fits and the tray bolts to the chassis with no extra nuts.</div>
+    </div>
+    <div class="mission">
+      <div class="head"><span class="eyebrow">Mission M4</span><span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+      <h3>Printed gear wear test</h3>
+      <ul><li>Print the same gear in PLA, PETG, and nylon (or resin).</li><li>Run each against a metal gear under load for one hour on a test rig.</li><li>Photograph and measure the wear.</li></ul>
+      <div class="done"><strong>Done when</strong> you can recommend a material for printed gears with a photo to back it up.</div>
+    </div>
+  </div>
+</section>
+  </main>
+</div>
+<footer class="site-footer">
+  <div class="inner">
+    <span>Everything FTC · a Broncobots handbook · not affiliated with <em>FIRST</em>. Rules quoted here can go stale; the <a href="https://ftc-resources.firstinspires.org/ftc/game/manual">Competition Manual</a> always wins.</span>
+    <span><a href="https://github.com/ElMagoCT/ftc-handbook">Edit on GitHub</a> · <a href="glossary.html">Glossary</a> · <a href="resources.html">Resources</a></span>
+  </div>
+</footer>
+<script src="assets/js/glossary.js"></script>
+<script src="assets/js/sims.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

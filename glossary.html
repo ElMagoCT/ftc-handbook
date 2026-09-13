@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en" data-theme="midnight" data-accent="rose" data-font="grotesk" data-density="comfortable" data-bg="grid">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glossary · Everything FTC</title>
+<meta name="description" content="Every FTC term used on this site, from alliance to Yellow Jacket, in plain language. Searchable.">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Atkinson+Hyperlegible:wght@400;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>/* apply saved display settings before first paint */try{var s=JSON.parse(localStorage.getItem('ftc-handbook-settings')||'{}'),d={theme:'midnight',accent:'rose',font:'grotesk',density:'comfortable',bg:'grid'};for(var k in d){document.documentElement.setAttribute('data-'+k,s[k]||d[k]);}}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">FTC</span><span>Everything FTC<small>Broncobots handbook</small></span></a>
+    <nav class="main-nav" id="main-nav" aria-label="Main"></nav>
+    <div class="header-actions">
+      <button class="icon-btn" type="button" data-open-search aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="txt">Search</span><kbd>/</kbd></button>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<div class="page no-side">
+
+  <main class="content" id="main">
+<div class="hero">
+  <span class="eyebrow">Glossary</span>
+  <h1>Every word, defined once.</h1>
+  <p class="lede">These are the same definitions that pop up when you tap a dotted word anywhere on the site. Add or fix one in <code>assets/js/glossary.js</code> and it updates everywhere.</p>
+</div>
+<section data-no-terms>
+  <div class="filterbar" id="gloss-filter">
+    <span class="label">Filter</span>
+    <input type="search" id="gloss-search" placeholder="Type a term or part of a definition…" aria-label="Search glossary" autofocus>
+    <span class="chip" id="gloss-count"></span>
+  </div>
+  <div id="gloss-list" class="grid cols-2"></div>
+  <noscript><p class="muted">The glossary needs JavaScript. The definitions live in <code>assets/js/glossary.js</code>.</p></noscript>
+</section>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const G = window.GLOSSARY || {};
+  const list = document.getElementById("gloss-list"), input = document.getElementById("gloss-search"), count = document.getElementById("gloss-count");
+  const keys = Object.keys(G).sort((a, b) => G[a].term.localeCompare(G[b].term, undefined, { sensitivity: "base" }));
+  const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const render = () => {
+    const q = input.value.trim().toLowerCase();
+    list.innerHTML = "";
+    let n = 0;
+    for (const k of keys) {
+      const g = G[k];
+      const hay = (g.term + " " + (g.aliases || []).join(" ") + " " + g.def).toLowerCase();
+      if (q && !hay.includes(q)) continue;
+      n++;
+      const card = document.createElement("div");
+      card.className = "card"; card.id = k;
+      card.innerHTML = '<span class="eyebrow">Definition</span><h3>' + esc(g.term) + "</h3><p>" + esc(g.def) + "</p>" +
+        ((g.aliases && g.aliases.length) ? '<p class="small muted">Also: ' + g.aliases.map(esc).join(", ") + "</p>" : "") +
+        '<p class="small">' + ((g.see || []).filter(s => G[s]).map(s => '<a href="#' + s + '">' + esc(G[s].term) + "</a>").join(" · ")) + (g.link ? (g.see && g.see.length ? " · " : "") + '<a href="' + g.link + '">Read more →</a>' : "") + "</p>";
+      list.appendChild(card);
+    }
+    count.textContent = n + " / " + keys.length;
+  };
+  input.addEventListener("input", render);
+  render();
+  if (location.hash) { const t = document.getElementById(location.hash.slice(1)); if (t) { t.scrollIntoView(); t.classList.add("accent"); } }
+  window.addEventListener("hashchange", () => { document.querySelectorAll("#gloss-list .card.accent").forEach(c => c.classList.remove("accent")); const t = document.getElementById(location.hash.slice(1)); if (t) { t.scrollIntoView(); t.classList.add("accent"); } });
+});
+</script>
+  </main>
+</div>
+<footer class="site-footer">
+  <div class="inner">
+    <span>Everything FTC · a Broncobots handbook · not affiliated with <em>FIRST</em>. Rules quoted here can go stale; the <a href="https://ftc-resources.firstinspires.org/ftc/game/manual">Competition Manual</a> always wins.</span>
+    <span><a href="https://github.com/ElMagoCT/ftc-handbook">Edit on GitHub</a> · <a href="glossary.html">Glossary</a> · <a href="resources.html">Resources</a></span>
+  </div>
+</footer>
+<script src="assets/js/glossary.js"></script>
+<script src="assets/js/sims.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

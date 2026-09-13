@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en" data-theme="midnight" data-accent="rose" data-font="grotesk" data-density="comfortable" data-bg="grid">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Onshape · Everything FTC</title>
+<meta name="description" content="Onshape for FTC, organized for looking things up: sketching, creating and modifying geometry, structuring a model, assemblies, collaboration, sheet metal, drawings, FeatureScript, and design for manufacturing.">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Atkinson+Hyperlegible:wght@400;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>/* apply saved display settings before first paint */try{var s=JSON.parse(localStorage.getItem('ftc-handbook-settings')||'{}'),d={theme:'midnight',accent:'rose',font:'grotesk',density:'comfortable',bg:'grid'};for(var k in d){document.documentElement.setAttribute('data-'+k,s[k]||d[k]);}}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">FTC</span><span>Everything FTC<small>Broncobots handbook</small></span></a>
+    <nav class="main-nav" id="main-nav" aria-label="Main"></nav>
+    <div class="header-actions">
+      <button class="icon-btn" type="button" data-open-search aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="txt">Search</span><kbd>/</kbd></button>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<div class="page">
+  <aside class="sidebar" aria-label="On this page"></aside>
+  <main class="content" id="main">
+<div class="hero">
+  <span class="eyebrow">Onshape</span>
+  <h1>Every tool you will actually use, and the judgment call behind each one.</h1>
+  <p class="lede">Onshape is browser-based, free for students, and built for teams editing the same robot at once. This page follows the same ground as the <em>Onshape Zero to Pro</em> series but is grouped for searching, not for watching in order. Open a section, find the tool, read the one-line rule, expand for the rest.</p>
+  <div class="hero-meta"><span class="chip">Reference, not a course</span><span class="chip acc">Judgment calls in bold</span><span class="chip">Shortcuts in <kbd>keys</kbd></span></div>
+</div>
+
+<section id="setup">
+  <h2>Setup and the interface</h2>
+  <div class="grid cols-2">
+    <div class="card">
+      <h3>Getting an account</h3>
+      <ol class="steps">
+        <li><strong>Sign up at onshape.com/education</strong> with a school email. The education plan is free and has the full toolset (branches, sheet metal, FeatureScript).</li>
+        <li><strong>Make a team folder.</strong> One shared folder per season, owned by a mentor or a student who will not graduate mid-year. Everyone else gets "Can edit."</li>
+        <li><strong>Set units before anything else.</strong> Document properties → default units → millimeters if you build on goBILDA or REV. A bare number typed later gets the default unit, and derived parts from other documents fall back to it.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>Tab types, one line each</h3>
+      <dl class="kv">
+        <dt>Part Studio</dt><dd>Builds parts. Several related parts can live in one.</dd>
+        <dt>Assembly</dt><dd>Puts parts together and gives them motion.</dd>
+        <dt>Drawing</dt><dd>Turns a model into something you can hand to a machinist.</dd>
+        <dt>Variable Studio</dt><dd>A spreadsheet of named numbers that drives the whole document.</dd>
+        <dt>FeatureScript</dt><dd>Code. Every built-in feature is written in it.</dd>
+        <dt>BLOB</dt><dd>Reference files: images, PDFs, spec sheets.</dd>
+      </dl>
+      <p class="small muted">A document is the shareable, versioned container. Tabs are views inside it.</p>
+    </div>
+  </div>
+  <details class="more">
+    <summary>Navigation, views, and selection <span class="hint">detail</span></summary>
+    <div class="body">
+      <div class="grid cols-2 tight">
+        <div><h4>Mouse</h4><ul class="small"><li>Right-drag to orbit, middle-drag to pan, scroll to zoom.</li><li>Click a view cube face to snap. Right-click a face or plane → <em>View normal to</em>, or press <kbd>N</kbd>.</li><li><kbd>Shift</kbd> + view cube arrows rotates 90° steps.</li></ul></div>
+        <div><h4>Show / hide</h4><ul class="small"><li>Planes, axes, origin, mate connectors, and sketches each have their own toggle in the view menu.</li><li>Hide sketches you are done with. A busy screen makes you click the wrong edge.</li><li>Section view lets you look inside an assembly without hiding anything.</li></ul></div>
+        <div><h4>Selection filters</h4><ul class="small"><li>Filter to faces, edges, vertices, or bodies when the geometry is crowded. Faster than any shortcut.</li><li>Hover to wake an entity before clicking; the highlight tells you what you are about to select.</li></ul></div>
+        <div><h4>Saving</h4><ul class="small"><li>There is no Save. Every edit is stored instantly.</li><li>What you save on purpose is a <strong>Version</strong>: a named, permanent snapshot. Make one before every event and every big change.</li></ul></div>
+      </div>
+    </div>
+  </details>
+  <details class="more">
+    <summary>Sharing and permissions <span class="hint">detail</span></summary>
+    <div class="body">
+      <ul>
+        <li><strong>Can view</strong> for builders and mentors who only need to look. <strong>Can edit</strong> for designers. <strong>Full access</strong> only for the owner and one backup.</li>
+        <li>Share the folder, not each document, so new documents inherit permissions.</li>
+        <li>Follow a collaborator's view from the people icon to watch what they are doing live. Pin comments to geometry instead of texting screenshots.</li>
+        <li>Link sharing is fine for judges and sponsors: view-only, no account needed.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section id="sketching">
+  <h2>Sketching</h2>
+  <p class="muted">Where beginners actually fail. A sketch is a feature like any other: 2D entities on a plane, and a closed loop is a <strong>region</strong> that features consume.</p>
+  <div class="grid cols-3 tight">
+    <div class="card"><span class="eyebrow"><kbd>L</kbd></span><h4>Line / polyline</h4><p class="small">Chain clicks, <kbd>Esc</kbd> to end. Click-drag off an endpoint for a tangent arc.</p></div>
+    <div class="card"><span class="eyebrow"><kbd>R</kbd></span><h4>Rectangle</h4><p class="small"><strong>Center-point rectangle on the origin</strong> for anything symmetric: two dimensions lock it, and it grows both ways when a dimension changes.</p></div>
+    <div class="card"><span class="eyebrow"><kbd>C</kbd></span><h4>Circle</h4><p class="small">Center-point or 3-point. Pick based on which dimension you actually know.</p></div>
+    <div class="card"><span class="eyebrow"><kbd>Q</kbd></span><h4>Construction toggle</h4><p class="small">Construction geometry still constrains and dimensions. It never forms a region. Centerlines are for revolve axes and diameter dimensions.</p></div>
+    <div class="card"><span class="eyebrow"><kbd>D</kbd></span><h4>Dimension</h4><p class="small">Smart dimension auto-detects length, angle, radius, diameter. Type a variable name (<code>#wall</code>) instead of a number when it might change.</p></div>
+    <div class="card"><span class="eyebrow">Tool</span><h4>Slot</h4><p class="small">Straight or arc. Beats two lines and two arcs every time because it stays a slot when you resize it.</p></div>
+    <div class="card"><span class="eyebrow">Tool</span><h4>Polygon</h4><p class="small">Inscribed vs circumscribed. Hex shaft holes are circumscribed on the across-flats size (5 mm for FTC hex, 8 mm for goBILDA REX).</p></div>
+    <div class="card"><span class="eyebrow">Tool</span><h4>Spline</h4><p class="small">Interpolate passes through points; control-point pulls the curve. Minimize points. A bad spline becomes a bad loft.</p></div>
+    <div class="card"><span class="eyebrow">Tool</span><h4>Use / Project</h4><p class="small">Pull an existing 3D edge into the sketch as a live-linked reference. Great for matching a hole pattern, dangerous if the edge gets deleted later.</p></div>
+  </div>
+  <h3>Constraints and degrees of freedom</h3>
+  <div class="grid cols-2">
+    <div class="card">
+      <h4>Read the colors</h4>
+      <ul>
+        <li><strong>Blue</strong>: under-constrained. Something can still move.</li>
+        <li><strong>Black</strong>: fully defined. Zero degrees of freedom. The target for every sketch.</li>
+        <li><strong>Red</strong>: over-constrained or conflicting. <strong>Remove one constraint, not both.</strong> The classic conflict is parallel plus an equal-angle dimension.</li>
+        <li><strong>Gray</strong>: construction or fixed. <strong>Orange</strong>: driven or redundant.</li>
+      </ul>
+      <p class="small muted">The DOF counter in the bottom bar shows how many numbers Onshape still needs. Drag something: whatever moves is exactly what is still free.</p>
+    </div>
+    <div class="card">
+      <h4>The working set</h4>
+      <ul class="small">
+        <li><strong>Coincident</strong> (points), <strong>concentric</strong> (centers), <strong>equal</strong>, <strong>parallel</strong>, <strong>perpendicular</strong>, <strong>tangent</strong>, <strong>horizontal</strong>, <strong>vertical</strong>, <strong>midpoint</strong>, <strong>symmetric</strong> (three selections: two entities and the mirror line).</li>
+        <li><strong>Pierce</strong> locks a sketch point to where a 3D edge crosses the plane. The sweep constraint.</li>
+        <li><strong>Fix</strong> zeroes DOF without saying why. It hides the problem; it does not solve it. Avoid.</li>
+        <li>Constraints state relationships. Dimensions state numbers. Use a constraint whenever one will do.</li>
+      </ul>
+    </div>
+  </div>
+  <details class="more">
+    <summary>Three habits that fix most red sketches <span class="hint">detail</span></summary>
+    <div class="body">
+      <ol class="steps">
+        <li><strong>Anchor first.</strong> Constrain one point to the origin before anything else. The origin is the one thing that cannot move.</li>
+        <li><strong>One constraint at a time, watching the counter.</strong> If it jumps the wrong way, undo.</li>
+        <li><strong>Hold <kbd>Shift</kbd> while drawing</strong> to suppress inferred constraints when Onshape keeps snapping to things you do not want. Inferred constraints are real and count against your DOF; they are the source of most red sketches.</li>
+      </ol>
+      <p class="small">The constraint manager lists every constraint as a row. Select a row and the geometry highlights. Delete from there instead of hunting glyphs.</p>
+    </div>
+  </details>
+  <details class="more">
+    <summary>Editing and multiplying geometry <span class="hint">detail</span></summary>
+    <div class="body">
+      <div class="grid cols-2 tight">
+        <div><h4>Trim, extend, split</h4><p class="small">Trim is the most-used sketch tool after line. Trim early to keep sketches clean. Existing constraints on trimmed segments can vanish; recheck the counter.</p></div>
+        <div><h4>Offset</h4><p class="small">Chain an outline and offset it for wall thickness in the sketch when the wall is part of the profile's identity (a slot end, a laser relief). Shell later when it is a finishing operation.</p></div>
+        <div><h4>Mirror and sketch patterns</h4><p class="small">Mirror across a construction line creates symmetric constraints. Linear and circular sketch patterns take a count you can drive with a variable. Pattern the sketch for holes and cuts (fast rebuild). Pattern the feature for complex shapes.</p></div>
+        <div><h4>Images</h4><p class="small">Insert a photo onto a plane, scale it to one known dimension, sketch over it. Traced splines are never truly parametric; snap to round numbers where you can.</p></div>
+      </div>
+      <p class="small"><strong>One sketch, one purpose.</strong> A 5-entity sketch beats a 30-entity sketch. A master sketch that holds the critical dimensions, with everything else referencing it, is the professional pattern.</p>
+    </div>
+  </details>
+</section>
+
+<section id="creating">
+  <h2>Creating geometry</h2>
+  <div class="grid cols-4 tight">
+    <div class="card"><h4>Extrude</h4><p class="small">New / Add / Remove / Intersect. Blind or Symmetric nine times out of ten. Through-all and Up-to-face are situational.</p></div>
+    <div class="card"><h4>Revolve</h4><p class="small">Profile plus axis (edge, sketch line, or centerline). Correct for anything rotationally symmetric. Extruding a circle is not the same thing.</p></div>
+    <div class="card"><h4>Sweep</h4><p class="small">One profile along one path. Use pierce to attach the profile. Constant cross-section only.</p></div>
+    <div class="card"><h4>Loft</h4><p class="small">Two or more profiles. Vertex matching and profile order decide smooth versus twisted. Every cross-section stays editable.</p></div>
+  </div>
+  <div class="callout tip"><span class="ico">Rule</span><div><p><strong>Extrude for prismatic geometry. Revolve for rotational symmetry. Sweep for a constant cross-section along a path. Loft for controlled transitions.</strong> Before you commit, ask: if this dimension changes, how many features break? The answer should be zero.</p></div></div>
+  <details class="more">
+    <summary>Extrude dialog, every option <span class="hint">reference</span></summary>
+    <div class="body">
+      <div class="tbl dense"><table>
+        <thead><tr><th>Option</th><th>What it does</th><th>FTC use</th></tr></thead>
+        <tbody>
+          <tr><td>New</td><td>Makes a separate body instead of merging</td><td>Lid and box from one sketch; multi-body modeling</td></tr>
+          <tr><td>Add / Remove / Intersect</td><td>Boolean with existing bodies; merge scope picks which</td><td>Almost everything</td></tr>
+          <tr><td>Blind</td><td>This far and stop</td><td>Plate thickness</td></tr>
+          <tr><td>Symmetric</td><td>Half each way from the sketch plane</td><td>Anything centered on a plane (most brackets)</td></tr>
+          <tr><td>Through all</td><td>Cut through every body in the direction</td><td>Bolt holes through a channel</td></tr>
+          <tr><td>Up to face / part / vertex</td><td>Stop at a reference</td><td>Standoffs that must touch a plate that may move</td></tr>
+          <tr><td>Second end condition</td><td>Different depth in each direction</td><td>Asymmetric bosses</td></tr>
+          <tr><td>Draft</td><td>Taper the walls by an angle</td><td>Molded look; FDM overhang reduction</td></tr>
+          <tr><td>Thin extrude</td><td>Give an open sketch a wall thickness</td><td>Quick sheet guards from a single line</td></tr>
+          <tr><td>Surface</td><td>Make a zero-thickness surface</td><td>Rare; see surfacing</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </details>
+</section>
+
+<section id="modifying">
+  <h2>Modifying geometry</h2>
+  <div class="grid cols-3 tight">
+    <div class="card"><h4>Fillet</h4><p class="small"><strong>Fillets go last.</strong> They replace an edge with a face, and anything downstream pointing at that edge dangles. Tangent propagation on by default.</p></div>
+    <div class="card"><h4>Chamfer</h4><p class="small">Equal distance, two-distance, or angle-distance. The manufacturing-correct choice for a lead-in or a deburr on machined parts.</p></div>
+    <div class="card"><h4>Shell</h4><p class="small">Deletes the faces you pick, offsets every remaining face inward. Shell before fillets, or the fillets round the inside too and it fails.</p></div>
+    <div class="card"><h4>Hole</h4><p class="small">Beats extrude-remove for any real hole: standards, clearance and tapped sizes, and drawing callouts for free. Size to real hardware (M3, M4), not round numbers.</p></div>
+    <div class="card"><h4>Draft</h4><p class="small">Tilt faces relative to a neutral plane. 1–3° for molding; also a trick to reduce FDM overhangs.</p></div>
+    <div class="card"><h4>Rib</h4><p class="small">Stiffener from a sketch line. Adds bending stiffness for little mass on printed brackets.</p></div>
+    <div class="card"><h4>Linear / circular pattern</h4><p class="small">Feature, face, body, or part mode. Count and spacing, or count and distance. Skip instances. <strong>Never pattern a fillet</strong>: pattern the base feature, fillet once at the end.</p></div>
+    <div class="card"><h4>Mirror</h4><p class="small">Features or bodies across a plane, merged or separate. Left and right drivetrain plates in one operation.</p></div>
+    <div class="card"><h4>Move / delete / replace face, Transform</h4><p class="small">Direct editing. Right for imported dumb solids and throwaway tweaks. A regret on any part that needs to stay parametric.</p></div>
+  </div>
+  <details class="more">
+    <summary>Order of operations, and why half of all failures are this <span class="hint">detail</span></summary>
+    <div class="body">
+      <ul>
+        <li>The feature tree is a recipe. Onshape re-runs it top to bottom every time anything changes.</li>
+        <li>Shell needs the faces that exist <em>at that point in the tree</em>. Fillet after shell, not before.</li>
+        <li>Holes and patterns before fillets. Fillets last, chamfers with them.</li>
+        <li>Drag the rollback bar above a failed feature to see the model as it was, then step forward. It is the best debugging tool in the program.</li>
+        <li>Suppress a feature to test whether it is the culprit before you delete it.</li>
+        <li>Rename every feature as you make it. "Extrude 14" tells nobody anything in March.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section id="structuring">
+  <h2>Structuring a model</h2>
+  <p class="muted">The module that separates a hobby model from a robot CAD a team can actually work in.</p>
+  <div class="grid cols-2">
+    <div class="card">
+      <h3>Reference geometry and mate connectors</h3>
+      <ul>
+        <li>Planes: offset, at an angle, mid-plane, through three points. Name them ("Arm Pivot Plane").</li>
+        <li>Sketch on origin planes and named planes, not on faces. A sketch on an origin plane cannot dangle. A sketch on a face dies when the face does.</li>
+        <li><strong>Define mate connectors in the Part Studio, not in the assembly.</strong> Explicit beats implicit. Put one at every motor shaft, bearing bore, and pivot, named like <code>motor_output_shaft</code> or <code>pivot_center</code>.</li>
+        <li>This single habit makes assembly roughly ten times faster.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Multi-body and Booleans</h3>
+      <ul>
+        <li>Several bodies in one Part Studio is normal here, even if your last CAD program discouraged it. Related parts (both drive plates, a bracket and its cover) belong together.</li>
+        <li>Boolean: union, subtract, intersect, with "keep tools" when you still need the tool body.</li>
+        <li>The cast-housing pattern: model the outside and the cavity as separate bodies, then subtract. Each changes independently.</li>
+        <li>Split by plane, surface, or sketch to cut one body into modular parts.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Derive and the skeleton model</h3>
+      <ul>
+        <li>Derive brings geometry from another Part Studio as a live link.</li>
+        <li><strong>The skeleton pattern:</strong> one Part Studio holds every critical interface dimension (wheelbase, motor positions, slide mount). Every subsystem derives from it. Change the chassis width once and the drivetrain, arm, and slide Part Studios all follow.</li>
+        <li>Derive beats in-context for anything worked on by more than one person.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Variables and configurations</h3>
+      <ul>
+        <li><strong>Variables</strong> for continuous or shared numbers: <code>#wall = 3 mm</code>, <code>#clearance</code>, <code>#plate_thickness</code>. Put them in a Variable Studio tab so every Part Studio and Assembly shares them; it doubles as a readable spec sheet.</li>
+        <li><strong>Configurations</strong> for discrete named states: a channel in three lengths, a bracket with or without a hole, an arm in "stowed / scoring" positions. Checkbox, list, and variable inputs.</li>
+        <li>Do not use both for the same thing. The power combo: variables define the parameters, configurations select preset sets of them.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="grid cols-3 tight">
+    <div class="card pad-0"><img src="assets/img/mech/onshape-config-variable.jpg" alt="Onshape configuration panel with Length and Width variable inputs" loading="lazy"><div style="padding:10px 14px"><span class="eyebrow">Configuration</span><p class="small">Variable inputs: custom sizes within limits.</p></div></div>
+    <div class="card pad-0"><img src="assets/img/mech/onshape-config-checkbox.jpg" alt="Onshape configuration panel with a checkbox input" loading="lazy"><div style="padding:10px 14px"><span class="eyebrow">Configuration</span><p class="small">Checkbox: turn a feature on or off.</p></div></div>
+    <div class="card pad-0"><img src="assets/img/mech/onshape-config-list.jpg" alt="Onshape configuration panel with a list dropdown" loading="lazy"><div style="padding:10px 14px"><span class="eyebrow">Configuration</span><p class="small">List: named positions or set sizes.</p></div></div>
+  </div>
+  <details class="more">
+    <summary>Materials, mass properties, and designing for weight <span class="hint">detail</span></summary>
+    <div class="body">
+      <ul>
+        <li>Material is physical, appearance is visual, and they are independent. Assign a material to every part or the mass and the BOM lie to you.</li>
+        <li>Mass properties gives mass, volume, center of mass, and inertia. Export the BOM to a spreadsheet and sum by subsystem to find where the weight is.</li>
+        <li>Structural intuition: triangles do not deform under load, rectangles do. Doubling wall thickness gives about four times the bending stiffness at twice the mass. Material off the load path is dead weight.</li>
+        <li>Track center of mass as the robot grows. A high, off-center CG is why robots tip when they strafe.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section id="assemblies">
+  <h2>Assemblies</h2>
+  <div class="grid cols-2">
+    <div class="card">
+      <h3>Fundamentals</h3>
+      <ul>
+        <li>Insert from the current document, other documents, or the Standard Content library (bolts, nuts, bearings).</li>
+        <li><strong>Ground exactly one part.</strong> Mate everything else to it or to something mated to it.</li>
+        <li>Fastened, revolute, and slider mates cover most of what you will ever build. Set limits and offsets as you go, not as cleanup.</li>
+        <li><strong>Drag-test after every mate.</strong> If it moves in a way the real part cannot, fix it now.</li>
+        <li>Onshape has no collision detection. Mate limits are how you stop an arm swinging through the frame.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Mate types and what they remove</h3>
+      <div class="tbl dense"><table>
+        <thead><tr><th>Mate</th><th>Freedom left</th><th>Robot example</th></tr></thead>
+        <tbody>
+          <tr><td>Fastened</td><td>none</td><td>Motor to its mount</td></tr>
+          <tr><td>Revolute</td><td>1 rotation</td><td>Wheel on axle, arm pivot</td></tr>
+          <tr><td>Slider</td><td>1 translation</td><td>Linear slide stage</td></tr>
+          <tr><td>Cylindrical</td><td>spin + slide</td><td>Shaft in a bushing</td></tr>
+          <tr><td>Pin slot</td><td>slide + rotate</td><td>Adjustable tensioner</td></tr>
+          <tr><td>Planar</td><td>2 translations + 1 rotation</td><td>Robot on the floor</td></tr>
+          <tr><td>Ball</td><td>3 rotations</td><td>Ball-joint linkage</td></tr>
+          <tr><td>Parallel / tangent</td><td>varies</td><td>Rarely needed</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+  <details class="more">
+    <summary>Relations, sub-assemblies, patterns, and Replicate <span class="hint">detail</span></summary>
+    <div class="body">
+      <div class="grid cols-2 tight">
+        <div><h4>Relation mates</h4><p class="small">Gear (ratio), rack and pinion, screw (pitch), linear. Simulate a two-stage reduction or a slide's string ratio before anything gets machined. They need existing revolute or slider mates first.</p></div>
+        <div><h4>Sub-assemblies</h4><p class="small">One per subsystem (drive module, intake, lift). <strong>Rigid vs flexible</strong> decides whether the mechanism still moves after you nest it. Edit in context from the top level.</p></div>
+        <div><h4>Assembly patterns</h4><p class="small">Linear, circular, or by mate connector. Four wheel modules from one. Mirror for left and right.</p></div>
+        <div><h4>Replicate</h4><p class="small">Places a fastener at every matching hole in one click. This is the tool that makes screws worth modeling.</p></div>
+      </div>
+      <h4>Good practice</h4>
+      <ul class="small">
+        <li>Mate to explicit mate connectors, never to implicit face references. Faces get rebuilt; named connectors survive.</li>
+        <li>Name instances by function ("left_front_module"), group them in folders.</li>
+        <li>Interference detection and named positions (stowed, scoring, climbing) before you call a design done.</li>
+        <li>Exploded views for the builders. Every tightly packed mechanism gets one.</li>
+        <li>Suppress heavy sub-assemblies while working on something else; big assemblies get slow.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section id="collaboration">
+  <h2>Collaboration and data</h2>
+  <div class="grid cols-3">
+    <div class="card">
+      <h4>Versions and branches</h4>
+      <ul class="small">
+        <li>Workspace is the live state. A version is a named, immutable snapshot ("v1.2 — fixed bearing bore").</li>
+        <li>Branch for experiments ("wide-wheel-test"). Merge back or abandon.</li>
+        <li>Team pattern: one branch per subsystem, merge at design-freeze milestones. Version before every event.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>In-context design</h4>
+      <ul class="small">
+        <li>Edit a part while seeing the assembly as a ghost. Auto-updates when neighbors move.</li>
+        <li>Breaks when parts get renamed or deleted, or references go circular. Rebuild times climbing past ten seconds is the symptom.</li>
+        <li>Limit references to what must match: bolt patterns and mating faces. Prefer skeleton plus derive when several people edit.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Import and export</h4>
+      <ul class="small">
+        <li>Import STEP from vendors (goBILDA, REV publish everything). Imported geometry has no feature tree.</li>
+        <li><strong>STEP for geometry, STL or 3MF for printing, DXF for laser and CNC, PDF for drawings.</strong></li>
+        <li>Check units, coordinate system, and body selection before you export. Every time.</li>
+      </ul>
+    </div>
+  </div>
+  <details class="more">
+    <summary>Folder structure that survives graduation <span class="hint">detail</span></summary>
+    <div class="body">
+      <ul>
+        <li><code>Team / 2026-27 BIOBUZZ / Robot</code> for the competition robot, with one document per subsystem or one document with sub-assemblies (pick one convention and stick to it).</li>
+        <li><code>Team / Library</code> for reusable parts: motor mounts, bearing blocks, the hardware-standards document everyone derives from.</li>
+        <li><code>Team / Archive</code> for old seasons: version it, move it, keep the workspace clean.</li>
+        <li>Owner is a mentor or a long-tenured student. Transfer ownership before seniors leave.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section id="specialized">
+  <h2>Sheet metal, frames, surfacing</h2>
+  <p class="muted">Essential when you need them, irrelevant when you do not.</p>
+  <div class="grid cols-3">
+    <div class="card">
+      <h3>Sheet metal</h3>
+      <ul class="small">
+        <li>Sheet metal model: thickness, default bend radius, K-factor (about 0.3–0.5; it sets how much the flat pattern stretches), corner relief.</li>
+        <li>Base flange and edge flange do almost everything. Hem, tab, and manual bend for the rest.</li>
+        <li><strong>Design in the bent state and let Onshape compute the flat.</strong> Export the flat pattern as DXF for the water jet or laser.</li>
+        <li>Minimum flange length about four times material thickness. Wrong relief type tears the corner.</li>
+        <li>FTC use: brackets, battery trays, side plates from 1/16 to 1/8 in aluminum. See <a href="manufacturing.html#sheet">Manufacturing</a>.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Frame tool</h3>
+      <ul class="small">
+        <li>Draw a 3D wireframe sketch, run profiles along it. The sketch stays the source of truth.</li>
+        <li>Profiles: square tube, round tube, angle, C-channel, or a custom profile authored from a vendor extrusion.</li>
+        <li>Joints: cope, miter, butt. Pick the one you will actually cut. Gussets and end caps come with it.</li>
+        <li>FTC use: chassis rails and arm structures from real extrusion sizes, for teams cutting their own stock.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Surfacing and direct editing</h3>
+      <ul class="small">
+        <li>Surfaces have no thickness. Fill, offset, extend, and thicken exist.</li>
+        <li>When to use: a shape solid tools cannot make, or repairing an imported model with a broken face. That is the whole list.</li>
+        <li>Direct editing (move face, delete face, replace face): fine on an imported vendor STEP you need to simplify. Wrong on your own parametric parts.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="drawings">
+  <h2>Drawings</h2>
+  <div class="grid cols-2">
+    <div class="card">
+      <h3>Views and sheets</h3>
+      <ul>
+        <li>New Drawing tab, pick a template and paper size. Third-angle projection in the US.</li>
+        <li>Standard, isometric, section, and detail views. Scale override per view.</li>
+        <li>The purpose is to tell someone who cannot open your CAD (a sponsor's machinist, a water jet operator) exactly what to make.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Annotation</h3>
+      <ul>
+        <li>Smart dimension in drawing context; thread callouts come from the Hole tool automatically.</li>
+        <li>GD&amp;T you will actually use: position, flatness, perpendicularity. <strong>Tolerance only what matters.</strong> Over-dimensioning communicates less, not more.</li>
+        <li>Balloons linked to the assembly BOM, revision table, a team title block with logo and standard tolerance note.</li>
+        <li>Sheet metal: bent view and flat pattern on the same sheet with a bend table.</li>
+        <li>Export PDF for the notebook and portfolio. Judges like a real drawing.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="pro">
+  <h2>Troubleshooting and the professional workflow</h2>
+  <div class="grid cols-2">
+    <div class="card">
+      <h3>Fixing a broken model</h3>
+      <ol class="steps">
+        <li><strong>Read the error text.</strong> Red is failed, yellow is a warning. It usually names the missing reference.</li>
+        <li><strong>Roll back above the failure</strong> and step forward until it breaks. Now you know which change did it.</li>
+        <li><strong>Reassign dangling references</strong> by editing the feature and re-picking the face, edge, or plane.</li>
+        <li><strong>Open profile?</strong> Use "Show profile" in the sketch to find the gap. Zoom in on every corner.</li>
+        <li><strong>Suppress, do not delete,</strong> while you test. Reorder features if an add and a remove are in the wrong order.</li>
+        <li><strong>Know when redrawing beats debugging.</strong> A ten-feature part with three dangling references is faster to rebuild than to rescue.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>Team conventions</h3>
+      <ul>
+        <li><strong>Build for change, not for today.</strong> One well-designed extrude beats five hacked ones.</li>
+        <li>Name every feature, body, mate, sketch, variable, and tab. Keep trees under about 30 features; split into sub-assemblies past that.</li>
+        <li>The readability test: can a new teammate understand your feature tree in five minutes?</li>
+        <li>Variable Studio is the source of truth for dimensions. Versions are checkpoints; branches are experiments.</li>
+        <li>Workflow: version → review → comment → approve. One student owns each subsystem document.</li>
+        <li>A shared hardware-standards document (bearing sizes, motor bolt patterns, hex profiles) everyone derives from.</li>
+      </ul>
+      <details class="more quiet"><summary>Checklists</summary><div class="body">
+        <p class="small"><strong>Before sharing:</strong> features named, variables extracted, version created, BOM accurate.</p>
+        <p class="small"><strong>Before manufacturing:</strong> material assigned, mass reviewed, tolerances called out, interference check passed, export units checked.</p>
+        <p class="small"><strong>Before competition:</strong> version tagged with the event name, branches merged, archive copy made.</p>
+        <p class="small"><strong>The final test:</strong> if the motor bore diameter changes, how many features break? The answer should be zero.</p>
+      </div></details>
+    </div>
+  </div>
+  <details class="more">
+    <summary>FeatureScript and community features <span class="hint">detail</span></summary>
+    <div class="body">
+      <ul>
+        <li>Every Onshape feature is written in FeatureScript, and you can add custom ones from the toolbar's "+" button by pasting a document link.</li>
+        <li>Worth installing on day one: a spur gear generator, sprocket and timing pulley generators, a belt/chain path tool with center-distance calculator, internal and external thread features, lightening and pocketing tools, the McMaster-Carr hardware insert.</li>
+        <li>Find them in the Onshape App Store, the Onshape forum, and FRC team GitHub repos (teams like 2910 and 3847 publish libraries).</li>
+        <li>Writing your own: a 15-line feature is an annotation block, a precondition block, and an <code>opExtrude</code>. Usually, though, find one that exists.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section id="dfm">
+  <h2>Design for manufacturing</h2>
+  <div class="grid cols-3">
+    <div class="card">
+      <h3>FDM 3D printing</h3>
+      <ul class="small">
+        <li>45° overhang limit without support. Bridges of 40–60 mm are fine in PLA.</li>
+        <li>Minimum wall at least two nozzle widths (0.8 mm on a 0.4 nozzle); three or four walls for strength.</li>
+        <li>Layer orientation costs 30–50% strength across layers. Orient so load runs along layers.</li>
+        <li>Print holes 0.2 mm undersized and drill to size, or use the tolerances in <a href="manufacturing.html#tolerance">Manufacturing</a>. Teardrop horizontal holes.</li>
+        <li>Heat-set insert boss: insert OD plus about 0.3 mm. Self-tapping boss core at 90% of thread major diameter.</li>
+        <li>Design so the next revision is one variable change.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Laser and sheet</h3>
+      <ul class="small">
+        <li>Kerf 0.1–0.3 mm; offset inside cuts out and outside cuts in, or let the cutter software compensate.</li>
+        <li>Minimum feature about 1.5 times material thickness. Relief circles at inside corners.</li>
+        <li>Tab-and-slot with thickness plus 0.1 mm. Living hinges follow grain.</li>
+        <li>Export DXF from the flat pattern tab for sheet metal, from a sketch projection otherwise. Check for duplicate lines, open paths, wrong scale before sending.</li>
+        <li>Acrylic cracks at sharp re-entrant corners. Aluminum needs a fiber laser or a water jet.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>CNC machining</h3>
+      <ul class="small">
+        <li>Inside corner radius at least the endmill radius. Pocket depth to width no more than 4:1.</li>
+        <li>No undercuts without a multi-axis plan; everything reachable from one fixture on a 3-axis.</li>
+        <li>Standard drill sizes; tap drill callouts (M4×0.7 → 3.3 mm drill). Tapped depth 2.5× diameter in aluminum.</li>
+        <li>Bearing bores as press fits (H7). Counterbore depth = head height + 0.5 mm.</li>
+        <li>6061 for most work, 7075 for high-stress hubs. Design to stock sizes.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="lookup">
+  <h2>Quick lookup</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>I want to…</th><th>Use</th><th>Rule</th></tr></thead>
+    <tbody>
+      <tr><td>Make a plate with a goBILDA hole pattern</td><td>Sketch on origin plane, one circle, sketch linear pattern at 8 mm</td><td>Drive the count with a variable</td></tr>
+      <tr><td>Fit a 5 mm hex shaft</td><td>Polygon, 6 sides, circumscribed on the across-flats size, plus print tolerance</td><td>Hole tool does not do hex</td></tr>
+      <tr><td>Round every outside edge</td><td>Fillet with tangent propagation</td><td>Last feature in the tree</td></tr>
+      <tr><td>Lighten a plate</td><td>Sketch pattern of triangles or hexes, extrude remove</td><td>Keep 0.1 in minimum web</td></tr>
+      <tr><td>Try a different arm length</td><td>Variable <code>#arm_length</code> in Variable Studio</td><td>Never type the number twice</td></tr>
+      <tr><td>Make an arm that pivots in the assembly</td><td>Explicit mate connector on the pivot in Part Studio, revolute mate with limits</td><td>Ground the chassis first</td></tr>
+      <tr><td>Check a two-stage reduction</td><td>Gear relation mates between revolute mates</td><td>Revolutes first, then relations</td></tr>
+      <tr><td>Give the builders instructions</td><td>Exploded view in the assembly, PDF drawing with balloons</td><td>Name parts by function</td></tr>
+      <tr><td>Send a part to the water jet</td><td>Flat sketch or flat pattern → DXF</td><td>Check units on export</td></tr>
+      <tr><td>Save before the event</td><td>Create version named for the event</td><td>Versions are free; make many</td></tr>
+      <tr><td>Insert a Yellow Jacket or REV part</td><td>Vendor STEP, or the FTC Onshape parts library</td><td>Insert from the library document so updates propagate</td></tr>
+      <tr><td>Fix "dangling reference"</td><td>Edit the feature, re-pick the reference</td><td>Sketch on planes next time</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="missions">
+  <h2>Missions</h2>
+  <div class="grid cols-2">
+    <div class="mission">
+      <div class="head"><span class="eyebrow">Mission O1</span><span class="lvl"><i class="on"></i><i></i><i></i></span></div>
+      <h3>The parametric box</h3>
+      <ul><li>Hollow box with a press-fit lid, every dimension from Variable Studio.</li><li>Change the width from 120 to 160 mm. Nothing may break.</li></ul>
+      <div class="done"><strong>Done when</strong> one variable change updates box, lid, and wall thickness with zero errors.</div>
+    </div>
+    <div class="mission">
+      <div class="head"><span class="eyebrow">Mission O2</span><span class="lvl"><i class="on"></i><i></i><i></i></span></div>
+      <h3>Fully define it</h3>
+      <ul><li>Take a bracket profile with 15 entities and fully define it using constraints only, no Fix.</li><li>Narrate the DOF counter as you go.</li></ul>
+      <div class="done"><strong>Done when</strong> every line is black and you can explain each constraint's job.</div>
+    </div>
+    <div class="mission">
+      <div class="head"><span class="eyebrow">Mission O3</span><span class="lvl"><i class="on"></i><i class="on"></i><i></i></span></div>
+      <h3>Motor mount, two ways</h3>
+      <ul><li>A Yellow Jacket mount plate: printed version and a sheet-metal version.</li><li>Shared skeleton sketch with <code>#motor_bore</code> and <code>#bolt_circle</code>.</li><li>Drawing with hole callouts for each.</li></ul>
+      <div class="done"><strong>Done when</strong> changing the bolt circle updates both parts and both drawings.</div>
+    </div>
+    <div class="mission">
+      <div class="head"><span class="eyebrow">Mission O4</span><span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+      <h3>Drive module sub-assembly</h3>
+      <ul><li>One mecanum module: motor, mount, wheel, bearing block, all mated to explicit mate connectors.</li><li>Pattern it to four. Mirror where needed.</li><li>Interference check, exploded view, BOM export.</li></ul>
+      <div class="done"><strong>Done when</strong> the wheels spin when dragged, the BOM has real part numbers, and a builder can assemble it from the exploded view.</div>
+    </div>
+    <div class="mission">
+      <div class="head"><span class="eyebrow">Mission O5</span><span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+      <h3>Fix the broken document</h3>
+      <ul><li>A mentor hands you a document with four failed features.</li><li>Fix all four using rollback, reassignment, and reorder. No redrawing.</li></ul>
+      <div class="done"><strong>Done when</strong> the tree is green and you wrote one line per failure on what caused it.</div>
+    </div>
+  </div>
+</section>
+  </main>
+</div>
+<footer class="site-footer">
+  <div class="inner">
+    <span>Everything FTC · a Broncobots handbook · not affiliated with <em>FIRST</em>. Rules quoted here can go stale; the <a href="https://ftc-resources.firstinspires.org/ftc/game/manual">Competition Manual</a> always wins.</span>
+    <span><a href="https://github.com/ElMagoCT/ftc-handbook">Edit on GitHub</a> · <a href="glossary.html">Glossary</a> · <a href="resources.html">Resources</a></span>
+  </div>
+</footer>
+<script src="assets/js/glossary.js"></script>
+<script src="assets/js/sims.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

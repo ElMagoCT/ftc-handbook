@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en" data-theme="midnight" data-accent="rose" data-font="grotesk" data-density="comfortable" data-bg="grid">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Missions · Everything FTC</title>
+<meta name="description" content="Every hands-on mission from the FTC handbook collected into one training track: strategy, design, Onshape, manufacturing, electronics, code, and judging, with difficulty levels and done-when criteria.">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Atkinson+Hyperlegible:wght@400;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>/* apply saved display settings before first paint */try{var s=JSON.parse(localStorage.getItem('ftc-handbook-settings')||'{}'),d={theme:'midnight',accent:'rose',font:'grotesk',density:'comfortable',bg:'grid'};for(var k in d){document.documentElement.setAttribute('data-'+k,s[k]||d[k]);}}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">FTC</span><span>Everything FTC<small>Broncobots handbook</small></span></a>
+    <nav class="main-nav" id="main-nav" aria-label="Main"></nav>
+    <div class="header-actions">
+      <button class="icon-btn" type="button" data-open-search aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="txt">Search</span><kbd>/</kbd></button>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<div class="page no-side">
+
+  <main class="content" id="main">
+<div class="hero">
+  <span class="eyebrow">Missions</span>
+  <h1>Learn it by doing it.</h1>
+  <p class="lede">Every section of this site ends with missions: small, concrete challenges with a "done when" you can check. This page pulls them all together into a training track. New members work down the list over a pre-season; returning members pick the ones they skipped.</p>
+  <div class="hero-meta"><span class="chip"><i style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--accent);margin-right:6px"></i>one square = beginner</span><span class="chip">three = needs a mentor nearby</span></div>
+</div>
+
+<section data-no-terms>
+  <h2 data-no-num>Suggested order for a new member</h2>
+  <div class="grid cols-4 tight">
+    <div class="card"><span class="eyebrow">Week 1</span><p class="small">S1 break down a game · E1 wire a hub · O1 parametric box · D1 cardboard intake</p></div>
+    <div class="card"><span class="eyebrow">Week 2</span><p class="small">C1 drive in a week · O2 fully define · M1 tolerance coupon · J1 one portfolio page</p></div>
+    <div class="card"><span class="eyebrow">Week 3–4</span><p class="small">D2 size an arm motor · O3 motor mount two ways · C2 tune a lift · E3 wiring diagram · S3 cycle audit</p></div>
+    <div class="card"><span class="eyebrow">Week 5+</span><p class="small">C3 localize · O4 drive module · M2 bracket three ways · J2 mock interview · D3 teardown · C4 score in auto</p></div>
+  </div>
+</section>
+
+<section id="all" data-no-terms>
+  <h2 data-no-num>All missions</h2>
+  <div class="filterbar" id="mission-filter">
+    <span class="label">Show</span>
+    <button class="chip" type="button" data-page="all" aria-pressed="true">All</button>
+    <span id="mission-chips"></span>
+    <span class="label" style="margin-left:8px">Level</span>
+    <button class="chip" type="button" data-lvl="all" aria-pressed="true">Any</button>
+    <button class="chip" type="button" data-lvl="1">1</button>
+    <button class="chip" type="button" data-lvl="2">2</button>
+    <button class="chip" type="button" data-lvl="3">3</button>
+    <span class="chip" id="mission-count"></span>
+  </div>
+  <div id="mission-list" class="grid cols-2"><p class="muted">Loading missions from every page…</p></div>
+  <noscript><p class="muted">Missions live at the bottom of each topic page: <a href="season.html#missions">Season</a>, <a href="design.html#missions">Design</a>, <a href="onshape.html#missions">Onshape</a>, <a href="manufacturing.html#missions">Manufacturing</a>, <a href="electronics.html#missions">Electronics</a>, <a href="code.html#missions">Code</a>, <a href="judging.html#missions">Judging</a>.</p></noscript>
+</section>
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  const pages = [["season.html", "Season"], ["design.html", "Design"], ["onshape.html", "Onshape"], ["manufacturing.html", "Manufacturing"], ["electronics.html", "Electronics"], ["code.html", "Code"], ["judging.html", "Judging"]];
+  const list = document.getElementById("mission-list"), chips = document.getElementById("mission-chips"), count = document.getElementById("mission-count");
+  const parser = new DOMParser(); const all = [];
+  for (const [file, name] of pages) {
+    try {
+      const html = await (await fetch(file)).text();
+      const doc = parser.parseFromString(html, "text/html");
+      doc.querySelectorAll(".mission").forEach(m => {
+        const lvl = m.querySelectorAll(".lvl i.on").length || 1;
+        const node = m.cloneNode(true);
+        const code = node.querySelector(".eyebrow")?.textContent.trim() || "";
+        // link back to the source page
+        const back = document.createElement("p"); back.className = "small muted"; back.style.marginTop = "8px";
+        back.innerHTML = 'From <a href="' + file + '#missions">' + name + "</a>";
+        node.appendChild(back);
+        node.dataset.page = file; node.dataset.lvl = lvl;
+        node.id = "m-" + code.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+        all.push(node);
+      });
+      const b = document.createElement("button"); b.className = "chip"; b.type = "button"; b.dataset.page = file; b.textContent = name; b.setAttribute("aria-pressed", "false"); chips.appendChild(b);
+    } catch (e) { /* skip page */ }
+  }
+  list.innerHTML = ""; all.forEach(n => list.appendChild(n));
+  if (!all.length) list.innerHTML = '<p class="muted">Could not load missions. If you opened this file directly, run a local server (python3 -m http.server) so pages can be fetched.</p>';
+  let page = "all", lvl = "all";
+  const apply = () => { let n = 0; all.forEach(m => { const ok = (page === "all" || m.dataset.page === page) && (lvl === "all" || m.dataset.lvl === lvl); m.setAttribute("data-hidden", String(!ok)); if (ok) n++; }); count.textContent = n + " / " + all.length; };
+  document.querySelectorAll("#mission-filter [data-page]").forEach(b => b.addEventListener("click", () => { page = b.dataset.page; document.querySelectorAll("#mission-filter [data-page]").forEach(x => x.setAttribute("aria-pressed", String(x === b))); apply(); }));
+  document.querySelectorAll("#mission-filter [data-lvl]").forEach(b => b.addEventListener("click", () => { lvl = b.dataset.lvl; document.querySelectorAll("#mission-filter [data-lvl]").forEach(x => x.setAttribute("aria-pressed", String(x === b))); apply(); }));
+  apply();
+  if (location.hash) document.getElementById(location.hash.slice(1))?.scrollIntoView();
+});
+</script>
+  </main>
+</div>
+<footer class="site-footer">
+  <div class="inner">
+    <span>Everything FTC · a Broncobots handbook · not affiliated with <em>FIRST</em>. Rules quoted here can go stale; the <a href="https://ftc-resources.firstinspires.org/ftc/game/manual">Competition Manual</a> always wins.</span>
+    <span><a href="https://github.com/ElMagoCT/ftc-handbook">Edit on GitHub</a> · <a href="glossary.html">Glossary</a> · <a href="resources.html">Resources</a></span>
+  </div>
+</footer>
+<script src="assets/js/glossary.js"></script>
+<script src="assets/js/sims.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

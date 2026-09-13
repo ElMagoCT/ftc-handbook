@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en" data-theme="midnight" data-accent="rose" data-font="grotesk" data-density="comfortable" data-bg="grid">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Season & Strategy · Everything FTC</title>
+<meta name="description" content="How an FTC season runs, how to break down a new game at kickoff, cycle time math, scouting, drive team, and match-day checklists.">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Atkinson+Hyperlegible:wght@400;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>/* apply saved display settings before first paint */try{var s=JSON.parse(localStorage.getItem('ftc-handbook-settings')||'{}'),d={theme:'midnight',accent:'rose',font:'grotesk',density:'comfortable',bg:'grid'};for(var k in d){document.documentElement.setAttribute('data-'+k,s[k]||d[k]);}}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">FTC</span><span>Everything FTC<small>Broncobots handbook</small></span></a>
+    <nav class="main-nav" id="main-nav" aria-label="Main"></nav>
+    <div class="header-actions">
+      <button class="icon-btn" type="button" data-open-search aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="txt">Search</span><kbd>/</kbd></button>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<div class="page">
+  <aside class="sidebar" aria-label="On this page"></aside>
+  <main class="content" id="main">
+<div class="hero">
+  <span class="eyebrow">Season &amp; Strategy</span>
+  <h1>Read the game before you build the robot.</h1>
+  <p class="lede">The teams that win are not the ones with the fanciest mechanism. They are the ones who figured out, in the first week, exactly which points to go after and built the simplest robot that gets them. This page is that first week, plus everything that follows it.</p>
+</div>
+
+<section id="calendar">
+  <h2>The 2026–27 calendar</h2>
+  <p class="muted">Current season: <strong>BIOBUZZ presented by RTX</strong> (the <em>FIRST</em> CANOPY theme). Dates from FIRST's published season calendar; your region sets its own event dates inside these windows.</p>
+  <ul class="timeline">
+    <li><span class="when">Sept 12</span><div class="what"><strong>Kickoff</strong> Game animation, Competition Manual V1, field drawings, and the season SDK. <a href="https://www.youtube.com/watch?v=sUH3z5a5S9I">Game animation</a>.</div></li>
+    <li><span class="when">Sept 28</span><div class="what"><strong>Team Q&amp;A opens</strong> Official rule questions. Answers there are binding. Search it before you ask.</div></li>
+    <li><span class="when">Oct 19</span><div class="what"><strong>Earliest league meets and qualifiers</strong> Five weeks after kickoff. A driving robot with a reliable auto beats a half-built ambitious one.</div></li>
+    <li><span class="when">Nov 16</span><div class="what"><strong>Region snapshot</strong> FIRST counts registered teams to set how many advance from each region.</div></li>
+    <li><span class="when">Nov 30</span><div class="what"><strong>Earliest regional championships</strong> Most regions run theirs January through March.</div></li>
+    <li><span class="when">Dec 15</span><div class="what"><strong>FIRST Leadership Award nominations due</strong> Two 10th or 11th graders per team. Start the essays in October.</div></li>
+    <li><span class="when">Mar 21</span><div class="what"><strong>Last regional championship date</strong> for advancement to Houston.</div></li>
+    <li><span class="when">Apr 28–May 1</span><div class="what"><strong>FIRST Championship</strong> George R. Brown Convention Center, Houston.</div></li>
+  </ul>
+  <details class="more">
+    <summary>Where the dates come from <span class="hint">sources</span></summary>
+    <div class="body">
+      <ul class="links">
+        <li><div><a href="https://ftc-resources.firstinspires.org/ftc/archive/2027/event/season-dates">Season dates (FIRST)</a><span class="d">The official calendar. Check it for changes.</span></div><span class="who">FIRST</span></li>
+        <li><div><a href="https://ftc-resources.firstinspires.org/ftc/game/manual">Competition Manual</a><span class="d">Section 4 covers events and advancement.</span></div><span class="who">FIRST</span></li>
+        <li><div><a href="https://ftc-events.firstinspires.org">ftc-events</a><span class="d">Your region's actual event list, schedules, and results.</span></div><span class="who">FIRST</span></li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section id="kickoff">
+  <h2>Kickoff weekend: game analysis</h2>
+  <p class="muted">Do this before anyone opens Onshape. It takes one long afternoon and it saves a month.</p>
+  <ol class="steps">
+    <li><strong>Read the manual. The whole thing.</strong> Split the sections across the team, then everyone reads the game rules and robot rules themselves. Write down every number: point values, time limits, expansion limits, protected zones.</li>
+    <li><strong>List every way to score.</strong> One row per scoring action. Points in auto, points in TeleOp, points in endgame. Note which ones need a human player and which need the alliance partner.</li>
+    <li><strong>Estimate a cycle time for each.</strong> Walk the field drawing with a tape measure. A robot drives about 3 to 5 feet per second. Add pickup and place time. Be honest, then add 30 percent.</li>
+    <li><strong>Compute points per second.</strong> Points divided by cycle time. Sort the table. The top two rows are your robot. Everything else is a bonus for later.</li>
+    <li><strong>Check the constraints.</strong> Can a robot reach the high goal inside the expansion limit? How many game elements fit in the 18-inch cube at start? Is defense legal near the scoring zone?</li>
+    <li><strong>Pick a strategy, then an architecture.</strong> "Cycle from the loading zone to the low goal, park in endgame" is a strategy. "Mecanum, two-stage slides, roller intake" is an architecture. Strategy first, always.</li>
+    <li><strong>Write it in the notebook.</strong> The table, the reasoning, the rejected options. This becomes portfolio page 3 and the Think Award interview answer in one shot.</li>
+  </ol>
+  <div class="grid cols-2">
+    <div class="card">
+      <h3>The scoring table</h3>
+      <p class="small muted">Blank template. Fill in from the manual on kickoff day.</p>
+      <div class="tbl dense"><table>
+        <thead><tr><th>Action</th><th class="num">Auto pts</th><th class="num">TeleOp pts</th><th class="num">Est. cycle (s)</th><th class="num">Pts / s</th><th>Needs</th></tr></thead>
+        <tbody>
+          <tr><td>Score element in low goal</td><td class="num">–</td><td class="num">–</td><td class="num">–</td><td class="num">–</td><td>intake, drive</td></tr>
+          <tr><td>Score element in high goal</td><td class="num">–</td><td class="num">–</td><td class="num">–</td><td class="num">–</td><td>lift or launcher</td></tr>
+          <tr><td>Endgame task</td><td class="num">–</td><td class="num">–</td><td class="num">–</td><td class="num">–</td><td>climb / park</td></tr>
+          <tr><td>Auto-only bonus</td><td class="num">–</td><td class="num">–</td><td class="num">–</td><td class="num">–</td><td>localization</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="card">
+      <h3>Questions that decide the robot</h3>
+      <ul>
+        <li>What is the single highest points-per-second action a simple robot can do?</li>
+        <li>Where do game elements come from? Floor, human player, a dispenser? That decides the intake.</li>
+        <li>How high is the highest goal worth building for? That decides lift type and expansion.</li>
+        <li>What does a great auto score, and what sensors does it need?</li>
+        <li>What does the endgame pay, and how much of TeleOp does it cost?</li>
+        <li>Is there a task most teams will skip? That is where a mid-level team steals points.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout tip"><span class="ico">Tip</span><div><p>Watch last year's Worlds finals for any game and count cycles. Top teams typically finish a cycle every 5 to 8 seconds. That number is the target, and it tells you how fast your slides and intake really need to be.</p></div></div>
+</section>
+
+<section id="cycle">
+  <h2>Cycle time is the whole game</h2>
+  <p class="muted">Two minutes of TeleOp. Every second you cut from a cycle shows up directly in the score.</p>
+  <figure class="sim" data-sim="cycle-calc"></figure>
+  <div class="grid cols-3">
+    <div class="card"><span class="eyebrow">Where time goes</span><h4>Driving</h4><p class="small">Usually half the cycle. Faster drivetrain gearing helps less than you think; a driver who does not overshoot helps more. Holonomic drives save the turn-and-line-up time.</p></div>
+    <div class="card"><span class="eyebrow">Where time goes</span><h4>Acquiring</h4><p class="small">The intake. A roller that grabs on contact is one second. A claw that has to be aimed is three. That difference is 20 elements a match.</p></div>
+    <div class="card"><span class="eyebrow">Where time goes</span><h4>Scoring</h4><p class="small">Lift travel and release. Cascade slides and a fast release (a servo flap or a roller kick-out) keep this under two seconds.</p></div>
+  </div>
+  <details class="more">
+    <summary>Ways to buy back seconds <span class="hint">detail</span></summary>
+    <div class="body">
+      <ul>
+        <li><strong>Do two things at once.</strong> Raise the lift while driving to the goal. Retract while driving back. This is code, not hardware, and it is the biggest single gain.</li>
+        <li><strong>Automate the repeated motion.</strong> One button for "go to scoring height," one for "return home." Drivers should never hold a stick and watch a lift.</li>
+        <li><strong>Sensors instead of eyes.</strong> A color or distance sensor in the intake stops the rollers automatically and tells the driver they have the element. No more looking.</li>
+        <li><strong>Field-centric driving</strong> on holonomic drivetrains so the driver never has to think about which way the robot faces.</li>
+        <li><strong>Shorten the path.</strong> Sometimes the lower goal, closer to the source, wins on points per second even though it pays less per element.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section id="strategies">
+  <h2>Strategy archetypes</h2>
+  <p class="muted">Most winning FTC robots are one of these. Pick one on purpose.</p>
+  <div class="grid cols-2">
+    <div class="card">
+      <h3>The cycler</h3>
+      <p class="small">Does one scoring task extremely fast and reliably, all match. Simple mechanisms, fast driver, tight code.</p>
+      <div class="procon"><div class="pro"><span class="label">Good</span><ul><li>Highest ceiling for a mid-budget team</li><li>Easy to practice and tune</li><li>Reliability is built in</li></ul></div><div class="con"><span class="label">Watch</span><ul><li>Depends on a source of elements</li><li>Vulnerable to defense if legal</li></ul></div></div>
+    </div>
+    <div class="card">
+      <h3>The specialist</h3>
+      <p class="small">Owns one high-value task most teams cannot do (a hard endgame, a high goal, a tricky auto). Pairs well with a cycler partner.</p>
+      <div class="procon"><div class="pro"><span class="label">Good</span><ul><li>Gets picked in alliance selection</li><li>Strong Innovate story</li></ul></div><div class="con"><span class="label">Watch</span><ul><li>All eggs in one mechanism</li><li>Hard to rank high in quals alone</li></ul></div></div>
+    </div>
+    <div class="card">
+      <h3>The auto-heavy robot</h3>
+      <p class="small">Scores most of its points in the first 30 seconds with localization and a fast autonomous, then plays support.</p>
+      <div class="procon"><div class="pro"><span class="label">Good</span><ul><li>Control Award material</li><li>Consistent points before any driver mistakes</li></ul></div><div class="con"><span class="label">Watch</span><ul><li>Partner collisions ruin autos</li><li>Needs a coder with time</li></ul></div></div>
+    </div>
+    <div class="card">
+      <h3>The everything robot</h3>
+      <p class="small">Tries to do every task. Almost never finished in time. Only viable for veteran teams with a full pre-season of testing.</p>
+      <div class="procon"><div class="pro"><span class="label">Good</span><ul><li>Flexible in playoffs</li></ul></div><div class="con"><span class="label">Watch</span><ul><li>Everything is 80 percent done at the first event</li><li>Heavy, slow, complex to maintain</li><li>Two mechanisms fighting for the same space</li></ul></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="build-plan">
+  <h2>From strategy to a robot on the field</h2>
+  <div class="grid cols-2">
+    <div class="card">
+      <h3>A schedule that works</h3>
+      <ul class="timeline">
+        <li><span class="when">Week 1</span><div class="what"><strong>Game analysis and strategy.</strong> Cardboard mockups of the two candidate mechanisms. Order long-lead parts (slides, motors, servos).</div></li>
+        <li><span class="when">Week 2–3</span><div class="what"><strong>Drivetrain driving.</strong> Reuse last year's if it is sound. Code gets a real robot to test on. CAD the first mechanism.</div></li>
+        <li><span class="when">Week 4–5</span><div class="what"><strong>Mechanism v1 on the robot.</strong> It will be ugly. Test it against the real field element for hours. Start the auto.</div></li>
+        <li><span class="when">Week 6</span><div class="what"><strong>First event.</strong> Whatever works, works. Film every match. Portfolio draft one.</div></li>
+        <li><span class="when">After</span><div class="what"><strong>Iterate.</strong> Fix the top two point-losers between events. Never redesign the whole robot mid-season.</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Decisions to make on purpose</h3>
+      <dl class="kv">
+        <dt>Drivetrain</dt><dd>Mecanum unless you have a specific reason. See <a href="design.html#drivetrains">Drivetrains</a>.</dd>
+        <dt>Build system</dt><dd>goBILDA or REV, not both on the same robot. See <a href="manufacturing.html#systems">Build systems</a>.</dd>
+        <dt>Motor budget</dt><dd>8 motors, 8 servos total. Four go to the drive. Plan the other four before you design.</dd>
+        <dt>Sensors</dt><dd>Odometry for auto, a limit switch on every slide, a sensor in the intake. Decide now so the mounts exist.</dd>
+        <dt>Software</dt><dd>Path-following library and code structure chosen in week 1 so hardware names and units match. See <a href="code.html">Code</a>.</dd>
+        <dt>Who decides</dt><dd>One student lead per subsystem. Design reviews weekly, with the builders and coders in the room.</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section id="scouting">
+  <h2>Scouting</h2>
+  <p class="muted">You cannot pick a good alliance partner from memory. Write things down.</p>
+  <div class="grid cols-2">
+    <div class="card">
+      <h3>What to record per team</h3>
+      <ul>
+        <li>Auto: what it scores, from which start position, how consistent (out of the matches you watched).</li>
+        <li>TeleOp: which goals they score in, rough cycles per match, whether they need the human player.</li>
+        <li>Endgame: can they do it, how long does it take them.</li>
+        <li>Reliability: disconnects, mechanisms jamming, dead time.</li>
+        <li>Drivers: calm or frantic. Do they get in their partner's way.</li>
+        <li>Pit notes: robot condition, spare parts, whether they can run a second auto path.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Making the pick list</h3>
+      <ul>
+        <li>Rank by what complements your robot, not by raw score. If you score high, you want a partner with a great auto and a clean endgame.</li>
+        <li>Use <a href="https://ftcscout.org">FTCScout</a> for OPR and match history, then correct it with what you saw. Stats miss the robot that broke down twice.</li>
+        <li>Have the list on paper before alliance selection. Names, numbers, first and second choice, and who to say no to.</li>
+        <li>If you are a likely pick, know your answer. Declining a captain is legal but has consequences for ranking points and reputation.</li>
+      </ul>
+    </div>
+  </div>
+  <details class="more">
+    <summary>A simple scouting sheet <span class="hint">template</span></summary>
+    <div class="body">
+      <div class="tbl dense"><table>
+        <thead><tr><th>Team</th><th>Auto pts</th><th>Auto consistent?</th><th>TeleOp cycles</th><th>Goal</th><th>Endgame</th><th>Broke down?</th><th>Notes</th></tr></thead>
+        <tbody><tr><td>####</td><td></td><td>Y / N</td><td></td><td>low / high</td><td>Y / N / slow</td><td></td><td></td></tr></tbody>
+      </table></div>
+      <p class="small muted">One row per team per match. Tally at lunch. A shared spreadsheet works; so does paper and a clipboard.</p>
+    </div>
+  </details>
+</section>
+
+<section id="drive-team">
+  <h2>Drive team</h2>
+  <div class="grid cols-4">
+    <div class="card"><span class="eyebrow">Role</span><h4>Driver</h4><p class="small">Moves the robot. Needs the most practice hours by far. Same person all season if possible.</p></div>
+    <div class="card"><span class="eyebrow">Role</span><h4>Operator</h4><p class="small">Runs the mechanisms on the second gamepad. Calls out state ("have it", "up", "clear").</p></div>
+    <div class="card"><span class="eyebrow">Role</span><h4>Human player</h4><p class="small">Game-specific. Feeds elements or interacts with the field. Practice this as much as driving.</p></div>
+    <div class="card"><span class="eyebrow">Role</span><h4>Coach</h4><p class="small">Watches the clock and the other alliance. The only person who talks strategy during the match. Can be a student.</p></div>
+  </div>
+  <div class="grid cols-2">
+    <div class="card">
+      <h3>Practice plan</h3>
+      <ul>
+        <li>Full 2:30 matches with a timer, on a full field, with a partner robot if you can borrow one.</li>
+        <li>Drills: 10 cycles as fast as possible, then 10 cycles with zero misses. Track both times week over week.</li>
+        <li>Practice the endgame with 40 seconds on the clock, not 30. Match nerves cost time.</li>
+        <li>Swap in the backup driver for at least one practice a week. People get sick on event day.</li>
+        <li>Every practice ends with a robot inspection: loose screws, wire strain relief, battery voltage.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Pre-match checklist</h3>
+      <ul>
+        <li>Fresh battery, voltage checked, strapped in.</li>
+        <li>Driver Hub charged, gamepads plugged in, correct OpMode selected, robot on the right alliance color.</li>
+        <li>Robot inside the sizing cube, preload set, mechanism in start position.</li>
+        <li>Auto start position marked on the tile and the robot lined up to it.</li>
+        <li>Talked to the alliance partner: whose auto goes where, who takes which goal, who does endgame first.</li>
+        <li>Robot sign visible, team shirts on, one person in the pit answering judges.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="events">
+  <h2>Event day</h2>
+  <div class="grid cols-2">
+    <div class="card">
+      <h3>What to bring</h3>
+      <ul>
+        <li>Two printed portfolios. One for the Initial Interview, one for the pit table.</li>
+        <li>The engineering notebook, even though it is no longer judged. Judges still ask about your process, and it is where the answers live.</li>
+        <li>Spare motors, servos, a spare Control Hub if you own one, every cable type, zip ties, hex drivers, a multimeter.</li>
+        <li>Laptop with the code, a USB-C cable that works, and the last known-good build committed to Git.</li>
+        <li>Batteries: at least four, plus the charger. Label them and rotate.</li>
+        <li>Field tiles or at least the game elements for a pit practice area if the venue allows it.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Order of operations</h3>
+      <ol class="steps">
+        <li><strong>Check in, get the schedule.</strong> Inspection first, then judging, then matches. Know your interview time before you unpack.</li>
+        <li><strong>Inspection.</strong> Robot rules checklist. Have the servo spec sheet and the wiring visible. Fix and re-inspect fast; inspectors want you to pass.</li>
+        <li><strong>Initial Interview.</strong> Whole team, robot if you can bring it, portfolio in hand. See <a href="judging.html#interview">Judging</a>.</li>
+        <li><strong>Matches.</strong> Someone always scouting, someone always in the pit.</li>
+        <li><strong>Alliance selection.</strong> Pick list ready. Coach speaks.</li>
+        <li><strong>Debrief on the bus.</strong> Three things that lost points, one thing to keep. Write it down before you forget.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="callout rule"><span class="ico">Rule</span><div><p>Judges are only allowed to use what they learn at this event, this season. Match results, rankings, and social media do not count for judged awards. Your interview and portfolio are the whole picture. <a href="judging.html">More on judging.</a></p></div></div>
+</section>
+
+<section id="missions">
+  <h2>Missions</h2>
+  <div class="grid cols-2">
+    <div class="mission">
+      <div class="head"><span class="eyebrow">Mission S1</span><span class="lvl" title="difficulty 1 of 3"><i class="on"></i><i></i><i></i></span></div>
+      <h3>Break down a past game</h3>
+      <ul><li>Pick a game from <a href="history.html">Past Games</a> and read its manual's scoring section.</li><li>Build the scoring table above with real numbers.</li><li>Write one paragraph on what you would build and why.</li></ul>
+      <div class="done"><strong>Done when</strong> a teammate can read your table and name your top two scoring actions without asking.</div>
+    </div>
+    <div class="mission">
+      <div class="head"><span class="eyebrow">Mission S2</span><span class="lvl" title="difficulty 2 of 3"><i class="on"></i><i class="on"></i><i></i></span></div>
+      <h3>Scout a livestream</h3>
+      <ul><li>Watch six qualification matches from any event on the FTC YouTube channel or a regional stream.</li><li>Fill out the scouting sheet for every robot.</li><li>Make a pick list for the top-ranked team and defend it.</li></ul>
+      <div class="done"><strong>Done when</strong> your list has a first pick, a second pick, and a reason for each that is not "they scored a lot."</div>
+    </div>
+    <div class="mission">
+      <div class="head"><span class="eyebrow">Mission S3</span><span class="lvl" title="difficulty 2 of 3"><i class="on"></i><i class="on"></i><i></i></span></div>
+      <h3>Cycle-time audit</h3>
+      <ul><li>Film your robot (or last year's) doing ten cycles.</li><li>Time each phase: drive, acquire, score, return.</li><li>Find the one phase to shorten and propose a specific fix.</li></ul>
+      <div class="done"><strong>Done when</strong> you have a number per phase and a change that would save at least one second.</div>
+    </div>
+    <div class="mission">
+      <div class="head"><span class="eyebrow">Mission S4</span><span class="lvl" title="difficulty 3 of 3"><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+      <h3>Run a practice match day</h3>
+      <ul><li>Set up a full field, a timer, and a scorer.</li><li>Run five matches with the full drive team, including pre-match checklist and alliance-partner talk.</li><li>Score them honestly and debrief after each.</li></ul>
+      <div class="done"><strong>Done when</strong> match five scores higher than match one and you know why.</div>
+    </div>
+  </div>
+</section>
+  </main>
+</div>
+<footer class="site-footer">
+  <div class="inner">
+    <span>Everything FTC · a Broncobots handbook · not affiliated with <em>FIRST</em>. Rules quoted here can go stale; the <a href="https://ftc-resources.firstinspires.org/ftc/game/manual">Competition Manual</a> always wins.</span>
+    <span><a href="https://github.com/ElMagoCT/ftc-handbook">Edit on GitHub</a> · <a href="glossary.html">Glossary</a> · <a href="resources.html">Resources</a></span>
+  </div>
+</footer>
+<script src="assets/js/glossary.js"></script>
+<script src="assets/js/sims.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

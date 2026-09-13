@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en" data-theme="midnight" data-accent="rose" data-font="grotesk" data-density="comfortable" data-bg="grid">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Electronics · Everything FTC</title>
+<meta name="description" content="The FTC control system explained: Control Hub and Expansion Hub ports, motors, servos, sensors, odometry hardware, cameras, wiring rules, wire gauges, power, ESD, and inspection.">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Atkinson+Hyperlegible:wght@400;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>/* apply saved display settings before first paint */try{var s=JSON.parse(localStorage.getItem('ftc-handbook-settings')||'{}'),d={theme:'midnight',accent:'rose',font:'grotesk',density:'comfortable',bg:'grid'};for(var k in d){document.documentElement.setAttribute('data-'+k,s[k]||d[k]);}}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">FTC</span><span>Everything FTC<small>Broncobots handbook</small></span></a>
+    <nav class="main-nav" id="main-nav" aria-label="Main"></nav>
+    <div class="header-actions">
+      <button class="icon-btn" type="button" data-open-search aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="txt">Search</span><kbd>/</kbd></button>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<div class="page">
+  <aside class="sidebar" aria-label="On this page"></aside>
+  <main class="content" id="main">
+<div class="hero">
+  <span class="eyebrow">Electronics</span>
+  <h1>One battery, one brain, eight motors, eight servos.</h1>
+  <p class="lede">The FTC control system is small and fixed, which is good news: there is a right way to wire it and you can learn the whole thing in an afternoon. This page covers what plugs into what, what each motor and servo is good for, the sensors worth owning, and the wiring rules inspectors check.</p>
+</div>
+
+<section id="control-system">
+  <h2>The control system</h2>
+  <div class="media">
+    <div>
+      <div class="grid cols-2 tight">
+        <div class="card"><span class="eyebrow">Robot</span><h4>REV Control Hub (REV-31-1595)</h4><p class="small">An Android computer plus motor, servo, and sensor ports. Runs your code, hosts its own Wi-Fi, talks to the Driver Station. The only officially supported Robot Controller (R701).</p></div>
+        <div class="card"><span class="eyebrow">Robot</span><h4>REV Expansion Hub (REV-31-1153)</h4><p class="small">The same ports without the computer. Connects to the Control Hub over RS485. You may add at most one (R701). Needed past four motors.</p></div>
+        <div class="card"><span class="eyebrow">Driver</span><h4>REV Driver Hub (REV-31-1596)</h4><p class="small">Handheld Android device running the Driver Station app. Gamepads plug in by USB. Any Android device is allowed, but the Driver Hub is the only supported one (R901).</p></div>
+        <div class="card"><span class="eyebrow">Driver</span><h4>Gamepads</h4><p class="small">Wired only (R904). Logitech F310, Xbox, PS4 and PS5 controllers all work. Two per team, plus a spare.</p></div>
+      </div>
+    </div>
+    <div class="card">
+      <h4>Ports on each hub</h4>
+      <div class="tbl dense"><table>
+        <thead><tr><th>Port</th><th>Count</th><th>Connector</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Motor</td><td>4</td><td>JST VH 2-pin, 12 V</td><td>Encoder port beside each</td></tr>
+          <tr><td>Encoder</td><td>4</td><td>JST PH 4-pin</td><td>Quadrature from the motor</td></tr>
+          <tr><td>Servo</td><td>6</td><td>3-pin, 6 V</td><td>Two servos per port with a Y-cable is legal</td></tr>
+          <tr><td>I²C</td><td>4 buses</td><td>JST PH 4-pin</td><td>Bus 0 has the built-in IMU</td></tr>
+          <tr><td>Digital</td><td>8 (4 ports × 2)</td><td>JST PH 4-pin</td><td>Touch sensors, limit switches</td></tr>
+          <tr><td>Analog</td><td>4 (2 ports × 2)</td><td>JST PH 4-pin</td><td>Potentiometers, servo feedback</td></tr>
+          <tr><td>Power</td><td>2 XT30</td><td>XT30</td><td>In from the switch, out to the Expansion Hub</td></tr>
+          <tr><td>RS485</td><td>1</td><td>JST PH 3-pin</td><td>Control Hub to Expansion Hub</td></tr>
+          <tr><td>USB</td><td>USB-A 3.0 + USB-C</td><td></td><td>Webcam or Limelight on USB-A; USB-C for programming</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+  <div class="diagram">
+    <svg viewBox="0 0 900 300" class="sim-svg" role="img" aria-label="Power and data wiring diagram: battery to switch to Control Hub, then to Expansion Hub, motors, servos, sensors, and Driver Hub over Wi-Fi">
+      <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--text-2)"/></marker></defs>
+      <rect x="20" y="110" width="110" height="60" rx="8" class="fill-surface3 border" stroke-width="1.5"/><text x="75" y="136" text-anchor="middle">12 V NiMH</text><text x="75" y="152" text-anchor="middle" class="t-muted">battery</text>
+      <rect x="165" y="115" width="90" height="50" rx="8" class="fill-surface3 border" stroke-width="1.5"/><text x="210" y="136" text-anchor="middle">switch</text><text x="210" y="152" text-anchor="middle" class="t-muted">+ 20 A fuse</text>
+      <rect x="300" y="80" width="200" height="120" rx="10" class="fill-soft acc" stroke-width="1.5"/><text x="400" y="110" text-anchor="middle" class="t-acc" font-weight="700">Control Hub</text><text x="400" y="130" text-anchor="middle" class="t-muted">4 motors · 6 servos</text><text x="400" y="146" text-anchor="middle" class="t-muted">4 I²C · 8 digital · 4 analog</text><text x="400" y="162" text-anchor="middle" class="t-muted">Wi-Fi · USB</text>
+      <rect x="560" y="80" width="200" height="120" rx="10" class="fill-surface border" stroke-width="1.5"/><text x="660" y="110" text-anchor="middle" font-weight="700">Expansion Hub</text><text x="660" y="130" text-anchor="middle" class="t-muted">4 motors · 6 servos</text><text x="660" y="146" text-anchor="middle" class="t-muted">4 I²C · 8 digital · 4 analog</text><text x="660" y="162" text-anchor="middle" class="t-muted">(optional, max 1)</text>
+      <line x1="130" y1="140" x2="165" y2="140" class="stroke" stroke-width="3" marker-end="url(#ah)"/>
+      <line x1="255" y1="140" x2="300" y2="140" class="stroke" stroke-width="3" marker-end="url(#ah)"/><text x="277" y="128" text-anchor="middle" class="t-muted">XT30</text>
+      <line x1="500" y1="120" x2="560" y2="120" class="stroke" stroke-width="3" marker-end="url(#ah)"/><text x="530" y="108" text-anchor="middle" class="t-muted">XT30 power</text>
+      <line x1="500" y1="165" x2="560" y2="165" class="info" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ah)"/><text x="530" y="185" text-anchor="middle" class="t-muted">RS485 data</text>
+      <rect x="300" y="240" width="60" height="36" rx="6" class="fill-surface3 border"/><text x="330" y="263" text-anchor="middle" class="t-muted">motors</text>
+      <rect x="370" y="240" width="60" height="36" rx="6" class="fill-surface3 border"/><text x="400" y="263" text-anchor="middle" class="t-muted">servos</text>
+      <rect x="440" y="240" width="60" height="36" rx="6" class="fill-surface3 border"/><text x="470" y="263" text-anchor="middle" class="t-muted">sensors</text>
+      <line x1="330" y1="200" x2="330" y2="240" class="stroke" stroke-width="1.5"/><line x1="400" y1="200" x2="400" y2="240" class="stroke" stroke-width="1.5"/><line x1="470" y1="200" x2="470" y2="240" class="stroke" stroke-width="1.5"/>
+      <rect x="560" y="240" width="60" height="36" rx="6" class="fill-surface3 border"/><text x="590" y="263" text-anchor="middle" class="t-muted">motors</text>
+      <rect x="630" y="240" width="60" height="36" rx="6" class="fill-surface3 border"/><text x="660" y="263" text-anchor="middle" class="t-muted">servos</text>
+      <rect x="700" y="240" width="60" height="36" rx="6" class="fill-surface3 border"/><text x="730" y="263" text-anchor="middle" class="t-muted">sensors</text>
+      <line x1="590" y1="200" x2="590" y2="240" class="stroke" stroke-width="1.5"/><line x1="660" y1="200" x2="660" y2="240" class="stroke" stroke-width="1.5"/><line x1="730" y1="200" x2="730" y2="240" class="stroke" stroke-width="1.5"/>
+      <rect x="330" y="14" width="140" height="40" rx="8" class="fill-surface border" stroke-width="1.5"/><text x="400" y="39" text-anchor="middle">Driver Hub + gamepads</text>
+      <path d="M400 54 q0 14 0 26" class="info" stroke-width="2" stroke-dasharray="3 4"/><text x="415" y="72" class="t-muted">Wi-Fi</text>
+      <rect x="790" y="110" width="90" height="60" rx="8" class="fill-surface border" stroke-width="1.5"/><text x="835" y="136" text-anchor="middle">webcam or</text><text x="835" y="152" text-anchor="middle">Limelight</text>
+      <path d="M790 140 H 760 M 500 92 H 520 Q 540 92 540 72 V 60 H 780 Q 800 60 800 80 V 110" class="stroke" stroke-width="1.5" fill="none"/><text x="660" y="52" text-anchor="middle" class="t-muted">USB (to the Control Hub)</text>
+    </svg>
+  </div>
+  <details class="more">
+    <summary>Startup, Wi-Fi, and the configuration file <span class="hint">detail</span></summary>
+    <div class="body">
+      <ul>
+        <li>The Control Hub broadcasts its own Wi-Fi network named after your team (R705: <code>####-RC</code>). Change the default password (R711). The Driver Hub joins it.</li>
+        <li>The <strong>robot configuration</strong> on the Driver Station maps each port to a name ("leftFront", "armMotor"). Your code looks devices up by those names. Save it with a name that matches the robot revision.</li>
+        <li>Robot Controller app and Driver Station app must be the same major.minor version. Update both together with the REV Hardware Client.</li>
+        <li>Keep the Control Hub's Wi-Fi band on 5 GHz at events if the venue supports it; 2.4 GHz gets crowded.</li>
+        <li>Blinking status LED colors mean things. Green is happy. Blue blinks with the address. Solid red is a problem; look up the pattern in REV's docs.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section id="motors">
+  <h2>Motors</h2>
+  <p class="muted">Eight DC motors maximum (R503), from the approved list (R501, Table 12-1). Every one of them is a brushed 12 V motor with a gearbox and an encoder; the differences are ratio, form factor, and mounting.</p>
+  <div class="grid cols-3">
+    <div class="card accent">
+      <span class="eyebrow">Most common</span><h3>goBILDA Yellow Jacket (5203 / 5204)</h3>
+      <p class="small">One motor, ten gearbox ratios. 5 mm hex output on 5203 (8 mm REX on 5204), built-in encoder, mounts on the goBILDA pattern. Stall current 9.2 A.</p>
+      <ul class="small"><li><strong>312 rpm (19.2:1)</strong>: mecanum drivetrain on 96–104 mm wheels.</li><li><strong>435 rpm (13.7:1)</strong>: faster drivetrain, intake rollers, slide spools.</li><li><strong>117 or 84 rpm</strong>: arm pivots with an extra external stage.</li><li><strong>1150 or 1620 rpm</strong>: flywheels, fast intakes.</li></ul>
+    </div>
+    <div class="card">
+      <span class="eyebrow">REV</span><h3>HD Hex + UltraPlanetary</h3>
+      <p class="small">6000 rpm bare motor with snap-together 3:1, 4:1, and 5:1 cartridges. Build 12:1 (500 rpm) to 60:1 (100 rpm). 5 mm hex output, 8.5 A stall.</p>
+      <ul class="small"><li>Cheaper and lighter than a Yellow Jacket at the same ratio.</li><li>Cartridges wear under drivetrain shock loads; carry spares.</li><li>Nominal ratios are approximate (a "20:1" is 18.9:1). Use the real number for encoder math.</li></ul>
+    </div>
+    <div class="card">
+      <span class="eyebrow">REV</span><h3>Core Hex</h3>
+      <p class="small">125 rpm, 72:1, right-angle female 5 mm hex. Small, cheap, weak (4.4 A stall).</p>
+      <ul class="small"><li>Light mechanisms, indexers, low-speed rollers.</li><li>Too slow and weak for a drivetrain.</li><li>Encoder is 288 counts per output revolution.</li></ul>
+    </div>
+  </div>
+  <figure class="sim" data-sim="motor-picker"></figure>
+  <details class="more">
+    <summary>Yellow Jacket reference table <span class="hint">data</span></summary>
+    <div class="body">
+      <div class="tbl dense"><table>
+        <thead><tr><th>Ratio</th><th class="num">Free speed (rpm)</th><th class="num">Stall torque (kg·cm)</th><th class="num">Encoder ticks / output rev</th><th>Typical job</th></tr></thead>
+        <tbody>
+          <tr><td>1:1</td><td class="num">6000</td><td class="num">1.5</td><td class="num">28</td><td>Flywheel with external reduction</td></tr>
+          <tr><td>3.7:1</td><td class="num">1620</td><td class="num">5.4</td><td class="num">103.8</td><td>Flywheel, fast intake</td></tr>
+          <tr><td>5.2:1</td><td class="num">1150</td><td class="num">7.9</td><td class="num">145.1</td><td>Intake, fast drivetrain with external stage</td></tr>
+          <tr><td>13.7:1</td><td class="num">435</td><td class="num">18.7</td><td class="num">384.5</td><td>Drivetrain (fast), slide spool</td></tr>
+          <tr><td>19.2:1</td><td class="num">312</td><td class="num">24.3</td><td class="num">537.7</td><td>Drivetrain (standard)</td></tr>
+          <tr><td>26.9:1</td><td class="num">223</td><td class="num">38.0</td><td class="num">751.8</td><td>Drivetrain (pushing), heavy slides</td></tr>
+          <tr><td>50.9:1</td><td class="num">117</td><td class="num">68.4</td><td class="num">1425.1</td><td>Arm pivot with external stage</td></tr>
+          <tr><td>71.2:1</td><td class="num">84</td><td class="num">93.6</td><td class="num">1993.6</td><td>Arm pivot, lift winch</td></tr>
+          <tr><td>99.5:1</td><td class="num">60</td><td class="num">133.2</td><td class="num">2786.2</td><td>Slow, heavy arms</td></tr>
+          <tr><td>139:1</td><td class="num">43</td><td class="num">185</td><td class="num">3895.9</td><td>Climbers</td></tr>
+          <tr><td>188:1</td><td class="num">30</td><td class="num">250</td><td class="num">5281.1</td><td>Climbers, rarely</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted">From goBILDA's published specs. All share the same motor (28 counts per revolution at the motor), so ticks per output revolution is 28 × ratio. Peak power is at half of free speed and half of stall torque; design to run there.</p>
+    </div>
+  </details>
+  <details class="more">
+    <summary>Rules and gotchas <span class="hint">detail</span></summary>
+    <div class="body">
+      <ul>
+        <li><strong>R501</strong>: motors must be on the approved list. Yellow Jacket 5000/520x, REV HD Hex and Core Hex, AndyMark NeveRest, Studica Maverick, TETRIX MAX and TorqueNADO, and a few others. No random Amazon motors.</li>
+        <li><strong>R504</strong>: you may swap gearboxes; you may not modify the motor itself.</li>
+        <li><strong>Two motors on one port</strong> is allowed. They will run the same direction and share the encoder port. Fine for two intake rollers, never for a drivetrain.</li>
+        <li>A stalled motor pulls about 9 A. Two stalled motors and the battery sags; four and the Control Hub reboots. Never let the drivetrain push a wall.</li>
+        <li>Motor wires are 18 AWG minimum unless the vendor's attached leads are thinner (R609). Do not extend them with thin servo wire.</li>
+        <li>Encoder cables carry a tiny signal. Route them away from motor power leads and strain-relieve both ends; the encoder side is the one that comes unplugged mid-match.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section id="servos">
+  <h2>Servos</h2>
+  <p class="muted">Eight servos maximum (R503), each under 8 W mechanical output and 4 A stall at 6 V (R502). Bring the spec sheet to inspection for anything not on the pre-approved list.</p>
+  <div class="grid cols-3">
+    <div class="card">
+      <span class="eyebrow">$37</span><h4>goBILDA Dual Mode (Torque / Speed / Super Speed)</h4>
+      <p class="small">300° travel, or continuous rotation via the programmer. Torque: 21.6 kg·cm at 0.20 s/60°. Speed: 9.3 kg·cm at 0.09 s. Super Speed: 4.7 kg·cm at 230 rpm equivalent.</p>
+      <p class="small">The default FTC servo. The 5-turn version (1800°) is the same servo geared for winches and long-travel wrists.</p>
+    </div>
+    <div class="card accent">
+      <span class="eyebrow">$100</span><h4>Axon MAX / MINI (MK2)</h4>
+      <p class="small">MAX: 34 kg·cm at 0.12 s/60°, 78 g, brushless, steel gears, analog position feedback wire, 350°. MINI: 25 kg·cm at 0.09 s, 67 g, low profile.</p>
+      <p class="small">Fast and strong inside the rule. The feedback wire (analog port) lets code know where the claw actually is. Worth it on the claw and wrist; overkill on a flap.</p>
+    </div>
+    <div class="card">
+      <span class="eyebrow">$30</span><h4>REV Smart Robot Servo</h4>
+      <p class="small">13.5 kg·cm, 270° or continuous with the SRS programmer. Reliable, moderate torque, the REV-ecosystem default.</p>
+    </div>
+    <div class="card">
+      <span class="eyebrow">Power</span><h4>REV Servo Power Module (REV-11-1144)</h4>
+      <p class="small">Six channels with their own 6 V, 15 A supply from the battery. Use it when high-torque servos twitch or reset because the hub's 6 V rail sags. Legal power device (R505).</p>
+    </div>
+    <div class="card">
+      <span class="eyebrow">Power</span><h4>REV Servo Hub (REV-11-1855)</h4>
+      <p class="small">Six channels, configurable 5–7.4 V (6 V default), 15 A total, connected over RS485 or USB. Legal (R505). The SDK exposes basic servo control; you still count these toward the eight.</p>
+    </div>
+    <div class="card">
+      <span class="eyebrow">Also legal</span><h4>goBILDA Servo Power Injector, Studica Servo Power Block</h4>
+      <p class="small">Same idea, other vendors. All in Table 12-3. Anything not in that table is not a legal servo power source.</p>
+    </div>
+  </div>
+  <figure class="sim" data-sim="servo-power"></figure>
+  <details class="more">
+    <summary>Servo tips <span class="hint">detail</span></summary>
+    <div class="body">
+      <ul>
+        <li>Program travel limits with the servo programmer <em>before</em> mounting. A servo driving into a hard stop at full torque strips its own gears.</li>
+        <li>Continuous-rotation mode turns a servo into a tiny motor that does not count against the motor limit. Good for indexers and light rollers.</li>
+        <li>Two servos on one port with a Y-cable is legal and useful for a two-servo claw. They must agree; mirror one in code.</li>
+        <li>Servo extension cables lose voltage. Keep runs short and use 22 AWG (the rule minimum for servo leads).</li>
+        <li>A servo holding position under load draws current the whole time. Design so the mechanism rests against a stop, not against the servo.</li>
+        <li>The <code>ServoImplEx</code> class in the SDK lets you set PWM range and disable a servo to save power when idle.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section id="sensors">
+  <h2>Sensors</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Sensor</th><th>Port</th><th>What it tells you</th><th>Use it for</th><th>Watch</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Motor encoder</strong> (built in)</td><td>Encoder</td><td>Shaft position and speed in ticks</td><td>Everything: drive distance, lift height, velocity control</td><td>Reads the motor, not the mechanism; backlash hides in between</td></tr>
+      <tr><td><strong>Control Hub IMU</strong> (built in)</td><td>I²C 0</td><td>Heading, tilt, rotation rate</td><td>Field-centric drive, turns in auto</td><td>Two chip types (BNO055 vs BHI260AP); tell the SDK the hub orientation</td></tr>
+      <tr><td><strong>REV Touch Sensor</strong> ($9)</td><td>Digital</td><td>Pressed or not</td><td>Homing a slide, detecting a game element</td><td>Mount so the mechanism cannot crush it</td></tr>
+      <tr><td><strong>REV Magnetic Limit Switch</strong> ($18)</td><td>Digital</td><td>Magnet nearby or not</td><td>Limit switch with no moving part to break</td><td>About 10 mm range; needs a magnet on the moving part</td></tr>
+      <tr><td><strong>REV Color Sensor V3</strong> ($21)</td><td>I²C</td><td>RGB color and proximity to about 10 cm</td><td>Is there a game element in the intake, and which color</td><td>Ambient light shifts readings; calibrate at the venue</td></tr>
+      <tr><td><strong>REV 2 m Distance Sensor</strong> ($32)</td><td>I²C</td><td>Distance 5–200 cm, time of flight</td><td>Distance to a wall or goal for alignment</td><td>Slow to read (tens of ms); same I²C address as the color sensor, so separate buses</td></tr>
+      <tr><td><strong>REV Through Bore Encoder</strong> ($48)</td><td>Encoder or analog</td><td>8192 counts per rev, or absolute angle over PWM</td><td>Arm or turret angle measured at the joint itself</td><td>Mount on the output shaft, hex bore with inserts</td></tr>
+      <tr><td><strong>Potentiometer</strong></td><td>Analog</td><td>Absolute angle as a voltage</td><td>Arm angle with no homing</td><td>Limited rotation; wears eventually</td></tr>
+      <tr><td><strong>Axon feedback wire</strong></td><td>Analog</td><td>Actual servo position</td><td>Knowing the claw closed</td><td>Needs an analog port per servo</td></tr>
+      <tr><td><strong>Dead-wheel pods</strong> (goBILDA 4-bar, $100 each)</td><td>Encoder or Pinpoint</td><td>Floor distance without wheel slip</td><td>Autonomous localization</td><td>Spring-loaded; keep the wheel clean</td></tr>
+      <tr><td><strong>goBILDA Pinpoint V2</strong> ($80)</td><td>I²C</td><td>x, y, heading fused from two pods and its own IMU</td><td>Localization with zero math on the hub</td><td>Needs two pods mounted at right angles</td></tr>
+      <tr><td><strong>SparkFun OTOS</strong> ($85)</td><td>I²C</td><td>x, y, heading from an optical floor sensor</td><td>Localization with no wheels</td><td>Must sit 10 mm off the tile; 3–5% scale error to calibrate out</td></tr>
+      <tr><td><strong>Webcam</strong> (Logitech C270 ~$25, C920 ~$65)</td><td>USB</td><td>Video for AprilTags and color pipelines on the hub</td><td>AprilTag localization, element detection</td><td>Processing costs loop time; C920 needs more power</td></tr>
+      <tr><td><strong>Limelight 3A</strong> ($189)</td><td>USB</td><td>AprilTag pose, color targets, neural detections, processed on-board</td><td>Vision without loading the Control Hub</td><td>Only programmable vision coprocessor allowed (R702); one per hub; Limelight 3G and 4 are not legal</td></tr>
+      <tr><td><strong>HuskyLens</strong> ($35)</td><td>I²C</td><td>Tags, colors, objects, lines on a low-res camera</td><td>Cheap object detection</td><td>Low precision; fine for "is it there," not for pose</td></tr>
+      <tr><td><strong>OctoQuad</strong></td><td>USB or I²C</td><td>Eight encoder channels, odometry math</td><td>More encoders than hub ports</td><td>Legal (R702 example); firmware in the SDK</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid cols-3">
+    <div class="card"><span class="eyebrow">Minimum</span><h4>Every robot</h4><ul class="small"><li>Limit switch on every slide and arm for homing</li><li>Sensor in the intake so the code knows it has the element</li><li>The IMU, configured for the hub's orientation</li></ul></div>
+    <div class="card"><span class="eyebrow">Serious auto</span><h4>Add</h4><ul class="small"><li>Two dead-wheel pods and a Pinpoint, or an OTOS</li><li>A webcam or Limelight for AprilTag correction</li><li>Through-bore encoder on any arm you position in auto</li></ul></div>
+    <div class="card"><span class="eyebrow">Control Award</span><h4>Document</h4><ul class="small"><li>Which sensor solves which problem</li><li>Before-and-after data (consistency, cycle time)</li><li>A wiring diagram and a sensor placement photo</li></ul></div>
+  </div>
+  <details class="more">
+    <summary>I²C, digital, analog: which port for what <span class="hint">detail</span></summary>
+    <div class="body">
+      <ul>
+        <li><strong>I²C</strong> is a shared two-wire bus. Each hub has four. Two sensors with the same address (color V3 and 2 m distance are both 0x52) cannot share a bus. Spread sensors across buses; every I²C read costs loop time.</li>
+        <li><strong>Digital</strong> ports read on/off. Each JST port carries two channels (0 and 1, 2 and 3). REV touch sensors use the second channel (n+1) of the port they are plugged into; this trips up everyone once.</li>
+        <li><strong>Analog</strong> ports read 0–3.3 V. Two channels per port, same idea.</li>
+        <li><strong>Encoder</strong> ports are quadrature inputs paired with each motor port, but you can plug a dead-wheel pod or through-bore encoder into an encoder port whose motor slot is empty or whose motor does not need one.</li>
+        <li>Sensor cables are 28 AWG signal wire (R609). Buy them premade; do not crimp JST PH by hand.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section id="power">
+  <h2>Power</h2>
+  <div class="grid cols-2">
+    <div class="card">
+      <h3>Battery and main power</h3>
+      <ul>
+        <li><strong>R601</strong>: exactly one approved 12 V NiMH battery (REV, goBILDA, AndyMark, TETRIX, Studica, Matrix, WATTOS). No LiPo, no LiFePO4, no second main battery.</li>
+        <li>The battery's built-in fuse may be replaced only with a COTS 20 A ATM mini blade fuse. You may swap connectors to XT30, Anderson Powerpole, or equivalent.</li>
+        <li><strong>R603</strong>: exactly one approved main power switch, reachable without touching a mechanism, away from pinch points. Label it.</li>
+        <li><strong>R602</strong>: a COTS USB power bank under 100 Wh may power only isolated things: a powered USB hub, a phone Robot Controller, a self-contained camera.</li>
+        <li><strong>R605</strong>: the frame is not a current path. Grounding is only through an approved resistive strap.</li>
+      </ul>
+    </div>
+    <figure class="sim" data-sim="current-budget"></figure>
+  </div>
+  <details class="more">
+    <summary>Battery care <span class="hint">detail</span></summary>
+    <div class="body">
+      <ul>
+        <li>A full NiMH pack reads about 13.5–14 V off the charger and sags toward 12 V under load. Swap below 12.5 V at rest; matches get slow and servos get flaky below that.</li>
+        <li>Use the vendor's smart charger. Do not leave packs on a dumb charger overnight.</li>
+        <li>Number every battery and rotate. Retire any pack that is swollen, gets hot charging, or drops voltage fast.</li>
+        <li>Four batteries and a charger is the minimum for a competition day.</li>
+        <li>Strap the battery down so it cannot shift. A battery that slides into a mechanism ends a match.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section id="wiring">
+  <h2>Wiring rules and practice</h2>
+  <div class="grid cols-2">
+    <div class="card">
+      <h3>The rules (R609–R613)</h3>
+      <dl class="kv">
+        <dt>18 AWG</dt><dd>Main 12 V battery wiring and motor power (circuits carrying 11–20 A)</dd>
+        <dt>22 AWG</dt><dd>Servo and PWM leads, LEDs, small motors (Core Hex), anything ≤10 A</dd>
+        <dt>28 AWG</dt><dd>Signal only: I²C, digital, analog, encoder, RS485</dd>
+        <dt>Colors</dt><dd>Positive is red, yellow, white, brown, or black with a stripe. Ground is black or blue.</dd>
+        <dt>Custom circuits</dt><dd>Allowed, but they may not output more than 5 V regulated (except LEDs) and may not sit in the battery → switch → hub → actuator power path. No buck or boost converters on servo power.</dd>
+        <dt>Connectors</dt><dd>Vendor-attached wires are exempt from gauge rules. Do not parallel small wires to fake a bigger one.</dd>
+      </dl>
+    </div>
+    <div class="card">
+      <h3>Good practice</h3>
+      <ul>
+        <li><strong>Strain relief everything.</strong> A zip tie or cable anchor within two inches of every connector. Most match disconnects are a JST pulled loose by a moving wire.</li>
+        <li><strong>Service loops</strong> on anything that moves. Move the mechanism by hand through full travel and watch every wire.</li>
+        <li><strong>Label both ends</strong> of every cable with the port name from the configuration. Tape and a fine marker.</li>
+        <li><strong>Route signal wires away from motor power</strong> where you can. Twisted encoder cables pick up less noise.</li>
+        <li><strong>Hubs where you can see the LEDs and reach the USB port</strong> (R606 and your own sanity).</li>
+        <li><strong>XT30s click.</strong> If one does not click, the pins are worn; replace it before the event.</li>
+        <li>Keep a printed wiring diagram in the pit binder. Judges and inspectors both like it, and you will need it at 7:45 AM.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="grid cols-2">
+    <div class="card">
+      <h4>Inspection checklist (electrical)</h4>
+      <ul class="small">
+        <li>One approved battery, one approved switch, fuse intact</li>
+        <li>Motor and servo count within 8 and 8; all motors on the approved list</li>
+        <li>Servo spec sheets for anything not pre-approved</li>
+        <li>Wire gauges and colors per R609–R610</li>
+        <li>No frame grounding except an approved strap</li>
+        <li>Control Hub Wi-Fi renamed and password changed; Bluetooth off</li>
+        <li>Robot Controller and Driver Station app versions match and are current</li>
+        <li>Hubs, fuse, and wiring visible on request</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Field kit</h4>
+      <ul class="small">
+        <li>Spare XT30 pigtails, JST PH sensor cables in every length, servo extensions</li>
+        <li>Spare Yellow Jacket in your drivetrain ratio, spare servo of each type</li>
+        <li>Multimeter, wire strippers, crimper if you use Powerpoles, heat shrink, lighter</li>
+        <li>USB-C cable that works and a spare</li>
+        <li>A spare Control Hub if the budget allows; nothing else on the robot is a single point of failure the same way</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="esd">
+  <h2>Static discharge (ESD)</h2>
+  <div class="grid cols-2">
+    <div class="card">
+      <h4>What happens</h4>
+      <ul>
+        <li>Wheels on foam tiles build static on the frame. When a wire or the hub gets close enough, it discharges through the electronics.</li>
+        <li>Symptoms: the robot disconnects for a few seconds mid-match, a sensor stops responding, or the hub reboots when you touch it.</li>
+        <li>Dry venues in winter are the worst.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>What to do</h4>
+      <ul>
+        <li>Follow <a href="https://www.firstinspires.org/sites/default/files/uploads/resource_library/ftc/analysis-esd-mitigation-echin.pdf">FIRST's ESD mitigation guide</a>: an approved resistive grounding strap from the hub's ground to the frame (R605), so charge bleeds off slowly instead of arcing.</li>
+        <li>Mount hubs on plastic or with standoffs, not bare metal to metal, and keep wires from rubbing the frame.</li>
+        <li>Anti-static spray on the wheels helps a little. A fabric-softener sheet wiped on the tiles helps at practice, not at events.</li>
+        <li>Keep every plug clicked and strain-relieved so a brief glitch does not become a lost cable.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="missions">
+  <h2>Missions</h2>
+  <div class="grid cols-2">
+    <div class="mission">
+      <div class="head"><span class="eyebrow">Mission E1</span><span class="lvl"><i class="on"></i><i></i><i></i></span></div>
+      <h3>Wire a hub from scratch</h3>
+      <ul><li>Battery, switch, Control Hub, one motor, one servo, one touch sensor.</li><li>Name them in the configuration, then read all three from a test OpMode on the Driver Hub.</li></ul>
+      <div class="done"><strong>Done when</strong> the motor spins, the servo moves, and the sensor shows on telemetry, and every wire has strain relief.</div>
+    </div>
+    <div class="mission">
+      <div class="head"><span class="eyebrow">Mission E2</span><span class="lvl"><i class="on"></i><i class="on"></i><i></i></span></div>
+      <h3>Servo legality check</h3>
+      <ul><li>Pick three servos you own or want. Find stall torque and speed at 6 V on the spec sheets.</li><li>Compute mechanical power with the rule's formula.</li><li>Decide which are legal and which need a note for inspection.</li></ul>
+      <div class="done"><strong>Done when</strong> you have a one-page servo sheet you could hand an inspector.</div>
+    </div>
+    <div class="mission">
+      <div class="head"><span class="eyebrow">Mission E3</span><span class="lvl"><i class="on"></i><i class="on"></i><i></i></span></div>
+      <h3>Wiring diagram</h3>
+      <ul><li>Draw the full robot wiring: every hub port, device name, wire gauge, and fuse.</li><li>Check it against R601–R613.</li></ul>
+      <div class="done"><strong>Done when</strong> a new member can rewire a hub from the diagram alone, and it goes in the pit binder.</div>
+    </div>
+    <div class="mission">
+      <div class="head"><span class="eyebrow">Mission E4</span><span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+      <h3>Brownout hunt</h3>
+      <ul><li>Log battery voltage from the hub while driving, stalling the drive against a wall, and running the lift.</li><li>Plot it. Find the moment servos misbehave.</li><li>Propose the fix (gearing, a Servo Power Module, driver training) with the data.</li></ul>
+      <div class="done"><strong>Done when</strong> you have a voltage graph with the events labeled and one change that removes the dip.</div>
+    </div>
+  </div>
+</section>
+  </main>
+</div>
+<footer class="site-footer">
+  <div class="inner">
+    <span>Everything FTC · a Broncobots handbook · not affiliated with <em>FIRST</em>. Rules quoted here can go stale; the <a href="https://ftc-resources.firstinspires.org/ftc/game/manual">Competition Manual</a> always wins.</span>
+    <span><a href="https://github.com/ElMagoCT/ftc-handbook">Edit on GitHub</a> · <a href="glossary.html">Glossary</a> · <a href="resources.html">Resources</a></span>
+  </div>
+</footer>
+<script src="assets/js/glossary.js"></script>
+<script src="assets/js/sims.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
