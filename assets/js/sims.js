@@ -148,15 +148,15 @@
     const names = ["fl", "fr", "bl", "br"];
     let cur = "forward", phase = 0;
     // legend
-    $("text", { x: 400, y: 60, class: "t-acc" }, svg).textContent = "wheel spin";
-    $("text", { x: 400, y: 82 }, svg).textContent = "roller push (per wheel)"; svg.lastChild.classList.add("t-muted");
-    $("text", { x: 400, y: 104 }, svg).textContent = "robot motion";
-    arrow(svg, 380, 56, 395, 56, "fill-acc acc"); arrow(svg, 380, 78, 395, 78, "fill-info info"); arrow(svg, 380, 100, 395, 100, "fill-ok ok");
-    const formula = $("text", { x: 400, y: 160, class: "t-muted" }, svg); formula.textContent = "fl = y + x + r";
-    const f2 = $("text", { x: 400, y: 178, class: "t-muted" }, svg); f2.textContent = "fr = y − x − r";
-    const f3 = $("text", { x: 400, y: 196, class: "t-muted" }, svg); f3.textContent = "bl = y − x + r";
-    const f4 = $("text", { x: 400, y: 214, class: "t-muted" }, svg); f4.textContent = "br = y + x − r";
-    $("text", { x: 400, y: 240, class: "t-muted" }, svg).textContent = "(y = forward, x = strafe, r = rotate)";
+    $("text", { x: 340, y: 60, class: "t-acc" }, svg).textContent = "wheel spin";
+    $("text", { x: 340, y: 82 }, svg).textContent = "roller push (per wheel)"; svg.lastChild.classList.add("t-muted");
+    $("text", { x: 340, y: 104 }, svg).textContent = "robot motion";
+    arrow(svg, 320, 56, 335, 56, "fill-acc acc"); arrow(svg, 320, 78, 335, 78, "fill-info info"); arrow(svg, 320, 100, 335, 100, "fill-ok ok");
+    const formula = $("text", { x: 340, y: 160, class: "t-muted" }, svg); formula.textContent = "fl = y + x + r";
+    const f2 = $("text", { x: 340, y: 178, class: "t-muted" }, svg); f2.textContent = "fr = y − x − r";
+    const f3 = $("text", { x: 340, y: 196, class: "t-muted" }, svg); f3.textContent = "bl = y − x + r";
+    const f4 = $("text", { x: 340, y: 214, class: "t-muted" }, svg); f4.textContent = "br = y + x − r";
+    $("text", { x: 340, y: 240, class: "t-muted" }, svg).textContent = "(y = forward, x = strafe, r = rotate)";
     function draw() {
       const p = moves[cur];
       let nx = 0, ny = 0;
@@ -234,7 +234,7 @@
     const plate = $("rect", { width: 70, height: 16, rx: 3, class: "fill-soft acc", "stroke-width": 1.5 }, svg);
     const beltG = $("g", { class: "info" }, svg);
     const pins = [0, 1, 2, 3].map(() => $("circle", { r: 5, class: "fill-surface border", "stroke-width": 1.5 }, svg));
-    const plateAngleTxt = $("text", { x: 400, y: 60 }, svg);
+    const plateAngleTxt = $("text", { x: 340, y: 60 }, svg);
     const R = readouts(readout, [["tilt", "Plate tilt"], ["reach", "Horizontal reach"], ["height", "Height"]]);
     function draw() {
       const th = rad(theta);

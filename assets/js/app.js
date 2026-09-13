@@ -361,7 +361,9 @@
       } catch (e) { /* offline or file:// — skip page */ }
     }));
     for (const k of glossKeys) idx.push({ page: "Glossary", file: "glossary.html", id: k, title: GLOSS[k].term, text: GLOSS[k].def });
-    searchIndex = idx;
+    // de-duplicate entries that point at the same place (a card title indexed as both heading and card)
+    const seenKeys = new Set();
+    searchIndex = idx.filter(it => { const key = it.file + "#" + it.id; if (seenKeys.has(key)) return false; seenKeys.add(key); return true; });
     try { sessionStorage.setItem("ftc-search-index", JSON.stringify(idx)); } catch (e) {}
     return idx;
   }
