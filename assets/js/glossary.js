@@ -9,7 +9,7 @@
    ========================================================= */
 window.GLOSSARY = {
   /* ---- programs & culture ---- */
-  "ftc": { term: "FTC", aliases: ["FIRST Tech Challenge"], def: "FIRST Tech Challenge. A robotics league for grades 7–12 where teams build an 18-inch robot from off-the-shelf and custom parts, then compete in 2-vs-2 alliance matches and judged awards.", see: ["frc", "fll", "first"] },
+  "ftc": { term: "FTC", aliases: ["FIRST Tech Challenge"], def: "FIRST Tech Challenge. A robotics league for grades 7–12 where teams build a 457 mm (18 in) robot from off-the-shelf and custom parts, then compete in 2-vs-2 alliance matches and judged awards.", see: ["frc", "fll", "first"] },
   "frc": { term: "FRC", aliases: ["FIRST Robotics Competition"], def: "FIRST Robotics Competition. The high-school league above FTC. Bigger robots (around 120 lb), bigger budgets, a six-week-plus build season starting in January.", see: ["ftc"] },
   "fll": { term: "FLL", aliases: ["FIRST LEGO League"], def: "FIRST LEGO League. The LEGO-based program for elementary and middle school. FTC teams often mentor FLL teams as outreach.", see: ["ftc", "outreach"] },
   "first": { term: "FIRST", def: "For Inspiration and Recognition of Science and Technology. The nonprofit that runs FLL, FTC, and FRC. Its stated goal is to get students excited about STEM, not just to hold robot contests." },
@@ -40,12 +40,12 @@ window.GLOSSARY = {
   "worlds": { term: "FIRST Championship", aliases: ["Worlds", "World Championship"], def: "The season-ending international event in Houston each April. Only a small fraction of teams advance." },
   "advancement": { term: "advancement", aliases: ["advancement points"], def: "Since 2025 there is no ordered list. Teams earn points at each event (Inspire 60/30/15, other awards 12/6/3, playoffs 40/20/10/5, alliance captain and draft picks, qualification rank) and the top totals in a region move on.", link: "judging.html#advancement" },
   "inspection": { term: "inspection", aliases: ["robot inspection"], def: "The safety and rules check every robot passes before it can compete. Size, weight, wiring, motor count, and the Robot Controller app version all get checked.", see: ["sizing-cube"] },
-  "sizing-cube": { term: "sizing cube", aliases: ["18-inch cube", "18\" cube", "starting configuration"], def: "The 18 × 18 × 18 inch volume your robot must fit inside at the start of a match (R102). After the start it may expand to 18 × 24 inches horizontally and 29 inches tall (R105), limited mechanically, not by software.", link: "design.html#rules" },
+  "sizing-cube": { term: "sizing cube", aliases: ["18-inch cube", "18\" cube", "starting configuration"], def: "The 457 mm (18 in) cube your robot must fit inside at the start of a match (R102). After the start it may expand to 457 × 610 mm (18 × 24 in) horizontally and 737 mm (29 in) tall (R105), limited mechanically, not by software.", link: "design.html#rules" },
   "scouting": { term: "scouting", def: "Watching other teams' matches and pits and writing down what they can actually do. Used to pick alliance partners and plan match strategy.", see: ["alliance-selection"] },
   "opr": { term: "OPR", def: "Offensive Power Rating. A statistic that estimates how many points a team contributes per match, computed from alliance scores. FTCScout publishes it." },
   "cycle-time": { term: "cycle time", aliases: ["cycle"], def: "How long it takes to grab one game element and score it. Shave a second off your cycle and you gain several points per match. Usually the most important robot metric.", link: "season.html#cycle" },
   "game-element": { term: "game element", aliases: ["game piece", "scoring element"], def: "The objects the game asks you to move and score: rings, cones, pixels, samples. Each season has a new one." },
-  "field": { term: "field", aliases: ["playing field"], def: "A 12 × 12 foot area of foam tiles inside low walls. Field drawings come out at kickoff so you can measure everything in CAD." },
+  "field": { term: "field", aliases: ["playing field"], def: "A 3.66 m (12 ft) square of foam tiles inside low walls. Field drawings come out at kickoff so you can measure everything in CAD." },
   "penalty": { term: "penalty", aliases: ["minor foul", "major foul", "foul"], def: "Points given to the other alliance when you break a rule. Minor and major fouls have different values set each season." },
   "reveal": { term: "reveal video", aliases: ["robot reveal"], def: "A short video teams post showing their finished robot. The best ones, along with the FTC Discord robot showcase, are where design ideas spread." },
 
@@ -143,8 +143,8 @@ window.GLOSSARY = {
   "perimeters": { term: "walls", aliases: ["perimeters", "wall count"], def: "The solid outer shells of a 3D print. Adding walls is the most effective way to make a print stronger." },
   "layer-adhesion": { term: "layer adhesion", aliases: ["layer lines"], def: "How well print layers bond. Prints are weakest between layers, so orient the part so loads run along the layers, not across them." },
   "tolerance": { term: "tolerance", aliases: ["tolerancing"], def: "The gap you design between two parts so they actually fit after manufacturing. Printed holes come out small, so a shaft hole needs extra clearance.", link: "manufacturing.html#tolerance" },
-  "clearance-fit": { term: "clearance fit", aliases: ["loose fit"], def: "A fit with a gap so parts slide or spin freely. Around 0.02 in (0.5 mm) extra for printed parts." },
-  "press-fit": { term: "press fit", aliases: ["interference fit", "tight fit"], def: "A fit with no gap or a slight overlap so parts have to be pushed together and stay put. Around 0.005 in (0.1 mm) for printed parts." },
+  "clearance-fit": { term: "clearance fit", aliases: ["loose fit"], def: "A fit with a gap so parts slide or spin freely. Around 0.5 mm (0.02 in) extra for printed parts." },
+  "press-fit": { term: "press fit", aliases: ["interference fit", "tight fit"], def: "A fit with no gap or a slight overlap so parts have to be pushed together and stay put. Around 0.13 mm (0.005 in) for printed parts." },
   "kerf": { term: "kerf", def: "The width of material a laser, water jet, or saw removes. Offset your cut path by half the kerf or every part comes out small." },
   "water-jet": { term: "water jet", aliases: ["waterjet"], def: "A cutter that fires high-pressure water and abrasive through sheet material. Cuts aluminum plate cleanly with no heat. The software handles kerf for you." },
   "cnc": { term: "CNC", aliases: ["CNC router", "CNC mill"], def: "Computer-controlled cutting. A CNC router or mill carves parts from plate or bar stock from a toolpath generated off your CAD." },
@@ -258,5 +258,5 @@ window.GLOSSARY = {
   "biobuzz": { term: "BIOBUZZ", def: "The 2026–27 FTC game, presented by RTX. Alliances launch POLLEN and NECTAR into the CELLS of a tipping HIVE and place them in FLOWERS on the wall. 30-second auto, 2-minute TeleOp.", link: "history.html" },
   "decode": { term: "DECODE", def: "The 2025–26 FTC game. Score purple and green ARTIFACTS in your GOAL, match PATTERNS on RAMPS to the randomized MOTIF shown on the OBELISK, return to BASE.", link: "history.html" },
   "into-the-deep": { term: "INTO THE DEEP", def: "The 2024–25 FTC game. Collect SAMPLES for the NET ZONE and BASKETS, clip them into SPECIMENS for the CHAMBERS, and ASCEND the SUBMERSIBLE in endgame.", link: "history.html" },
-  "expansion": { term: "expansion limit", aliases: ["expansion"], def: "How far the robot may grow after the match starts. For 2026–27: 18 × 24 inches horizontally and 29 inches tall (R105), enforced mechanically, not by software.", link: "design.html#rules" }
+  "expansion": { term: "expansion limit", aliases: ["expansion"], def: "How far the robot may grow after the match starts. For 2026–27: 457 × 610 mm (18 × 24 in) horizontally and 737 mm (29 in) tall (R105), enforced mechanically, not by software.", link: "design.html#rules" }
 };

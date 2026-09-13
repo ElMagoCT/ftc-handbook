@@ -51,7 +51,19 @@
     const root = document.documentElement;
     for (const k of Object.keys(DEFAULTS)) root.setAttribute("data-" + k, s[k]);
   }
+  // A fresh visitor gets a random (curated) look each visit until they save one.
+  const LOOKS = [
+    { theme: "midnight", accent: "rose", bg: "grid" }, { theme: "midnight", accent: "sky", bg: "dots" }, { theme: "midnight", accent: "mint", bg: "glow" },
+    { theme: "graphite", accent: "amber", bg: "blueprint" }, { theme: "graphite", accent: "lime", bg: "plain" }, { theme: "ocean", accent: "mint", bg: "grid" },
+    { theme: "ocean", accent: "amber", bg: "glow" }, { theme: "ocean", accent: "coral", bg: "dots" }, { theme: "paper", accent: "rose", bg: "dots" },
+    { theme: "paper", accent: "mint", bg: "plain" }, { theme: "daylight", accent: "sky", bg: "grid" }, { theme: "daylight", accent: "coral", bg: "glow" }
+  ];
+  const hasSaved = (() => { try { return !!localStorage.getItem(SETTINGS_KEY); } catch (e) { return false; } })();
   let settings = loadSettings();
+  if (!hasSaved) {
+    const look = LOOKS[Math.floor(Math.random() * LOOKS.length)];
+    settings = Object.assign({}, DEFAULTS, look);
+  }
   applySettings(settings);
   function saveSettings() {
     try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings)); } catch (e) { /* private mode */ }
@@ -96,6 +108,22 @@
     panel.querySelector(".close").addEventListener("click", () => toggle(false));
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") toggle(false); });
     document.body.append(backdrop, panel, fab);
+    if (!hasSaved) {
+      const tip = el("div", { class: "theme-tip", role: "status" });
+      tip.innerHTML = '<button class="close" type="button" aria-label="Dismiss">&times;</button><span class="eyebrow">New look every visit</span><p>You got a random color profile this time. Pick your own and it sticks on this device.</p><div class="row"></div>';
+      const row = tip.querySelector(".row");
+      const cust = el("button", { class: "btn primary", type: "button" }, "Customize");
+      const keep = el("button", { class: "btn", type: "button" }, "Keep this one");
+      const shuffle = el("button", { class: "btn", type: "button" }, "Shuffle");
+      cust.addEventListener("click", () => { tip.remove(); toggle(true); });
+      keep.addEventListener("click", () => { saveSettings(); tip.remove(); });
+      shuffle.addEventListener("click", () => { const look = LOOKS[Math.floor(Math.random() * LOOKS.length)]; settings = Object.assign({}, DEFAULTS, look); applySettings(settings); panel.querySelectorAll(".opts button").forEach(x => x.setAttribute("aria-pressed", String(settings[x.dataset.key] === x.dataset.val))); });
+      tip.querySelector(".close").addEventListener("click", () => tip.remove());
+      row.append(cust, shuffle, keep);
+      document.body.appendChild(tip);
+      // any change made in the panel counts as customizing: save + remove the tip
+      panel.addEventListener("click", (e) => { if (e.target.closest(".opts button")) tip.remove(); });
+    }
   }
 
   /* ---------- helpers ---------- */
@@ -123,6 +151,21 @@
     nav.querySelectorAll("a").forEach(a => { if (a.getAttribute("href") === cur) a.setAttribute("aria-current", "page"); });
     const btn = document.querySelector(".menu-btn");
     if (btn) btn.addEventListener("click", () => { const o = nav.classList.toggle("open"); btn.setAttribute("aria-expanded", String(o)); });
+  }
+
+  /* ---------- overflow hints (nav arrow, wide tables) ---------- */
+  function overflowHints() {
+    const nav = document.querySelector(".main-nav");
+    if (nav && nav.parentElement.classList.contains("main-nav-wrap")) {
+      const wrap = nav.parentElement;
+      const check = () => wrap.classList.toggle("can-scroll", nav.scrollWidth - nav.clientWidth - nav.scrollLeft > 8);
+      nav.addEventListener("scroll", check, { passive: true }); window.addEventListener("resize", check); check();
+      wrap.addEventListener("click", (e) => { if (e.target === wrap) nav.scrollBy({ left: 200, behavior: "smooth" }); });
+    }
+    document.querySelectorAll(".tbl").forEach(t => {
+      const check = () => t.classList.toggle("can-scroll", t.scrollWidth - t.clientWidth - t.scrollLeft > 8);
+      t.addEventListener("scroll", check, { passive: true }); window.addEventListener("resize", check); check();
+    });
   }
 
   /* ---------- headings: ids + TOC + scrollspy ---------- */
@@ -259,7 +302,7 @@
         acceptNode(n) {
           if (!n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
           let p = n.parentElement;
-          while (p && p !== sec) { if (SKIP.has(p.tagName) || p.classList.contains("no-terms") || p.hasAttribute("data-no-terms")) return NodeFilter.FILTER_REJECT; p = p.parentElement; }
+          while (p && p !== sec) { if (SKIP.has(p.tagName.toUpperCase()) || p.namespaceURI === "http://www.w3.org/2000/svg" || p.classList.contains("no-terms") || p.hasAttribute("data-no-terms")) return NodeFilter.FILTER_REJECT; p = p.parentElement; }
           return NodeFilter.FILTER_ACCEPT;
         }
       });
@@ -442,6 +485,7 @@
     buildSettingsPanel();
     copyButtons();
     filterBars();
+    overflowHints();
     footerYear();
     openHashTarget();
     window.addEventListener("hashchange", openHashTarget);

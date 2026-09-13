@@ -18,7 +18,7 @@
 <header class="site-header">
   <div class="header-inner">
     <a class="brand" href="index.html"><span class="brand-mark">FTC</span><span>Everything FTC<small>Broncobots handbook</small></span></a>
-    <nav class="main-nav" id="main-nav" aria-label="Main"></nav>
+    <div class="main-nav-wrap"><nav class="main-nav" id="main-nav" aria-label="Main"></nav></div>
     <div class="header-actions">
       <button class="icon-btn" type="button" data-open-search aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="txt">Search</span><kbd>/</kbd></button>
       <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
@@ -31,7 +31,7 @@
 <div class="hero">
   <span class="eyebrow">Season &amp; Strategy</span>
   <h1>Read the game before you build the robot.</h1>
-  <p class="lede">The teams that win are not the ones with the fanciest mechanism. They are the ones who figured out, in the first week, exactly which points to go after and built the simplest robot that gets them. This page is that first week, plus everything that follows it.</p>
+  <p class="lede">The teams that win are not the ones with the fanciest mechanism.</p><ul class="lede-list"><li>They are the ones who figured out, in the first week, exactly which points to go after and built the simplest robot that gets them.</li><li>This page is that first week, plus everything that follows it.</li></ul>
 </div>
 
 <section id="calendar">
@@ -61,11 +61,12 @@
 
 <section id="kickoff">
   <h2>Kickoff weekend: game analysis</h2>
+  <div class="media rev"><div class="graphic wide" data-graphic="field"></div><div><ul class="compact"><li>The field is 3.66 × 3.66 m (12 × 12 ft) of 610 mm (24 in) foam tiles inside a low wall.</li><li>Field drawings drop at kickoff. Import the STEP into Onshape and measure from CAD, not from the animation.</li><li>Every distance in your cycle-time estimate comes from this square.</li></ul></div></div>
   <p class="muted">Do this before anyone opens Onshape. It takes one long afternoon and it saves a month.</p>
   <ol class="steps">
     <li><strong>Read the manual. The whole thing.</strong> Split the sections across the team, then everyone reads the game rules and robot rules themselves. Write down every number: point values, time limits, expansion limits, protected zones.</li>
     <li><strong>List every way to score.</strong> One row per scoring action. Points in auto, points in TeleOp, points in endgame. Note which ones need a human player and which need the alliance partner.</li>
-    <li><strong>Estimate a cycle time for each.</strong> Walk the field drawing with a tape measure. A robot drives about 3 to 5 feet per second. Add pickup and place time. Be honest, then add 30 percent.</li>
+    <li><strong>Estimate a cycle time for each.</strong> Walk the field drawing with a tape measure. A robot drives about 1 to 1.5 m/s (3–5 ft/s). Add pickup and place time. Be honest, then add 30 percent.</li>
     <li><strong>Compute points per second.</strong> Points divided by cycle time. Sort the table. The top two rows are your robot. Everything else is a bonus for later.</li>
     <li><strong>Check the constraints.</strong> Can a robot reach the high goal inside the expansion limit? How many game elements fit in the 18-inch cube at start? Is defense legal near the scoring zone?</li>
     <li><strong>Pick a strategy, then an architecture.</strong> "Cycle from the loading zone to the low goal, park in endgame" is a strategy. "Mecanum, two-stage slides, roller intake" is an architecture. Strategy first, always.</li>
@@ -97,7 +98,7 @@
       </ul>
     </div>
   </div>
-  <div class="callout tip"><span class="ico">Tip</span><div><p>Watch last year's Worlds finals for any game and count cycles. Top teams typically finish a cycle every 5 to 8 seconds. That number is the target, and it tells you how fast your slides and intake really need to be.</p></div></div>
+  <div class="callout tip"><span class="ico">Tip</span><div><ul><li>Watch last year's Worlds finals for any game and count cycles.</li><li>Top teams typically finish a cycle every 5 to 8 seconds.</li><li>That number is the target, and it tells you how fast your slides and intake really need to be.</li></ul></div></div>
 </section>
 
 <section id="cycle">
@@ -105,9 +106,9 @@
   <p class="muted">Two minutes of TeleOp. Every second you cut from a cycle shows up directly in the score.</p>
   <figure class="sim" data-sim="cycle-calc"></figure>
   <div class="grid cols-3">
-    <div class="card"><span class="eyebrow">Where time goes</span><h4>Driving</h4><p class="small">Usually half the cycle. Faster drivetrain gearing helps less than you think; a driver who does not overshoot helps more. Holonomic drives save the turn-and-line-up time.</p></div>
-    <div class="card"><span class="eyebrow">Where time goes</span><h4>Acquiring</h4><p class="small">The intake. A roller that grabs on contact is one second. A claw that has to be aimed is three. That difference is 20 elements a match.</p></div>
-    <div class="card"><span class="eyebrow">Where time goes</span><h4>Scoring</h4><p class="small">Lift travel and release. Cascade slides and a fast release (a servo flap or a roller kick-out) keep this under two seconds.</p></div>
+    <div class="card"><span class="eyebrow">Where time goes</span><h4>Driving</h4><ul class="small compact"><li>Usually half the cycle.</li><li>Faster drivetrain gearing helps less than you think; a driver who does not overshoot helps more.</li><li>Holonomic drives save the turn-and-line-up time.</li></ul></div>
+    <div class="card"><span class="eyebrow">Where time goes</span><h4>Acquiring</h4><ul class="small compact"><li>The intake.</li><li>A roller that grabs on contact is one second.</li><li>A claw that has to be aimed is three.</li><li>That difference is 20 elements a match.</li></ul></div>
+    <div class="card"><span class="eyebrow">Where time goes</span><h4>Scoring</h4><ul class="small compact"><li>Lift travel and release.</li><li>Cascade slides and a fast release (a servo flap or a roller kick-out) keep this under two seconds.</li></ul></div>
   </div>
   <details class="more">
     <summary>Ways to buy back seconds <span class="hint">detail</span></summary>
@@ -134,7 +135,7 @@
     </div>
     <div class="card">
       <h3>The specialist</h3>
-      <p class="small">Owns one high-value task most teams cannot do (a hard endgame, a high goal, a tricky auto). Pairs well with a cycler partner.</p>
+      <ul class="small compact"><li>Owns one high-value task most teams cannot do (a hard endgame, a high goal, a tricky auto).</li><li>Pairs well with a cycler partner.</li></ul>
       <div class="procon"><div class="pro"><span class="label">Good</span><ul><li>Gets picked in alliance selection</li><li>Strong Innovate story</li></ul></div><div class="con"><span class="label">Watch</span><ul><li>All eggs in one mechanism</li><li>Hard to rank high in quals alone</li></ul></div></div>
     </div>
     <div class="card">
@@ -144,7 +145,7 @@
     </div>
     <div class="card">
       <h3>The everything robot</h3>
-      <p class="small">Tries to do every task. Almost never finished in time. Only viable for veteran teams with a full pre-season of testing.</p>
+      <ul class="small compact"><li>Tries to do every task.</li><li>Almost never finished in time.</li><li>Only viable for veteran teams with a full pre-season of testing.</li></ul>
       <div class="procon"><div class="pro"><span class="label">Good</span><ul><li>Flexible in playoffs</li></ul></div><div class="con"><span class="label">Watch</span><ul><li>Everything is 80 percent done at the first event</li><li>Heavy, slow, complex to maintain</li><li>Two mechanisms fighting for the same space</li></ul></div></div>
     </div>
   </div>
@@ -220,7 +221,7 @@
     <div class="card"><span class="eyebrow">Role</span><h4>Driver</h4><p class="small">Moves the robot. Needs the most practice hours by far. Same person all season if possible.</p></div>
     <div class="card"><span class="eyebrow">Role</span><h4>Operator</h4><p class="small">Runs the mechanisms on the second gamepad. Calls out state ("have it", "up", "clear").</p></div>
     <div class="card"><span class="eyebrow">Role</span><h4>Human player</h4><p class="small">Game-specific. Feeds elements or interacts with the field. Practice this as much as driving.</p></div>
-    <div class="card"><span class="eyebrow">Role</span><h4>Coach</h4><p class="small">Watches the clock and the other alliance. The only person who talks strategy during the match. Can be a student.</p></div>
+    <div class="card"><span class="eyebrow">Role</span><h4>Coach</h4><ul class="small compact"><li>Watches the clock and the other alliance.</li><li>The only person who talks strategy during the match.</li><li>Can be a student.</li></ul></div>
   </div>
   <div class="grid cols-2">
     <div class="card">
@@ -273,7 +274,7 @@
       </ol>
     </div>
   </div>
-  <div class="callout rule"><span class="ico">Rule</span><div><p>Judges are only allowed to use what they learn at this event, this season. Match results, rankings, and social media do not count for judged awards. Your interview and portfolio are the whole picture. <a href="judging.html">More on judging.</a></p></div></div>
+  <div class="callout rule"><span class="ico">Rule</span><div><ul><li>Judges are only allowed to use what they learn at this event, this season.</li><li>Match results, rankings, and social media do not count for judged awards.</li><li>Your interview and portfolio are the whole picture.</li><li><a href="judging.html">More on judging.</a></li></ul></div></div>
 </section>
 
 <section id="missions">
@@ -314,6 +315,7 @@
   </div>
 </footer>
 <script src="assets/js/glossary.js"></script>
+<script src="assets/js/graphics.js"></script>
 <script src="assets/js/sims.js"></script>
 <script src="assets/js/app.js"></script>
 </body>

@@ -18,7 +18,7 @@
 <header class="site-header">
   <div class="header-inner">
     <a class="brand" href="index.html"><span class="brand-mark">FTC</span><span>Everything FTC<small>Broncobots handbook</small></span></a>
-    <nav class="main-nav" id="main-nav" aria-label="Main"></nav>
+    <div class="main-nav-wrap"><nav class="main-nav" id="main-nav" aria-label="Main"></nav></div>
     <div class="header-actions">
       <button class="icon-btn" type="button" data-open-search aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="txt">Search</span><kbd>/</kbd></button>
       <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
@@ -37,12 +37,12 @@
 <section id="patterns">
   <h2>What repeats</h2>
   <div class="grid cols-3">
-    <div class="card"><span class="eyebrow">Almost every year</span><h4>Pick up a thing, put it somewhere higher</h4><p class="small">Skystone, Freight Frenzy, PowerPlay, CENTERSTAGE, INTO THE DEEP. Intake plus lift plus release. The robot you should be able to build in your sleep.</p></div>
-    <div class="card"><span class="eyebrow">Every 3–4 years</span><h4>Launch a ball or ring</h4><p class="small">Velocity Vortex, Ultimate Goal, DECODE, BIOBUZZ. Flywheel with velocity control, an indexer, and vision for aiming. Consistency beats range.</p></div>
-    <div class="card"><span class="eyebrow">Most years</span><h4>Endgame climb or hang</h4><p class="small">Rover Ruckus, CENTERSTAGE, INTO THE DEEP. Hooks on slides, a ratchet, and the courage to start it with 25 seconds left.</p></div>
-    <div class="card"><span class="eyebrow">Recurring</span><h4>Sort or identify by color</h4><p class="small">Rover Ruckus minerals, INTO THE DEEP samples, DECODE artifacts. A color sensor in the intake and a camera for the field.</p></div>
-    <div class="card"><span class="eyebrow">Recurring</span><h4>Randomized autonomous</h4><p class="small">Relic Recovery pictographs, DECODE's MOTIF, most games' randomized start. Vision (now AprilTags) decides the auto path.</p></div>
-    <div class="card"><span class="eyebrow">Recurring</span><h4>Human player</h4><p class="small">Freight Frenzy, PowerPlay, INTO THE DEEP, DECODE, BIOBUZZ. Feeding the robot is a skill. Practice it like driving.</p></div>
+    <div class="card"><span class="eyebrow">Almost every year</span><h4>Pick up a thing, put it somewhere higher</h4><ul class="small compact"><li>Skystone, Freight Frenzy, PowerPlay, CENTERSTAGE, INTO THE DEEP.</li><li>Intake plus lift plus release.</li><li>The robot you should be able to build in your sleep.</li></ul></div>
+    <div class="card"><span class="eyebrow">Every 3–4 years</span><h4>Launch a ball or ring</h4><ul class="small compact"><li>Velocity Vortex, Ultimate Goal, DECODE, BIOBUZZ.</li><li>Flywheel with velocity control, an indexer, and vision for aiming.</li><li>Consistency beats range.</li></ul></div>
+    <div class="card"><span class="eyebrow">Most years</span><h4>Endgame climb or hang</h4><ul class="small compact"><li>Rover Ruckus, CENTERSTAGE, INTO THE DEEP.</li><li>Hooks on slides, a ratchet, and the courage to start it with 25 seconds left.</li></ul></div>
+    <div class="card"><span class="eyebrow">Recurring</span><h4>Sort or identify by color</h4><ul class="small compact"><li>Rover Ruckus minerals, INTO THE DEEP samples, DECODE artifacts.</li><li>A color sensor in the intake and a camera for the field.</li></ul></div>
+    <div class="card"><span class="eyebrow">Recurring</span><h4>Randomized autonomous</h4><ul class="small compact"><li>Relic Recovery pictographs, DECODE's MOTIF, most games' randomized start.</li><li>Vision (now AprilTags) decides the auto path.</li></ul></div>
+    <div class="card"><span class="eyebrow">Recurring</span><h4>Human player</h4><ul class="small compact"><li>Freight Frenzy, PowerPlay, INTO THE DEEP, DECODE, BIOBUZZ.</li><li>Feeding the robot is a skill.</li><li>Practice it like driving.</li></ul></div>
   </div>
 </section>
 
@@ -116,6 +116,7 @@
   </div>
 </footer>
 <script src="assets/js/glossary.js"></script>
+<script src="assets/js/graphics.js"></script>
 <script src="assets/js/sims.js"></script>
 <script src="assets/js/app.js"></script>
 </body>

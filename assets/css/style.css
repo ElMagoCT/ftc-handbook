@@ -523,3 +523,93 @@ figure.sim .btns button[aria-pressed="true"], .btn.primary { background: var(--a
   details.more > .body { display: block !important; }
   a { color: inherit; }
 }
+
+/* ---------- 10. Graphics (assets/js/graphics.js) ---------- */
+.fig.graphic { aspect-ratio: 4 / 3; display: grid; place-items: center; padding: 6px; }
+.fig.graphic svg, .graphic svg.gfx { width: 100%; height: 100%; display: block; }
+.graphic.wide { aspect-ratio: auto; background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px; margin: 0 0 calc(var(--u) * 1.5); }
+.graphic.wide svg { width: 100%; height: auto; }
+.gfx text { font-family: var(--font-mono); font-size: 9.5px; fill: var(--muted); }
+.gfx .g-label { font-size: 9.5px; fill: var(--muted); }
+.gfx .g-body { fill: var(--surface-3); stroke: var(--border-2); stroke-width: 1.5; }
+.gfx .g-outline { stroke: var(--border-2); stroke-width: 1.5; }
+.gfx .g-wheel { fill: var(--surface-2); stroke: var(--text-2); stroke-width: 1.5; }
+.gfx .g-tread { fill: var(--text-2); opacity: .35; }
+.gfx .g-hatch { stroke: var(--text-2); stroke-width: 1.6; opacity: .75; }
+.gfx .g-acc { stroke: var(--accent); fill: var(--accent); }
+.gfx .g-acc-fill { fill: var(--accent); }
+.gfx .g-acc-stroke { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+.gfx .g-ok { stroke: var(--ok); fill: var(--ok); }
+.gfx .g-bad { stroke: var(--bad); fill: var(--bad); }
+.gfx .g-bad-stroke { fill: none; stroke: var(--bad); stroke-width: 1.5; stroke-dasharray: 4 3; }
+.gfx .g-gear { fill: var(--surface-3); stroke: var(--text-2); stroke-width: 1.5; }
+.gfx .g-gear2 { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+.gfx .g-hole { fill: var(--bg-2); stroke: var(--border-2); }
+.gfx .g-ball { fill: var(--warn); stroke: none; }
+.gfx .g-motor { fill: var(--surface-2); stroke: var(--text-2); stroke-width: 1.5; }
+.gfx .g-gearbox { fill: var(--surface-3); stroke: var(--text-2); stroke-width: 1.5; }
+.gfx .g-encoder { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.2; }
+.gfx .g-shaft { fill: var(--text-2); }
+.gfx .g-shaft2 { fill: var(--surface-3); stroke: var(--text-2); stroke-width: 1.5; }
+.gfx .g-compliant { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+.gfx .g-floor { stroke: var(--border-2); stroke-width: 2; }
+.gfx .g-arm { fill: var(--text-2); }
+.gfx .g-arm-line { stroke: var(--text-2); stroke-width: 6; stroke-linecap: round; }
+.gfx .g-arm-line2 { stroke: var(--accent); stroke-width: 5; stroke-linecap: round; }
+.gfx .g-pin { fill: var(--surface); stroke: var(--text-2); stroke-width: 1.5; }
+.gfx .g-slide { fill: var(--surface-3); stroke: var(--text-2); stroke-width: 1.2; }
+.gfx .g-slide2 { fill: var(--surface-2); stroke: var(--text-2); stroke-width: 1.2; }
+.gfx .g-tooth { fill: var(--text-2); }
+.gfx .g-pulley { fill: var(--surface-3); stroke: var(--text-2); stroke-width: 1.5; }
+.gfx .g-belt { stroke: var(--accent); stroke-width: 3; fill: none; }
+.gfx .g-chain { stroke: var(--text-2); stroke-width: 3; fill: none; }
+.gfx .g-cable { stroke: var(--accent); stroke-width: 2; fill: none; }
+.gfx .g-sheath { stroke: var(--text-2); stroke-width: 6; opacity: .25; fill: none; }
+.gfx .g-spring { stroke: var(--accent-2); stroke-width: 2; fill: none; }
+.gfx .g-hood { stroke: var(--text-2); stroke-width: 4; }
+.gfx .g-ring { fill: none; stroke: var(--text-2); stroke-width: 6; }
+.gfx .g-bar { stroke: var(--text-2); stroke-width: 5; stroke-linecap: round; }
+.gfx .g-grid { stroke: var(--border-2); stroke-width: 1; }
+.gfx .g-red { fill: rgba(240,122,122,.5); } .gfx .g-blue { fill: rgba(124,199,255,.5); }
+.gfx .g-panel { fill: var(--surface); stroke: var(--border-2); }
+.gfx .g-ui-title { font-family: var(--font-body); font-size: 13px; font-weight: 700; fill: var(--text); }
+.gfx .g-ui { font-family: var(--font-body); font-size: 11px; fill: var(--muted); }
+.gfx .g-ui-val { font-family: var(--font-body); font-size: 11px; fill: var(--text); }
+.gfx .g-ui-line { stroke: var(--border-2); }
+.gfx .g-ui-icon { fill: var(--accent-soft); stroke: var(--accent); }
+.gfx .g-ui-check { fill: var(--accent); } .gfx .g-ui-check-off { fill: none; stroke: var(--border-2); }
+.gfx .g-ui-tick { stroke: var(--accent-ink); stroke-width: 2; }
+.gfx .g-ui-select { fill: var(--surface-2); stroke: var(--border-2); }
+.gfx .g-ui-select + .g-ui-val + .g-ui-tick { stroke: var(--muted); }
+.gfx .g-node { fill: var(--surface); stroke: var(--border-2); stroke-width: 1.2; }
+.gfx .g-node-q { fill: var(--surface-2); stroke: var(--text-2); stroke-width: 1.2; }
+.gfx .g-node-a { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+.gfx .g-node-w { fill: var(--surface); stroke: var(--warn); stroke-width: 1.5; stroke-dasharray: 4 3; }
+.gfx .g-node-text { font-family: var(--font-body); font-size: 11px; fill: var(--text); }
+.gfx .g-edge { stroke: var(--muted); fill: var(--muted); }
+.gfx .g-edge-text { font-size: 9px; fill: var(--accent); }
+.gfx .g-seg1 { fill: #8b90a0; } .gfx .g-seg2 { fill: var(--bad); } .gfx .g-seg3 { fill: var(--warn); } .gfx .g-seg4 { fill: #c9a24a; } .gfx .g-seg5 { fill: var(--accent-2); } .gfx .g-seg6 { fill: var(--accent); } .gfx .g-seg-ok { fill: var(--ok); }
+.gfx .g-seg-text { font-size: 10px; fill: #0d0e12; font-weight: 700; }
+
+/* ---------- 11. Overflow hints ---------- */
+.main-nav-wrap { position: relative; flex: 1; min-width: 0; display: flex; }
+.main-nav-wrap::after { content: "›"; position: absolute; right: 0; top: 0; bottom: 0; width: 44px; display: grid; place-items: center; color: var(--accent); font-size: 22px; pointer-events: none; background: linear-gradient(90deg, transparent, var(--bg) 60%); opacity: 0; transition: opacity .15s; }
+.main-nav-wrap.can-scroll::after { opacity: 1; }
+.tbl { position: relative; }
+.tbl.can-scroll::after { content: "scroll →"; position: absolute; right: 8px; top: 8px; font: 600 0.62rem var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); background: var(--surface-2); border: 1px solid var(--border); border-radius: 6px; padding: 2px 6px; pointer-events: none; }
+
+/* ---------- 12. Theme tip ---------- */
+.theme-tip { position: fixed; right: 18px; bottom: 74px; z-index: 89; width: min(320px, calc(100vw - 36px)); background: var(--surface); border: 1px solid var(--border-2); border-radius: 14px; box-shadow: var(--shadow); padding: 14px 16px; animation: pop .14s ease-out; }
+.theme-tip .eyebrow { display: block; margin-bottom: 4px; }
+.theme-tip p { font-size: 0.9rem; color: var(--text-2); margin: 0 0 10px; }
+.theme-tip .row { display: flex; gap: 6px; flex-wrap: wrap; }
+.theme-tip .close { position: absolute; top: 8px; right: 10px; border: 0; background: none; color: var(--muted); font-size: 18px; cursor: pointer; }
+@media (max-width: 760px) { .main-nav-wrap::after { display: none; } }
+
+/* ---------- 13. Compact lists (de-paragraphed content) ---------- */
+ul.compact, ul.small.compact { margin: 0 0 6px; padding-left: 1.15em; }
+ul.compact li { margin-bottom: 3px; }
+.card ul.compact:last-child, .mission ul.compact:last-child { margin-bottom: 0; }
+.lede-list { margin: 10px 0 0; padding-left: 1.2em; color: var(--text-2); max-width: 70ch; }
+.lede-list li { margin-bottom: 4px; }
+.callout ul { margin: 0; padding-left: 1.15em; }

@@ -18,7 +18,7 @@
 <header class="site-header">
   <div class="header-inner">
     <a class="brand" href="index.html"><span class="brand-mark">FTC</span><span>Everything FTC<small>Broncobots handbook</small></span></a>
-    <nav class="main-nav" id="main-nav" aria-label="Main"></nav>
+    <div class="main-nav-wrap"><nav class="main-nav" id="main-nav" aria-label="Main"></nav></div>
     <div class="header-actions">
       <button class="icon-btn" type="button" data-open-search aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="txt">Search</span><kbd>/</kbd></button>
       <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
@@ -31,7 +31,7 @@
 <div class="hero">
   <span class="eyebrow">Onshape</span>
   <h1>Every tool you will actually use, and the judgment call behind each one.</h1>
-  <p class="lede">Onshape is browser-based, free for students, and built for teams editing the same robot at once. This page follows the same ground as the <em>Onshape Zero to Pro</em> series but is grouped for searching, not for watching in order. Open a section, find the tool, read the one-line rule, expand for the rest.</p>
+  <p class="lede">Onshape is browser-based, free for students, and built for teams editing the same robot at once.</p><ul class="lede-list"><li>This page follows the same ground as the <em>Onshape Zero to Pro</em> series but is grouped for searching, not for watching in order.</li><li>Open a section, find the tool, read the one-line rule, expand for the rest.</li></ul>
   <div class="hero-meta"><span class="chip">Reference, not a course</span><span class="chip acc">Judgment calls in bold</span><span class="chip">Shortcuts in <kbd>keys</kbd></span></div>
 </div>
 
@@ -90,12 +90,12 @@
     <div class="card"><span class="eyebrow"><kbd>L</kbd></span><h4>Line / polyline</h4><p class="small">Chain clicks, <kbd>Esc</kbd> to end. Click-drag off an endpoint for a tangent arc.</p></div>
     <div class="card"><span class="eyebrow"><kbd>R</kbd></span><h4>Rectangle</h4><p class="small"><strong>Center-point rectangle on the origin</strong> for anything symmetric: two dimensions lock it, and it grows both ways when a dimension changes.</p></div>
     <div class="card"><span class="eyebrow"><kbd>C</kbd></span><h4>Circle</h4><p class="small">Center-point or 3-point. Pick based on which dimension you actually know.</p></div>
-    <div class="card"><span class="eyebrow"><kbd>Q</kbd></span><h4>Construction toggle</h4><p class="small">Construction geometry still constrains and dimensions. It never forms a region. Centerlines are for revolve axes and diameter dimensions.</p></div>
-    <div class="card"><span class="eyebrow"><kbd>D</kbd></span><h4>Dimension</h4><p class="small">Smart dimension auto-detects length, angle, radius, diameter. Type a variable name (<code>#wall</code>) instead of a number when it might change.</p></div>
+    <div class="card"><span class="eyebrow"><kbd>Q</kbd></span><h4>Construction toggle</h4><ul class="small compact"><li>Construction geometry still constrains and dimensions.</li><li>It never forms a region.</li><li>Centerlines are for revolve axes and diameter dimensions.</li></ul></div>
+    <div class="card"><span class="eyebrow"><kbd>D</kbd></span><h4>Dimension</h4><ul class="small compact"><li>Smart dimension auto-detects length, angle, radius, diameter.</li><li>Type a variable name (<code>#wall</code>) instead of a number when it might change.</li></ul></div>
     <div class="card"><span class="eyebrow">Tool</span><h4>Slot</h4><p class="small">Straight or arc. Beats two lines and two arcs every time because it stays a slot when you resize it.</p></div>
-    <div class="card"><span class="eyebrow">Tool</span><h4>Polygon</h4><p class="small">Inscribed vs circumscribed. Hex shaft holes are circumscribed on the across-flats size (5 mm for FTC hex, 8 mm for goBILDA REX).</p></div>
-    <div class="card"><span class="eyebrow">Tool</span><h4>Spline</h4><p class="small">Interpolate passes through points; control-point pulls the curve. Minimize points. A bad spline becomes a bad loft.</p></div>
-    <div class="card"><span class="eyebrow">Tool</span><h4>Use / Project</h4><p class="small">Pull an existing 3D edge into the sketch as a live-linked reference. Great for matching a hole pattern, dangerous if the edge gets deleted later.</p></div>
+    <div class="card"><span class="eyebrow">Tool</span><h4>Polygon</h4><ul class="small compact"><li>Inscribed vs circumscribed.</li><li>Hex shaft holes are circumscribed on the across-flats size (5 mm for FTC hex, 8 mm for goBILDA REX).</li></ul></div>
+    <div class="card"><span class="eyebrow">Tool</span><h4>Spline</h4><ul class="small compact"><li>Interpolate passes through points; control-point pulls the curve.</li><li>Minimize points.</li><li>A bad spline becomes a bad loft.</li></ul></div>
+    <div class="card"><span class="eyebrow">Tool</span><h4>Use / Project</h4><ul class="small compact"><li>Pull an existing 3D edge into the sketch as a live-linked reference.</li><li>Great for matching a hole pattern, dangerous if the edge gets deleted later.</li></ul></div>
   </div>
   <h3>Constraints and degrees of freedom</h3>
   <div class="grid cols-2">
@@ -127,19 +127,19 @@
         <li><strong>One constraint at a time, watching the counter.</strong> If it jumps the wrong way, undo.</li>
         <li><strong>Hold <kbd>Shift</kbd> while drawing</strong> to suppress inferred constraints when Onshape keeps snapping to things you do not want. Inferred constraints are real and count against your DOF; they are the source of most red sketches.</li>
       </ol>
-      <p class="small">The constraint manager lists every constraint as a row. Select a row and the geometry highlights. Delete from there instead of hunting glyphs.</p>
+      <ul class="small compact"><li>The constraint manager lists every constraint as a row.</li><li>Select a row and the geometry highlights.</li><li>Delete from there instead of hunting glyphs.</li></ul>
     </div>
   </details>
   <details class="more">
     <summary>Editing and multiplying geometry <span class="hint">detail</span></summary>
     <div class="body">
       <div class="grid cols-2 tight">
-        <div><h4>Trim, extend, split</h4><p class="small">Trim is the most-used sketch tool after line. Trim early to keep sketches clean. Existing constraints on trimmed segments can vanish; recheck the counter.</p></div>
-        <div><h4>Offset</h4><p class="small">Chain an outline and offset it for wall thickness in the sketch when the wall is part of the profile's identity (a slot end, a laser relief). Shell later when it is a finishing operation.</p></div>
-        <div><h4>Mirror and sketch patterns</h4><p class="small">Mirror across a construction line creates symmetric constraints. Linear and circular sketch patterns take a count you can drive with a variable. Pattern the sketch for holes and cuts (fast rebuild). Pattern the feature for complex shapes.</p></div>
-        <div><h4>Images</h4><p class="small">Insert a photo onto a plane, scale it to one known dimension, sketch over it. Traced splines are never truly parametric; snap to round numbers where you can.</p></div>
+        <div><h4>Trim, extend, split</h4><ul class="small compact"><li>Trim is the most-used sketch tool after line.</li><li>Trim early to keep sketches clean.</li><li>Existing constraints on trimmed segments can vanish; recheck the counter.</li></ul></div>
+        <div><h4>Offset</h4><ul class="small compact"><li>Chain an outline and offset it for wall thickness in the sketch when the wall is part of the profile's identity (a slot end, a laser relief).</li><li>Shell later when it is a finishing operation.</li></ul></div>
+        <div><h4>Mirror and sketch patterns</h4><ul class="small compact"><li>Mirror across a construction line creates symmetric constraints.</li><li>Linear and circular sketch patterns take a count you can drive with a variable.</li><li>Pattern the sketch for holes and cuts (fast rebuild).</li><li>Pattern the feature for complex shapes.</li></ul></div>
+        <div><h4>Images</h4><ul class="small compact"><li>Insert a photo onto a plane, scale it to one known dimension, sketch over it.</li><li>Traced splines are never truly parametric; snap to round numbers where you can.</li></ul></div>
       </div>
-      <p class="small"><strong>One sketch, one purpose.</strong> A 5-entity sketch beats a 30-entity sketch. A master sketch that holds the critical dimensions, with everything else referencing it, is the professional pattern.</p>
+      <ul class="small compact"><li><strong>One sketch, one purpose.</strong> A 5-entity sketch beats a 30-entity sketch.</li><li>A master sketch that holds the critical dimensions, with everything else referencing it, is the professional pattern.</li></ul>
     </div>
   </details>
 </section>
@@ -147,12 +147,12 @@
 <section id="creating">
   <h2>Creating geometry</h2>
   <div class="grid cols-4 tight">
-    <div class="card"><h4>Extrude</h4><p class="small">New / Add / Remove / Intersect. Blind or Symmetric nine times out of ten. Through-all and Up-to-face are situational.</p></div>
-    <div class="card"><h4>Revolve</h4><p class="small">Profile plus axis (edge, sketch line, or centerline). Correct for anything rotationally symmetric. Extruding a circle is not the same thing.</p></div>
+    <div class="card"><h4>Extrude</h4><ul class="small compact"><li>New / Add / Remove / Intersect.</li><li>Blind or Symmetric nine times out of ten.</li><li>Through-all and Up-to-face are situational.</li></ul></div>
+    <div class="card"><h4>Revolve</h4><ul class="small compact"><li>Profile plus axis (edge, sketch line, or centerline).</li><li>Correct for anything rotationally symmetric.</li><li>Extruding a circle is not the same thing.</li></ul></div>
     <div class="card"><h4>Sweep</h4><p class="small">One profile along one path. Use pierce to attach the profile. Constant cross-section only.</p></div>
-    <div class="card"><h4>Loft</h4><p class="small">Two or more profiles. Vertex matching and profile order decide smooth versus twisted. Every cross-section stays editable.</p></div>
+    <div class="card"><h4>Loft</h4><ul class="small compact"><li>Two or more profiles.</li><li>Vertex matching and profile order decide smooth versus twisted.</li><li>Every cross-section stays editable.</li></ul></div>
   </div>
-  <div class="callout tip"><span class="ico">Rule</span><div><p><strong>Extrude for prismatic geometry. Revolve for rotational symmetry. Sweep for a constant cross-section along a path. Loft for controlled transitions.</strong> Before you commit, ask: if this dimension changes, how many features break? The answer should be zero.</p></div></div>
+  <div class="callout tip"><span class="ico">Rule</span><div><ul><li><strong>Extrude</strong> for prismatic geometry.</li><li><strong>Revolve</strong> for rotational symmetry.</li><li><strong>Sweep</strong> for a constant cross-section along a path.</li><li><strong>Loft</strong> for controlled transitions.</li><li>Before you commit, ask: if this dimension changes, how many features break? The answer should be zero.</li></ul></div></div>
   <details class="more">
     <summary>Extrude dialog, every option <span class="hint">reference</span></summary>
     <div class="body">
@@ -178,15 +178,15 @@
 <section id="modifying">
   <h2>Modifying geometry</h2>
   <div class="grid cols-3 tight">
-    <div class="card"><h4>Fillet</h4><p class="small"><strong>Fillets go last.</strong> They replace an edge with a face, and anything downstream pointing at that edge dangles. Tangent propagation on by default.</p></div>
-    <div class="card"><h4>Chamfer</h4><p class="small">Equal distance, two-distance, or angle-distance. The manufacturing-correct choice for a lead-in or a deburr on machined parts.</p></div>
-    <div class="card"><h4>Shell</h4><p class="small">Deletes the faces you pick, offsets every remaining face inward. Shell before fillets, or the fillets round the inside too and it fails.</p></div>
-    <div class="card"><h4>Hole</h4><p class="small">Beats extrude-remove for any real hole: standards, clearance and tapped sizes, and drawing callouts for free. Size to real hardware (M3, M4), not round numbers.</p></div>
+    <div class="card"><h4>Fillet</h4><ul class="small compact"><li><strong>Fillets go last.</strong> They replace an edge with a face, and anything downstream pointing at that edge dangles.</li><li>Tangent propagation on by default.</li></ul></div>
+    <div class="card"><h4>Chamfer</h4><ul class="small compact"><li>Equal distance, two-distance, or angle-distance.</li><li>The manufacturing-correct choice for a lead-in or a deburr on machined parts.</li></ul></div>
+    <div class="card"><h4>Shell</h4><ul class="small compact"><li>Deletes the faces you pick, offsets every remaining face inward.</li><li>Shell before fillets, or the fillets round the inside too and it fails.</li></ul></div>
+    <div class="card"><h4>Hole</h4><ul class="small compact"><li>Beats extrude-remove for any real hole: standards, clearance and tapped sizes, and drawing callouts for free.</li><li>Size to real hardware (M3, M4), not round numbers.</li></ul></div>
     <div class="card"><h4>Draft</h4><p class="small">Tilt faces relative to a neutral plane. 1–3° for molding; also a trick to reduce FDM overhangs.</p></div>
     <div class="card"><h4>Rib</h4><p class="small">Stiffener from a sketch line. Adds bending stiffness for little mass on printed brackets.</p></div>
-    <div class="card"><h4>Linear / circular pattern</h4><p class="small">Feature, face, body, or part mode. Count and spacing, or count and distance. Skip instances. <strong>Never pattern a fillet</strong>: pattern the base feature, fillet once at the end.</p></div>
+    <div class="card"><h4>Linear / circular pattern</h4><ul class="small compact"><li>Feature, face, body, or part mode.</li><li>Count and spacing, or count and distance.</li><li>Skip instances.</li><li><strong>Never pattern a fillet</strong>: pattern the base feature, fillet once at the end.</li></ul></div>
     <div class="card"><h4>Mirror</h4><p class="small">Features or bodies across a plane, merged or separate. Left and right drivetrain plates in one operation.</p></div>
-    <div class="card"><h4>Move / delete / replace face, Transform</h4><p class="small">Direct editing. Right for imported dumb solids and throwaway tweaks. A regret on any part that needs to stay parametric.</p></div>
+    <div class="card"><h4>Move / delete / replace face, Transform</h4><ul class="small compact"><li>Direct editing.</li><li>Right for imported dumb solids and throwaway tweaks.</li><li>A regret on any part that needs to stay parametric.</li></ul></div>
   </div>
   <details class="more">
     <summary>Order of operations, and why half of all failures are this <span class="hint">detail</span></summary>
@@ -243,9 +243,9 @@
     </div>
   </div>
   <div class="grid cols-3 tight">
-    <div class="card pad-0"><img src="assets/img/mech/onshape-config-variable.jpg" alt="Onshape configuration panel with Length and Width variable inputs" loading="lazy"><div style="padding:10px 14px"><span class="eyebrow">Configuration</span><p class="small">Variable inputs: custom sizes within limits.</p></div></div>
-    <div class="card pad-0"><img src="assets/img/mech/onshape-config-checkbox.jpg" alt="Onshape configuration panel with a checkbox input" loading="lazy"><div style="padding:10px 14px"><span class="eyebrow">Configuration</span><p class="small">Checkbox: turn a feature on or off.</p></div></div>
-    <div class="card pad-0"><img src="assets/img/mech/onshape-config-list.jpg" alt="Onshape configuration panel with a list dropdown" loading="lazy"><div style="padding:10px 14px"><span class="eyebrow">Configuration</span><p class="small">List: named positions or set sizes.</p></div></div>
+    <div class="card pad-0"><div class="graphic" data-graphic="config-variable" style="padding:10px 10px 0"></div><div style="padding:10px 14px"><span class="eyebrow">Configuration</span><p class="small">Variable inputs: custom sizes within limits.</p></div></div>
+    <div class="card pad-0"><div class="graphic" data-graphic="config-checkbox" style="padding:10px 10px 0"></div><div style="padding:10px 14px"><span class="eyebrow">Configuration</span><p class="small">Checkbox: turn a feature on or off.</p></div></div>
+    <div class="card pad-0"><div class="graphic" data-graphic="config-list" style="padding:10px 10px 0"></div><div style="padding:10px 14px"><span class="eyebrow">Configuration</span><p class="small">List: named positions or set sizes.</p></div></div>
   </div>
   <details class="more">
     <summary>Materials, mass properties, and designing for weight <span class="hint">detail</span></summary>
@@ -294,8 +294,8 @@
     <summary>Relations, sub-assemblies, patterns, and Replicate <span class="hint">detail</span></summary>
     <div class="body">
       <div class="grid cols-2 tight">
-        <div><h4>Relation mates</h4><p class="small">Gear (ratio), rack and pinion, screw (pitch), linear. Simulate a two-stage reduction or a slide's string ratio before anything gets machined. They need existing revolute or slider mates first.</p></div>
-        <div><h4>Sub-assemblies</h4><p class="small">One per subsystem (drive module, intake, lift). <strong>Rigid vs flexible</strong> decides whether the mechanism still moves after you nest it. Edit in context from the top level.</p></div>
+        <div><h4>Relation mates</h4><ul class="small compact"><li>Gear (ratio), rack and pinion, screw (pitch), linear.</li><li>Simulate a two-stage reduction or a slide's string ratio before anything gets machined.</li><li>They need existing revolute or slider mates first.</li></ul></div>
+        <div><h4>Sub-assemblies</h4><ul class="small compact"><li>One per subsystem (drive module, intake, lift).</li><li><strong>Rigid vs flexible</strong> decides whether the mechanism still moves after you nest it.</li><li>Edit in context from the top level.</li></ul></div>
         <div><h4>Assembly patterns</h4><p class="small">Linear, circular, or by mate connector. Four wheel modules from one. Mirror for left and right.</p></div>
         <div><h4>Replicate</h4><p class="small">Places a fastener at every matching hole in one click. This is the tool that makes screws worth modeling.</p></div>
       </div>
@@ -363,7 +363,7 @@
         <li>Base flange and edge flange do almost everything. Hem, tab, and manual bend for the rest.</li>
         <li><strong>Design in the bent state and let Onshape compute the flat.</strong> Export the flat pattern as DXF for the water jet or laser.</li>
         <li>Minimum flange length about four times material thickness. Wrong relief type tears the corner.</li>
-        <li>FTC use: brackets, battery trays, side plates from 1/16 to 1/8 in aluminum. See <a href="manufacturing.html#sheet">Manufacturing</a>.</li>
+        <li>FTC use: brackets, battery trays, side plates from 1.6 to 3.2 mm (1/16 to 1/8 in) aluminum. See <a href="manufacturing.html#sheet">Manufacturing</a>.</li>
       </ul>
     </div>
     <div class="card">
@@ -438,7 +438,7 @@
         <p class="small"><strong>Before sharing:</strong> features named, variables extracted, version created, BOM accurate.</p>
         <p class="small"><strong>Before manufacturing:</strong> material assigned, mass reviewed, tolerances called out, interference check passed, export units checked.</p>
         <p class="small"><strong>Before competition:</strong> version tagged with the event name, branches merged, archive copy made.</p>
-        <p class="small"><strong>The final test:</strong> if the motor bore diameter changes, how many features break? The answer should be zero.</p>
+        <ul class="small compact"><li><strong>The final test:</strong> if the motor bore diameter changes, how many features break?</li><li>The answer should be zero.</li></ul>
       </div></details>
     </div>
   </div>
@@ -500,7 +500,7 @@
       <tr><td>Make a plate with a goBILDA hole pattern</td><td>Sketch on origin plane, one circle, sketch linear pattern at 8 mm</td><td>Drive the count with a variable</td></tr>
       <tr><td>Fit a 5 mm hex shaft</td><td>Polygon, 6 sides, circumscribed on the across-flats size, plus print tolerance</td><td>Hole tool does not do hex</td></tr>
       <tr><td>Round every outside edge</td><td>Fillet with tangent propagation</td><td>Last feature in the tree</td></tr>
-      <tr><td>Lighten a plate</td><td>Sketch pattern of triangles or hexes, extrude remove</td><td>Keep 0.1 in minimum web</td></tr>
+      <tr><td>Lighten a plate</td><td>Sketch pattern of triangles or hexes, extrude remove</td><td>Keep a 2.5 mm (0.1 in) minimum web</td></tr>
       <tr><td>Try a different arm length</td><td>Variable <code>#arm_length</code> in Variable Studio</td><td>Never type the number twice</td></tr>
       <tr><td>Make an arm that pivots in the assembly</td><td>Explicit mate connector on the pivot in Part Studio, revolute mate with limits</td><td>Ground the chassis first</td></tr>
       <tr><td>Check a two-stage reduction</td><td>Gear relation mates between revolute mates</td><td>Revolutes first, then relations</td></tr>
@@ -557,6 +557,7 @@
   </div>
 </footer>
 <script src="assets/js/glossary.js"></script>
+<script src="assets/js/graphics.js"></script>
 <script src="assets/js/sims.js"></script>
 <script src="assets/js/app.js"></script>
 </body>

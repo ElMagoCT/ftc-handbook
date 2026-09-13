@@ -18,7 +18,7 @@
 <header class="site-header">
   <div class="header-inner">
     <a class="brand" href="index.html"><span class="brand-mark">FTC</span><span>Everything FTC<small>Broncobots handbook</small></span></a>
-    <nav class="main-nav" id="main-nav" aria-label="Main"></nav>
+    <div class="main-nav-wrap"><nav class="main-nav" id="main-nav" aria-label="Main"></nav></div>
     <div class="header-actions">
       <button class="icon-btn" type="button" data-open-search aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="txt">Search</span><kbd>/</kbd></button>
       <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
@@ -61,40 +61,41 @@
       </ul>
     </div>
   </div>
-  <div class="callout tip"><span class="ico">Tip</span><div><p>Judges read dozens of portfolios in a morning. They remember the team that answered the question they asked, showed one clear number per claim, and had every member say something. They do not remember the longest presentation.</p></div></div>
+  <div class="callout tip"><span class="ico">Tip</span><div><ul><li>Judges read dozens of portfolios in a morning.</li><li>They remember the team that answered the question they asked, showed one clear number per claim, and had every member say something.</li><li>They do not remember the longest presentation.</li></ul></div></div>
 </section>
 
 <section id="awards">
   <h2>The awards</h2>
-  <p class="muted">Table 6-1 in the manual. Three groups: Inspire and Think stand alone, three <strong>Team Attribute</strong> awards, three <strong>Machine, Creativity &amp; Innovation</strong> awards. Plus Judges' Choice. Motivate and Promote no longer exist.</p>
+  <div class="graphic wide" data-graphic="map-awards"></div>
+  <ul class="compact muted"><li>Table 6-1 in the manual.</li><li>Three groups: Inspire and Think stand alone, three <strong>Team Attribute</strong> awards, three <strong>Machine, Creativity &amp; Innovation</strong> awards.</li><li>Plus Judges' Choice.</li><li>Motivate and Promote no longer exist.</li></ul>
   <div class="grid cols-2">
     <div class="card accent">
       <span class="eyebrow">Top award · portfolio required</span><h3>Inspire Award</h3>
-      <p class="small">For the team that is a strong contender in every other category and shows FIRST values. Worth 60 advancement points to the winner, 30 and 15 to runners-up. Inspire winners almost always advance.</p>
+      <ul class="small compact"><li>For the team that is a strong contender in every other category and shows FIRST values.</li><li>Worth 60 advancement points to the winner, 30 and 15 to runners-up.</li><li>Inspire winners almost always advance.</li></ul>
       <ul class="small"><li>Must be competitive for Think, a Team Attribute award, and a Machine award at the same time.</li><li>Balance is the whole game: a great robot with no outreach does not win it, and neither does the reverse.</li><li>Gracious Professionalism observed all day counts.</li></ul>
     </div>
     <div class="card">
       <span class="eyebrow">Documentation · portfolio required</span><h3>Think Award</h3>
-      <p class="small">For the engineering process, as documented. The portfolio must show at least one of: evidence of an engineering process, lessons learned, comparing design choices, math-based decisions.</p>
+      <ul class="small compact"><li>For the engineering process, as documented.</li><li>The portfolio must show at least one of: evidence of an engineering process, lessons learned, comparing design choices, math-based decisions.</li></ul>
       <ul class="small"><li>Show iterations: what failed, what you measured, what you changed.</li><li>One real calculation (gear ratio for arm torque, cycle time math) beats ten adjectives.</li><li>Cite the notebook or data even though the notebook is not collected.</li></ul>
     </div>
   </div>
   <h3>Team Attribute awards <span class="chip">portfolio not required</span></h3>
   <div class="grid cols-3">
-    <div class="card"><h4>Connect Award</h4><p class="small">Partnerships with the STEM and engineering community, plus a plan to develop the team's skills. Mentors from industry, shop access from a sponsor, visits to engineers, and what you learned from each.</p></div>
-    <div class="card"><h4>Reach Award <span class="chip acc">new 2025</span></h4><p class="small">Bringing new people into FIRST. Recruiting, starting teams, demos that led to sign-ups, mentoring FLL. Judges want who, how many, and what changed for them.</p></div>
-    <div class="card"><h4>Sustain Award <span class="chip acc">new 2025</span></h4><p class="small">Organizational, financial, and leadership sustainability. A budget, a fundraising plan, leadership transitions, how the team survives graduation.</p></div>
+    <div class="card"><h4>Connect Award</h4><ul class="small compact"><li>Partnerships with the STEM and engineering community, plus a plan to develop the team's skills.</li><li>Mentors from industry, shop access from a sponsor, visits to engineers, and what you learned from each.</li></ul></div>
+    <div class="card"><h4>Reach Award <span class="chip acc">new 2025</span></h4><ul class="small compact"><li>Bringing new people into FIRST.</li><li>Recruiting, starting teams, demos that led to sign-ups, mentoring FLL.</li><li>Judges want who, how many, and what changed for them.</li></ul></div>
+    <div class="card"><h4>Sustain Award <span class="chip acc">new 2025</span></h4><ul class="small compact"><li>Organizational, financial, and leadership sustainability.</li><li>A budget, a fundraising plan, leadership transitions, how the team survives graduation.</li></ul></div>
   </div>
   <h3>Machine, Creativity &amp; Innovation awards</h3>
   <div class="grid cols-3">
-    <div class="card"><h4>Innovate Award <span class="chip">sponsored by RTX</span></h4><p class="small">A creative, working robot design or mechanism solving a game challenge in a new way. The design must actually function; a cool idea that does not work is a Think story, not an Innovate one.</p></div>
-    <div class="card"><h4>Control Award <span class="chip">portfolio required</span></h4><p class="small">Sensors and software that make the robot more effective. The portfolio must summarize each control component, the challenge it solves, and how it works. No separate submission form anymore. Full code is not needed; a diagram and a result are.</p></div>
-    <div class="card"><h4>Design Award</h4><p class="small">Industrial design: functional, well built, and looks intentional, with a design process behind it. Clean wiring, thoughtful packaging, a robot that is obviously finished.</p></div>
+    <div class="card"><h4>Innovate Award <span class="chip">sponsored by RTX</span></h4><ul class="small compact"><li>A creative, working robot design or mechanism solving a game challenge in a new way.</li><li>The design must actually function; a cool idea that does not work is a Think story, not an Innovate one.</li></ul></div>
+    <div class="card"><h4>Control Award <span class="chip">portfolio required</span></h4><ul class="small compact"><li>Sensors and software that make the robot more effective.</li><li>The portfolio must summarize each control component, the challenge it solves, and how it works.</li><li>No separate submission form anymore.</li><li>Full code is not needed; a diagram and a result are.</li></ul></div>
+    <div class="card"><h4>Design Award</h4><ul class="small compact"><li>Industrial design: functional, well built, and looks intentional, with a design process behind it.</li><li>Clean wiring, thoughtful packaging, a robot that is obviously finished.</li></ul></div>
   </div>
   <div class="grid cols-3">
     <div class="card"><h4>Judges' Choice</h4><p class="small">Optional and discretionary, but since 2025 it earns advancement points like the other non-Inspire awards (12/6/3).</p></div>
-    <div class="card"><h4>Compass Award</h4><p class="small">For a mentor, nominated by students with a 40–60 second video. Optional, offered at regional championships and the FIRST Championship.</p></div>
-    <div class="card"><h4>FIRST Leadership Award</h4><p class="small">Replaced Dean's List. Two 10th or 11th graders nominated per team. Nominations open in September and close mid-December. Start the essays early.</p></div>
+    <div class="card"><h4>Compass Award</h4><ul class="small compact"><li>For a mentor, nominated by students with a 40–60 second video.</li><li>Optional, offered at regional championships and the FIRST Championship.</li></ul></div>
+    <div class="card"><h4>FIRST Leadership Award</h4><ul class="small compact"><li>Replaced Dean's List.</li><li>Two 10th or 11th graders nominated per team.</li><li>Nominations open in September and close mid-December.</li><li>Start the essays early.</li></ul></div>
   </div>
   <details class="more">
     <summary>How many awards an event gives <span class="hint">Table 6-1</span></summary>
@@ -257,9 +258,9 @@
 <section id="pit">
   <h2>Pit judging</h2>
   <div class="grid cols-3">
-    <div class="card"><h4>Always staffed</h4><p class="small">One or two members in the pit all day who can answer any question about the robot and the season. Rotate so drive team is not stuck there.</p></div>
-    <div class="card"><h4>Something to look at</h4><p class="small">Second portfolio on the table, a photo board or tablet slideshow of outreach, a spare printed part or the v1 mechanism that failed. Judges love the failed one.</p></div>
-    <div class="card"><h4>Look like a team</h4><p class="small">Shirts, a banner, a clean pit. Be friendly to visitors and to the team next to you; judges notice pits from a distance before they walk up.</p></div>
+    <div class="card"><h4>Always staffed</h4><ul class="small compact"><li>One or two members in the pit all day who can answer any question about the robot and the season.</li><li>Rotate so drive team is not stuck there.</li></ul></div>
+    <div class="card"><h4>Something to look at</h4><ul class="small compact"><li>Second portfolio on the table, a photo board or tablet slideshow of outreach, a spare printed part or the v1 mechanism that failed.</li><li>Judges love the failed one.</li></ul></div>
+    <div class="card"><h4>Look like a team</h4><ul class="small compact"><li>Shirts, a banner, a clean pit.</li><li>Be friendly to visitors and to the team next to you; judges notice pits from a distance before they walk up.</li></ul></div>
   </div>
 </section>
 
@@ -392,6 +393,7 @@
   </div>
 </footer>
 <script src="assets/js/glossary.js"></script>
+<script src="assets/js/graphics.js"></script>
 <script src="assets/js/sims.js"></script>
 <script src="assets/js/app.js"></script>
 </body>

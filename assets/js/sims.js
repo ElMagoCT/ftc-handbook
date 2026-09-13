@@ -72,20 +72,32 @@
 
   /* ================= 1. Gear ratio ================= */
   SIMS["gear-ratio"] = (fig) => {
-    const { svg, controls, readout } = stage(fig, 560, 260, "Drag the sliders. Output torque goes up by the same factor speed goes down (minus friction). The same math applies to sprockets and pulleys.");
+    const { svg, controls, readout } = stage(fig, 560, 285, "Drag the sliders. Output torque goes up by the same factor speed goes down, minus about 5% per stage to friction. Same math for sprockets and pulleys.");
     let tIn = 12, tOut = 36, rpmIn = 312, stall = 24.3, angle = 0;
     const gIn = $("path", { class: "fill-surface3 border", "stroke-width": 1.5 }, svg);
     const gOut = $("path", { class: "fill-soft acc", "stroke-width": 1.5 }, svg);
     const dotIn = $("circle", { r: 5, class: "fill-acc" }, svg), dotOut = $("circle", { r: 5, class: "fill-acc" }, svg);
-    const labIn = $("text", { x: 0, y: 245, "text-anchor": "middle" }, svg), labOut = $("text", { x: 0, y: 245, "text-anchor": "middle" }, svg);
+    const tIn_g = $("g", { class: "fill-warn warn" }, svg), tOut_g = $("g", { class: "fill-warn warn" }, svg);
+    const tInTxt = $("text", { class: "t-muted", "text-anchor": "middle" }, svg), tOutTxt = $("text", { class: "t-muted", "text-anchor": "middle" }, svg);
+    const legend = $("text", { x: 280, y: 18, class: "t-muted", "text-anchor": "middle" }, svg); legend.textContent = "orange arc: thickness = torque, length = speed";
+    const labIn = $("text", { x: 0, y: 276, "text-anchor": "middle" }, svg), labOut = $("text", { x: 0, y: 276, "text-anchor": "middle" }, svg);
     const R = readouts(readout, [["ratio", "Ratio"], ["rpm", "Output speed"], ["torque", "Output torque"], ["dir", "Direction"]]);
     const m = 5;
     function layout() {
-      const rIn = tIn * m / 2, rOut = tOut * m / 2, cx1 = 280 - (rIn + rOut) / 2 - 2, cx2 = cx1 + rIn + rOut + 2, cy = 125;
+      const rIn = tIn * m / 2, rOut = tOut * m / 2, cx1 = 280 - (rIn + rOut) / 2 - 2, cx2 = cx1 + rIn + rOut + 2, cy = 140;
       gIn.setAttribute("d", gearPath(0, 0, tIn, m)); gOut.setAttribute("d", gearPath(0, 0, tOut, m));
       gIn.dataset.c = `${cx1},${cy},${rIn}`; gOut.dataset.c = `${cx2},${cy},${rOut}`;
       labIn.setAttribute("x", cx1); labIn.textContent = `input ${tIn}T`; labOut.setAttribute("x", cx2); labOut.textContent = `output ${tOut}T`;
       const ratio = tOut / tIn;
+      // torque arcs: thickness grows with torque, arc length shrinks with speed
+      const drawT = (g, txt, x, r, torque, speed, dir) => {
+        g.innerHTML = ""; const R0 = r + 14; const w = 2 + Math.min(12, torque / 12); const span = Math.min(2.6, 0.6 + speed / 300);
+        const a0 = -Math.PI / 2 - span / 2, a1 = -Math.PI / 2 + span / 2;
+        const p0 = [x + R0 * Math.cos(a0), cy + R0 * Math.sin(a0)], p1 = [x + R0 * Math.cos(a1), cy + R0 * Math.sin(a1)];
+        $("path", { d: `M ${p0[0]} ${p0[1]} A ${R0} ${R0} 0 0 1 ${p1[0]} ${p1[1]}`, fill: "none", "stroke-width": w, "stroke-linecap": "round", transform: dir < 0 ? `scale(-1 1) translate(${-2 * x} 0)` : "" }, g);
+        txt.setAttribute("x", x); txt.setAttribute("y", cy - R0 - w - 6); txt.textContent = `${fmt(torque, 0)} kg·cm · ${fmt(speed, 0)} rpm`;
+      };
+      drawT(tIn_g, tInTxt, cx1, rIn, stall, rpmIn, 1); drawT(tOut_g, tOutTxt, cx2, rOut, stall * ratio, rpmIn / ratio, -1);
       R.ratio.textContent = fmt(ratio, 2) + " : 1"; R.rpm.textContent = fmt(rpmIn / ratio, 0) + " rpm"; R.torque.textContent = fmt(stall * ratio, 0) + " kg·cm"; R.dir.textContent = "reversed";
     }
     slider(controls, "Input teeth", 8, 40, 1, tIn, v => { tIn = v; layout(); });
@@ -188,7 +200,7 @@
 
   /* ================= 4. Drivetrain path comparison ================= */
   SIMS["path-compare"] = (fig) => {
-    const { svg, controls } = stage(fig, 560, 300, "Same target, three drivetrains. Tank has to turn, drive, and turn back. Holonomic drives translate and rotate at the same time, which is why they line up on a goal faster.");
+    const { svg, controls } = stage(fig, 560, 300, "Same target, three drivetrains. Tank must turn to face the goal, drive, then turn back to score. Holonomic drives strafe straight there facing the goal the whole way. The seconds add up every cycle.");
     const lanes = [["Tank", 60], ["Mecanum", 160], ["Swerve", 260]];
     const bots = lanes.map(([name, y]) => {
       $("line", { x1: 40, y1: y, x2: 520, y2: y, class: "border", "stroke-dasharray": "4 6" }, svg);
@@ -206,18 +218,19 @@
     const start = { x: 70, y: 0, a: 0 }; const goal = { x: 490, dy: 0 };
     function pose(kind, tt) {
       // kind-specific choreography; returns {x, dy, a, done}
-      if (kind === "Tank") { // turn 40° (0.5s), drive (2.4s), turn back (0.5s) -> total 3.4
-        const T1 = .5, T2 = 2.4, T3 = .5;
-        if (tt < T1) return { x: 70, dy: 0, a: -40 * tt / T1 };
-        if (tt < T1 + T2) { const k = (tt - T1) / T2; return { x: 70 + 420 * k, dy: -22 * Math.sin(k * Math.PI), a: -40 + 40 * Math.max(0, k - .6) / .4 * 0 - 0 }; }
-        if (tt < T1 + T2 + T3) return { x: 490, dy: 0, a: -40 + 40 * (tt - T1 - T2) / T3 };
+      const ease = k => k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+      if (kind === "Tank") { // turn 90° to face the goal (0.7 s), drive straight (2.2 s), turn back (0.7 s)
+        const T1 = .7, T2 = 2.2, T3 = .7;
+        if (tt < T1) return { x: 70, dy: 0, a: 90 * ease(tt / T1) };
+        if (tt < T1 + T2) return { x: 70 + 420 * ease((tt - T1) / T2), dy: 0, a: 90 };
+        if (tt < T1 + T2 + T3) return { x: 490, dy: 0, a: 90 - 90 * ease((tt - T1 - T2) / T3) };
         return { x: 490, dy: 0, a: 0, done: T1 + T2 + T3 };
       }
-      if (kind === "Mecanum") { const T = 2.6; const k = Math.min(1, tt / T); const e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2; return { x: 70 + 420 * e, dy: -22 * Math.sin(k * Math.PI), a: 0, done: k >= 1 ? T : undefined }; }
-      const T = 2.0; const k = Math.min(1, tt / T); const e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2; return { x: 70 + 420 * e, dy: -22 * Math.sin(k * Math.PI), a: 0, done: k >= 1 ? T : undefined };
+      if (kind === "Mecanum") { const T = 2.6; const k = Math.min(1, tt / T); return { x: 70 + 420 * ease(k), dy: 0, a: 0, done: k >= 1 ? T : undefined }; }
+      const T = 2.0; const k = Math.min(1, tt / T); return { x: 70 + 420 * ease(k), dy: 0, a: 0, done: k >= 1 ? T : undefined };
     }
     animate(fig, (dt) => {
-      t += dt * speed; if (t > 4.6) t = 0;
+      t += dt * speed; if (t > 4.8) t = 0;
       bots.forEach((b, i) => { const p = pose(b.name, t); b.g.setAttribute("transform", `translate(${p.x} ${b.y + p.dy}) rotate(${p.a})`); timeTxt[i].textContent = (p.done ? p.done : t).toFixed(1) + " s"; });
     });
   };
@@ -247,7 +260,11 @@
         const a = (topLen * topLen - sep * sep + d * d) / (2 * d), h2 = topLen * topLen - a * a;
         const h = Math.sqrt(Math.max(0, h2));
         const mx = B.x + a * dx / d, my = B.y + a * dy / d;
-        D = { x: mx - h * dy / d, y: my + h * dx / d };
+        const D1 = { x: mx - h * dy / d, y: my + h * dx / d }, D2 = { x: mx + h * dy / d, y: my - h * dx / d };
+        // the real linkage keeps D on the same side of link AC as B is: pick the candidate nearest to C + (B − A)
+        const ideal = { x: C.x + (B.x - A.x), y: C.y + (B.y - A.y) };
+        D = Math.hypot(D1.x - ideal.x, D1.y - ideal.y) < Math.hypot(D2.x - ideal.x, D2.y - ideal.y) ? D1 : D2;
+        if (h2 < 0) D = ideal; // links cannot reach: show the parallel position rather than garbage
         tilt = deg(Math.atan2(D.x - C.x, -(D.y - C.y))); // 0 when D is straight above C
         link2.setAttribute("x1", B.x); link2.setAttribute("y1", B.y); link2.setAttribute("x2", D.x); link2.setAttribute("y2", D.y); link2.style.display = "";
         beltG.innerHTML = "";
@@ -274,7 +291,7 @@
     buttons(controls, [["4bar", "Four-bar"], ["v4b", "Virtual four-bar"]], mode, v => { mode = v; draw(); });
     const b = H("button", { type: "button" }, "Auto swing"); b.addEventListener("click", () => auto = !auto); controls.querySelector(".btns").appendChild(b);
     draw();
-    animate(fig, (dt, t) => { if (!auto) return; theta = 60 + 55 * Math.sin(t * 1.2); angSl.value = theta; angSl.previousSibling.textContent = `Arm angle: ${Math.round(theta)}°`; draw(); });
+    animate(fig, (dt, t) => { if (!auto) return; theta = 55 + 45 * Math.sin(t * 1.2); angSl.value = theta; angSl.previousSibling.textContent = `Arm angle: ${Math.round(theta)}°`; draw(); });
   };
 
   /* ================= 6. Linear slide rigging ================= */
@@ -373,14 +390,14 @@
   ];
   SIMS["motor-picker"] = (fig) => {
     const { svg, controls, readout } = stage(fig, 560, 240, "goBILDA Yellow Jacket family (same motor, different gearbox). Power peaks at half of free speed, so size mechanisms to run near there, not near stall. Numbers from goBILDA spec sheets; verify before you buy.");
-    let idx = 3, wheelIn = 3.78, extRatio = 1;
+    let idx = 3, wheelMm = 96, extRatio = 1;
     const padL = 50, padB = 36, W = 560, Hh = 240;
     $("line", { x1: padL, y1: 20, x2: padL, y2: Hh - padB, class: "border" }, svg); $("line", { x1: padL, y1: Hh - padB, x2: W - 20, y2: Hh - padB, class: "border" }, svg);
     $("text", { x: W - 20, y: Hh - 14, "text-anchor": "end", class: "t-muted" }, svg).textContent = "speed →";
     $("text", { x: padL + 6, y: 16, class: "t-muted" }, svg).textContent = "torque (accent) · power (blue)";
     const tq = $("line", { class: "acc", "stroke-width": 3 }, svg); const pw = $("path", { fill: "none", class: "info", "stroke-width": 2.5 }, svg);
     const peak = $("circle", { r: 5, class: "fill-info" }, svg); const peakT = $("text", { class: "t-muted" }, svg);
-    const R = readouts(readout, [["rpm", "Free speed"], ["stall", "Stall torque"], ["tpr", "Encoder ticks / rev"], ["wheel", "Wheel speed (ft/s)"], ["peak", "Peak power @"]]);
+    const R = readouts(readout, [["rpm", "Free speed"], ["stall", "Stall torque"], ["tpr", "Encoder ticks / rev"], ["wheel", "Wheel speed"], ["peak", "Peak power @"]]);
     function draw() {
       const [, rpm, stall, tpr] = YJ[idx];
       const x0 = padL, x1 = W - 20, y0 = Hh - padB, y1 = 30;
@@ -389,36 +406,52 @@
       pw.setAttribute("d", d); peak.setAttribute("cx", (x0 + x1) / 2); peak.setAttribute("cy", y0 - 0.85 * (y0 - y1)); peakT.setAttribute("x", (x0 + x1) / 2 + 10); peakT.setAttribute("y", y0 - 0.85 * (y0 - y1) - 8); peakT.textContent = `${fmt(rpm / 2 / extRatio, 0)} rpm, ${fmt(stall / 2 * extRatio, 1)} kg·cm`;
       const outRpm = rpm / extRatio;
       R.rpm.textContent = fmt(outRpm, 0) + " rpm"; R.stall.textContent = fmt(stall * extRatio, 1) + " kg·cm"; R.tpr.textContent = fmt(tpr, 1);
-      R.wheel.textContent = fmt(outRpm / 60 * Math.PI * wheelIn / 12, 1) + " ft/s"; R.peak.textContent = fmt(outRpm / 2, 0) + " rpm";
+      const mps = outRpm / 60 * Math.PI * wheelMm / 1000; R.wheel.textContent = fmt(mps, 2) + " m/s (" + fmt(mps * 3.281, 1) + " ft/s)"; R.peak.textContent = fmt(outRpm / 2, 0) + " rpm";
     }
     select(controls, "Yellow Jacket ratio", YJ.map((m, i) => [i, `${m[0]} — ${m[1]} rpm`]), idx, v => { idx = +v; draw(); });
     slider(controls, "External ratio (after motor)", 1, 5, 0.1, 1, v => { extRatio = v; draw(); }, ":1");
-    select(controls, "Wheel diameter", [["2.95", "75 mm (2.95 in)"], ["3.78", "96 mm (3.78 in)"], ["4.09", "104 mm (4.09 in)"], ["5.5", "5.5 in"]], "3.78", v => { wheelIn = +v; draw(); });
+    select(controls, "Wheel diameter", [["75", "75 mm (2.95 in)"], ["96", "96 mm (3.78 in)"], ["104", "104 mm (4.09 in)"], ["140", "140 mm (5.5 in)"]], "96", v => { wheelMm = +v; draw(); });
     draw();
   };
 
   /* ================= 9. Arm torque calculator ================= */
   SIMS["arm-torque"] = (fig) => {
-    const { svg, controls, readout } = stage(fig, 560, 220, "Torque at the pivot = weight × horizontal distance. It is worst when the arm is level. Compare it to the motor's stall torque after your gear ratio: aim to use less than about 40% of stall so the motor is not cooking itself.");
-    let len = 16, mass = 1.5, angle = 0, ratio = 2, motorStall = 38;
-    const pivot = { x: 140, y: 150 };
-    $("rect", { x: 100, y: 150, width: 80, height: 12, rx: 3, class: "fill-surface3 border" }, svg);
+    const { svg, controls, readout } = stage(fig, 560, 240, "Torque at the pivot is the weight (F) times the horizontal lever arm (r·cos θ). Only the part of the weight perpendicular to the arm (F⊥) makes torque, so it is worst when the arm is level and zero straight up. Compare it to the motor's stall torque after your gear ratio: stay under about 40% of stall or the motor cooks.");
+    let len = 400, mass = 1.5, angle = 0, ratio = 2, motorStall = 38;
+    const pivot = { x: 150, y: 150 };
+    $("rect", { x: 110, y: 150, width: 80, height: 12, rx: 3, class: "fill-surface3 border" }, svg);
     const arm = $("line", { class: "stroke", "stroke-width": 8, "stroke-linecap": "round" }, svg);
     const load = $("circle", { r: 14, class: "fill-soft acc", "stroke-width": 2 }, svg);
-    const gArrow = $("g", { class: "fill-bad bad" }, svg); const lever = $("line", { class: "info", "stroke-dasharray": "4 4" }, svg);
+    const gArrow = $("g", { class: "fill-bad bad" }, svg); const perp = $("g", { class: "fill-warn warn" }, svg);
+    const lever = $("g", { class: "info fill-info" }, svg); const tArc = $("g", { class: "fill-acc acc" }, svg);
+    const labels = { F: $("text", { class: "t-muted" }, svg), r: $("text", { class: "t-muted" }, svg), tau: $("text", { class: "t-acc" }, svg), fp: $("text", { class: "t-muted" }, svg) };
+    const legend = $("g", {}, svg);
+    [["F = m·g  (weight)", "fill-bad bad"], ["F⊥  the part that makes torque", "fill-warn warn"], ["r·cos θ  lever arm", "fill-info info"], ["τ = F · r · cos θ", "fill-acc acc"]].forEach(([t, c], i) => { arrow(legend, 350, 30 + i * 20, 374, 30 + i * 20, c, 2.5); $("text", { x: 382, y: 34 + i * 20, class: "t-muted" }, legend).textContent = t; });
     const R = readouts(readout, [["t", "Torque at pivot"], ["m", "Torque at motor"], ["pct", "% of stall"], ["verdict", "Verdict"]]);
     function draw() {
-      const px = 9; const a = rad(angle); const ex = pivot.x + len * px * Math.cos(a), ey = pivot.y - len * px * Math.sin(a);
+      const px = 0.36; const a = rad(angle); const ex = pivot.x + len * px * Math.cos(a), ey = pivot.y - len * px * Math.sin(a);
       arm.setAttribute("x1", pivot.x); arm.setAttribute("y1", pivot.y); arm.setAttribute("x2", ex); arm.setAttribute("y2", ey); load.setAttribute("cx", ex); load.setAttribute("cy", ey);
-      gArrow.innerHTML = ""; arrow(gArrow, ex, ey + 16, ex, ey + 50, "", 3);
-      lever.setAttribute("x1", pivot.x); lever.setAttribute("y1", pivot.y + 30); lever.setAttribute("x2", ex); lever.setAttribute("y2", pivot.y + 30);
-      const torque = mass * 9.81 * (len * 0.0254) * Math.cos(a); // N·m
+      const Fpx = 22 + mass * 12; // weight vector length scales with mass
+      gArrow.innerHTML = ""; arrow(gArrow, ex, ey + 16, ex, ey + 16 + Fpx, "", 3);
+      // perpendicular component of the weight relative to the arm: F·cos θ, drawn perpendicular to the arm
+      perp.innerHTML = ""; const fp = Fpx * Math.cos(a); const nx = Math.sin(a), ny = Math.cos(a);
+      if (Math.abs(fp) > 2) arrow(perp, ex, ey + 16, ex + nx * fp, ey + 16 + ny * fp, "", 2.5);
+      lever.innerHTML = ""; $("line", { x1: pivot.x, y1: pivot.y + 40, x2: ex, y2: pivot.y + 40, "stroke-width": 2, "stroke-dasharray": "5 4" }, lever);
+      $("line", { x1: ex, y1: ey + 16 + Fpx, x2: ex, y2: pivot.y + 40, "stroke-width": 1, "stroke-dasharray": "2 4", opacity: .6 }, lever);
+      tArc.innerHTML = ""; const rr = 26 + Math.min(40, Math.abs(Math.cos(a)) * 36 * (mass / 2));
+      $("path", { d: `M ${pivot.x} ${pivot.y - rr} A ${rr} ${rr} 0 0 1 ${pivot.x + rr} ${pivot.y}`, fill: "none", "stroke-width": 3.5 }, tArc);
+      $("path", { d: `M ${pivot.x + rr} ${pivot.y} l -9 -12 l 14 -1 z`, stroke: "none" }, tArc);
+      labels.F.setAttribute("x", ex + 10); labels.F.setAttribute("y", ey + 20 + Fpx / 2); labels.F.textContent = "F";
+      labels.fp.setAttribute("x", ex + nx * fp + 8); labels.fp.setAttribute("y", ey + 16 + ny * fp); labels.fp.textContent = Math.abs(fp) > 2 ? "F⊥" : "";
+      labels.r.setAttribute("x", (pivot.x + ex) / 2); labels.r.setAttribute("y", pivot.y + 54); labels.r.setAttribute("text-anchor", "middle"); labels.r.textContent = "r·cos θ = " + fmt(len * Math.cos(a), 0) + " mm";
+      labels.tau.setAttribute("x", pivot.x - 8); labels.tau.setAttribute("y", pivot.y - rr - 6); labels.tau.setAttribute("text-anchor", "end"); labels.tau.textContent = "τ";
+      const torque = mass * 9.81 * (len / 1000) * Math.cos(a); // N·m
       const kgcm = torque * 10.197; const atMotor = kgcm / ratio; const pct = atMotor / motorStall * 100;
-      R.t.textContent = fmt(kgcm, 1) + " kg·cm"; R.m.textContent = fmt(atMotor, 1) + " kg·cm"; R.pct.textContent = fmt(pct, 0) + " %";
+      R.t.textContent = fmt(torque, 2) + " N·m (" + fmt(kgcm, 0) + " kg·cm)"; R.m.textContent = fmt(atMotor, 1) + " kg·cm"; R.pct.textContent = fmt(pct, 0) + " %";
       R.verdict.textContent = pct < 40 ? "comfortable" : pct < 70 ? "hot under load" : pct < 100 ? "will stall when pushed" : "cannot lift";
       R.verdict.style.color = pct < 40 ? "var(--ok)" : pct < 70 ? "var(--warn)" : "var(--bad)";
     }
-    slider(controls, "Arm length", 6, 30, 0.5, len, v => { len = v; draw(); }, " in");
+    slider(controls, "Arm length", 150, 750, 10, len, v => { len = v; draw(); }, " mm");
     slider(controls, "Mass at end", 0.2, 4, 0.1, mass, v => { mass = v; draw(); }, " kg");
     slider(controls, "Arm angle", -30, 90, 1, angle, v => { angle = v; draw(); }, "°");
     slider(controls, "Gear ratio after motor", 1, 10, 0.5, ratio, v => { ratio = v; draw(); }, ":1");
@@ -444,12 +477,12 @@
   /* ================= 11. 3D print tolerance ================= */
   SIMS["tolerance"] = (fig) => {
     const { svg, controls, readout } = stage(fig, 560, 220, "Printed holes come out small and printed pegs come out fat, so you design the gap in. Enclosed shapes get toleranced on every side, which is why a hole needs half the per-side offset you would use on an open edge.");
-    let clearance = 0.01, shape = "hole";
+    let clearance = 0.25, shape = "hole";
     const R = readouts(readout, [["fit", "Fit"], ["cad", "Design offset"], ["use", "Use for"]]);
     const g = $("g", {}, svg);
     function draw() {
       g.innerHTML = "";
-      const cx = 180, cy = 110, r = 55, gap = clearance * 900; // exaggerated
+      const cx = 180, cy = 110, r = 55, gap = clearance * 36; // exaggerated
       if (shape === "hole") {
         $("rect", { x: cx - 110, y: cy - 80, width: 220, height: 160, rx: 8, class: "fill-surface3 border" }, g);
         $("circle", { cx, cy, r: r + gap, class: "fill-surface border", "stroke-width": 1.5 }, g);
@@ -465,20 +498,20 @@
         $("text", { x: 330, y: 70, class: "t-muted" }, g).textContent = "slot in CAD = part + 2 × offset";
         $("text", { x: 330, y: 92, class: "t-muted" }, g).textContent = "(two faces, both toleranced)";
       }
-      $("text", { x: 330, y: 130, class: "t-acc" }, g).textContent = `offset per side ≈ ${fmt(clearance / 2, 3)} in (${fmt(clearance / 2 * 25.4, 2)} mm)`;
-      $("text", { x: 330, y: 152, class: "t-muted" }, g).textContent = `total clearance ${fmt(clearance, 3)} in (${fmt(clearance * 25.4, 2)} mm)`;
-      const fit = clearance <= 0.006 ? ["very tight (press)", "bearings, gears on hex, anything that must not move"] : clearance <= 0.012 ? ["tight (snug)", "shafts you want to spin without wobble, pins"] : ["loose (clearance)", "screws through holes, sliding parts, fast assembly"];
-      R.fit.textContent = fit[0]; R.cad.textContent = "+" + fmt(clearance, 3) + " in total"; R.use.textContent = fit[1];
+      $("text", { x: 330, y: 130, class: "t-acc" }, g).textContent = `offset per side ≈ ${fmt(clearance / 2, 2)} mm (${fmt(clearance / 2 / 25.4, 3)} in)`;
+      $("text", { x: 330, y: 152, class: "t-muted" }, g).textContent = `total clearance ${fmt(clearance, 2)} mm (${fmt(clearance / 25.4, 3)} in)`;
+      const fit = clearance <= 0.15 ? ["very tight (press)", "bearings, gears on hex, anything that must not move"] : clearance <= 0.3 ? ["tight (snug)", "shafts you want to spin without wobble, pins"] : ["loose (clearance)", "screws through holes, sliding parts, fast assembly"];
+      R.fit.textContent = fit[0]; R.cad.textContent = "+" + fmt(clearance, 2) + " mm total"; R.use.textContent = fit[1];
     }
-    slider(controls, "Total clearance", 0.002, 0.03, 0.001, clearance, v => { clearance = v; draw(); }, " in");
+    slider(controls, "Total clearance", 0.05, 0.8, 0.01, clearance, v => { clearance = v; draw(); }, " mm");
     buttons(controls, [["hole", "Round hole"], ["slot", "Slot / sliding fit"]], shape, v => { shape = v; draw(); });
-    buttons(controls, [["0.005", "Very tight"], ["0.01", "Tight"], ["0.02", "Loose"]], "", v => { clearance = +v; controls.querySelector("input[type=range]").value = v; controls.querySelector("input[type=range]").previousSibling.textContent = `Total clearance: ${v} in`; draw(); });
+    buttons(controls, [["0.13", "Very tight"], ["0.25", "Tight"], ["0.5", "Loose"]], "", v => { clearance = +v; controls.querySelector("input[type=range]").value = v; controls.querySelector("input[type=range]").previousSibling.textContent = `Total clearance: ${v} mm`; draw(); });
     draw();
   };
 
   /* ================= 12. Sizing cube ================= */
   SIMS["sizing-cube"] = (fig) => {
-    const { svg, controls, readout } = stage(fig, 560, 280, "The robot starts inside the 18-inch cube, then can expand once the match starts (within the game's expansion rules). Slides that extend past the frame are legal after start; check the current manual for the horizontal expansion limit.");
+    const { svg, controls, readout } = stage(fig, 560, 280, "The robot starts inside a 457 mm (18 in) cube, then may expand once the match starts: 457 × 610 mm (18 × 24 in) horizontally and 737 mm (29 in) tall under the 2026–27 rules, limited mechanically. Check the current manual each season.");
     let ext = 0;
     // isometric-ish cube
     const ox = 150, oy = 210, s = 130, dx = 60, dy = -40;
@@ -486,8 +519,8 @@
     const P = (x, y, z) => [ox + x * s + z * dx, oy - y * s + z * dy];
     const edges = [[[0, 0, 0], [1, 0, 0]], [[1, 0, 0], [1, 1, 0]], [[1, 1, 0], [0, 1, 0]], [[0, 1, 0], [0, 0, 0]], [[0, 0, 1], [1, 0, 1]], [[1, 0, 1], [1, 1, 1]], [[1, 1, 1], [0, 1, 1]], [[0, 1, 1], [0, 0, 1]], [[0, 0, 0], [0, 0, 1]], [[1, 0, 0], [1, 0, 1]], [[1, 1, 0], [1, 1, 1]], [[0, 1, 0], [0, 1, 1]]];
     edges.forEach(([a, b]) => { const [x1, y1] = P(...a), [x2, y2] = P(...b); $("line", { x1, y1, x2, y2 }, cube); });
-    $("text", { x: ox + s / 2, y: oy + 24, "text-anchor": "middle", class: "t-acc" }, svg).textContent = '18"';
-    $("text", { x: ox - 26, y: oy - s / 2, "text-anchor": "middle", class: "t-acc" }, svg).textContent = '18"';
+    $("text", { x: ox + s / 2, y: oy + 24, "text-anchor": "middle", class: "t-acc" }, svg).textContent = '457 mm (18 in)';
+    $("text", { x: ox - 40, y: oy - s / 2, "text-anchor": "middle", class: "t-acc" }, svg).textContent = '457 mm';
     // robot: base + slide
     const base = $("rect", { x: ox + 10, y: oy - 60, width: s - 20, height: 60, rx: 4, class: "fill-surface3 border" }, svg);
     const slide = $("rect", { width: 30, rx: 3, class: "fill-soft acc" }, svg);
@@ -497,7 +530,7 @@
       const sh = 60 + ext * 160; slide.setAttribute("x", ox + s - 50); slide.setAttribute("y", oy - sh); slide.setAttribute("height", sh - 8);
       const aw = 14 + ext * 120; arm.setAttribute("x", ox + s - 50 + 30 - aw); arm.setAttribute("y", oy - sh); arm.setAttribute("width", aw);
       const hIn = 18 * sh / s, reach = 18 * (aw - 30 + s - 20) / s;
-      R.h.textContent = fmt(hIn, 1) + ' in'; R.w.textContent = fmt(Math.max(reach, 18 * (s - 20) / s), 1) + ' in wide';
+      R.h.textContent = fmt(hIn * 25.4, 0) + ' mm (' + fmt(hIn, 1) + ' in)'; const wIn = Math.max(reach, 18 * (s - 20) / s); R.w.textContent = fmt(wIn * 25.4, 0) + ' mm (' + fmt(wIn, 1) + ' in)';
       const ok = ext < 0.02; R.legal.textContent = ok ? "inside cube ✓" : "expanded (after start only)"; R.legal.style.color = ok ? "var(--ok)" : "var(--warn)";
     }
     slider(controls, "Expansion", 0, 100, 1, 0, v => { ext = v / 100; draw(); }, " %");
@@ -572,7 +605,7 @@
     $("path", { d: "M0 -14 l-7 10 h14 z", class: "fill-acc" }, bot);
     // pods: two parallel (left/right), one perpendicular (back)
     $("rect", { x: -20, y: -8, width: 5, height: 16, class: "fill-acc" }, bot); $("rect", { x: 15, y: -8, width: 5, height: 16, class: "fill-acc" }, bot); $("rect", { x: -8, y: 14, width: 16, height: 5, class: "fill-acc" }, bot);
-    const R = readouts(readout, [["x", "x (in)"], ["y", "y (in)"], ["h", "heading"], ["L", "left pod Δ"], ["Rr", "right pod Δ"], ["B", "back pod Δ"]]);
+    const R = readouts(readout, [["x", "x (mm)"], ["y", "y (mm)"], ["h", "heading"], ["L", "left pod Δ"], ["Rr", "right pod Δ"], ["B", "back pod Δ"]]);
     let d = `M${x} ${y}`;
     buttons(controls, [["auto", "Auto drive"], ["keys", "Arrow keys (Q/E rotate)"]], mode, v => { mode = v; if (v === "keys") svg.focus(); });
     svg.setAttribute("tabindex", "0");
@@ -589,7 +622,7 @@
       x = Math.max(45, Math.min(515, x)); y = Math.max(45, Math.min(255, y));
       bot.setAttribute("transform", `translate(${x} ${y}) rotate(${deg(h)})`);
       d += ` L${x.toFixed(1)} ${y.toFixed(1)}`; if (d.length > 4000) d = "M" + d.split(" L").slice(-300).join(" L"); trail.setAttribute("d", d);
-      R.x.textContent = fmt((x - 20) / 520 * 144, 1); R.y.textContent = fmt((280 - y) / 260 * 72, 1); R.h.textContent = fmt(((deg(h) % 360) + 360) % 360, 0) + "°";
+      R.x.textContent = fmt((x - 20) / 520 * 3658, 0); R.y.textContent = fmt((280 - y) / 260 * 1829, 0); R.h.textContent = fmt(((deg(h) % 360) + 360) % 360, 0) + "°";
       R.L.textContent = fmt(dL * 10, 1); R.Rr.textContent = fmt(dR * 10, 1); R.B.textContent = fmt(dB * 10, 1);
     });
   };

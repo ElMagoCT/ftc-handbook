@@ -18,7 +18,7 @@
 <header class="site-header">
   <div class="header-inner">
     <a class="brand" href="index.html"><span class="brand-mark">FTC</span><span>Everything FTC<small>Broncobots handbook</small></span></a>
-    <nav class="main-nav" id="main-nav" aria-label="Main"></nav>
+    <div class="main-nav-wrap"><nav class="main-nav" id="main-nav" aria-label="Main"></nav></div>
     <div class="header-actions">
       <button class="icon-btn" type="button" data-open-search aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="txt">Search</span><kbd>/</kbd></button>
       <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
@@ -86,6 +86,7 @@
 
 <section id="materials">
   <h2>Materials</h2>
+  <div class="graphic wide" data-graphic="map-material"></div>
   <div class="tbl"><table>
     <thead><tr><th>Material</th><th>Density</th><th>Use it for</th><th>Good</th><th>Watch</th></tr></thead>
     <tbody>
@@ -101,7 +102,7 @@
       <tr><td><strong>PVC pipe</strong></td><td>1.4</td><td>Prototype arm extensions</td><td>Cheap, everywhere</td><td>Brittle; never laser cut it (chlorine gas)</td></tr>
     </tbody>
   </table></div>
-  <div class="callout tip"><span class="ico">Tip</span><div><p>Aluminum for anything that carries load. Polycarbonate for anything that guides a game element. Printed plastic for anything with a complicated shape that does not carry much load. That rule of thumb covers 90 percent of an FTC robot.</p></div></div>
+  <div class="callout tip"><span class="ico">Tip</span><div><ul><li>Aluminum for anything that carries load.</li><li>Polycarbonate for anything that guides a game element.</li><li>Printed plastic for anything with a complicated shape that does not carry much load.</li><li>That rule of thumb covers 90 percent of an FTC robot.</li></ul></div></div>
 </section>
 
 <section id="printing">
@@ -112,22 +113,23 @@
       <div class="tbl dense"><table>
         <thead><tr><th>Filament</th><th>Nozzle</th><th>Bed</th><th>Use it for</th><th>Watch</th></tr></thead>
         <tbody>
-          <tr><td><strong>PLA</strong></td><td>190–230 °C</td><td>20–70 °C</td><td>Prototypes, brackets with no load, jigs</td><td>Brittle; softens near motors and in a hot car</td></tr>
-          <tr><td><strong>PETG</strong></td><td>230–250 °C</td><td>60–80 °C</td><td>Real robot parts: mounts, guides, spacers</td><td>Stringing; glue stick so it does not weld to the bed</td></tr>
+          <tr><td><strong>PLA</strong></td><td>190–230 °C</td><td>20–70 °C</td><td>Prototypes, jigs, light brackets. Stiffer than PETG, actually</td><td>Cracks on impact instead of bending; softens near motors and in a hot car</td></tr>
+          <tr><td><strong>PETG</strong></td><td>230–250 °C</td><td>60–80 °C</td><td>Most robot parts: mounts, plates, guides, claws, intake bodies</td><td>Stringing; glue stick so it does not weld to the bed</td></tr>
           <tr><td><strong>TPU</strong></td><td>210–250 °C</td><td>40–60 °C</td><td>Gripper pads, intake flaps, bumpers</td><td>Direct-drive extruder, print slow, no PEI sheet</td></tr>
           <tr><td><strong>ABS / ASA</strong></td><td>230–250 °C</td><td>90–110 °C</td><td>Heat-resistant, strong parts</td><td>Enclosure and ventilation required; fumes</td></tr>
-          <tr><td><strong>Nylon / Nylon-CF</strong></td><td>240–260 °C</td><td>70–90 °C</td><td>Gears, high-wear, structural</td><td>Dry it first (it drinks moisture); enclosure</td></tr>
+          <tr><td><strong>Nylon / Nylon-CF</strong></td><td>240–260 °C</td><td>70–90 °C</td><td>Gears, gearbox housings, drive plates, anything high-wear or high-load</td><td>Dry it first (it drinks moisture); enclosure</td></tr>
         </tbody>
       </table></div>
       <p class="small muted">Temperatures are starting points; use the spool's range. Shore hardness for TPU: 95A is firm, 85A is grippy, 60A is squishy. Lower is softer.</p>
     </div>
     <div class="card">
-      <h3>Settings that matter</h3>
+      <h3>Printed parts are strong when you design them to be</h3>
       <ul>
-        <li><strong>Walls beat infill.</strong> 3 to 4 perimeters and 30–35% infill is the default for a structural part. Add walls before adding infill.</li>
+        <li><strong>Walls beat infill.</strong> 4 to 6 perimeters and 25–40% infill for a structural part. Walls carry the load; infill mostly keeps the walls from buckling.</li>
+        <li><strong>Prints hold up.</strong> A well-designed PETG bracket outlasts a bent goBILDA plate, and nylon-CF gearboxes survive whole seasons. Teams print drive plates, transmissions, and intakes. Treat printing as a manufacturing method, not a prototype step.</li>
         <li><strong>Layer height</strong> 0.2 mm for most parts. 0.28 mm for big brackets you do not care about.</li>
         <li><strong>Orientation</strong> decides strength. Parts are 30–50% weaker across layers. Orient so the load runs along the layers, and print gears flat.</li>
-        <li><strong>Thin sections under 0.15 in (4 mm)</strong> snap. Add a fillet or a rib instead of hoping.</li>
+        <li><strong>Thin sections under 4 mm (0.15 in)</strong> are the weak spot. Add a fillet, a rib, or thickness.</li>
         <li><strong>Overhangs past 45°</strong> need support. Design them out with chamfers when you can.</li>
         <li><strong>Holes print small.</strong> Design them 0.2 mm oversize or drill to size after.</li>
       </ul>
@@ -136,16 +138,16 @@
   <h3 id="tolerance">Tolerancing printed parts</h3>
   <div class="grid cols-2">
     <div class="card">
-      <p>These are the numbers we use. Total clearance, applied to the CAD dimension of the printed part.</p>
+      <p>Total clearance added to the CAD dimension of the printed part. Calibrate once on your printer with the test coupon mission.</p>
       <div class="tbl dense"><table>
         <thead><tr><th>Fit</th><th>Total clearance</th><th>Use</th></tr></thead>
         <tbody>
-          <tr><td>Loose</td><td>0.02 in (0.5 mm)</td><td>Screws through holes, parts that slide, quick assembly</td></tr>
-          <tr><td>Tight</td><td>0.01 in (0.25 mm)</td><td>Shafts that spin without wobble, pins, snug lids</td></tr>
-          <tr><td>Very tight (press)</td><td>0.005 in (0.13 mm)</td><td>Bearings, gears on hex shafts, anything that must not move</td></tr>
+          <tr><td>Loose</td><td>0.5 mm (0.02 in)</td><td>Screws through holes, parts that slide, quick assembly</td></tr>
+          <tr><td>Tight</td><td>0.25 mm (0.01 in)</td><td>Shafts that spin without wobble, pins, snug lids</td></tr>
+          <tr><td>Very tight (press)</td><td>0.13 mm (0.005 in)</td><td>Bearings, gears on hex shafts, anything that must not move</td></tr>
         </tbody>
       </table></div>
-      <div class="callout warn"><span class="ico">Note</span><div><p>For enclosed shapes (a round hole, a hex pocket, a square slot) split the clearance across both sides: a 0.01 in tight fit means 0.005 in per side, because every wall gets toleranced and the removal doubles.</p></div></div>
+      <div class="callout warn"><span class="ico">Note</span><div><p>For enclosed shapes (a round hole, a hex pocket, a square slot) split the clearance across both sides: a 0.25 mm tight fit means 0.13 mm per side, because every wall gets toleranced and the removal doubles.</p></div></div>
     </div>
     <figure class="sim" data-sim="tolerance"></figure>
   </div>
@@ -181,8 +183,8 @@
       <ul>
         <li>High-pressure water with garnet abrasive cuts aluminum plate with no heat and no burr worth mentioning.</li>
         <li><strong>Design with no tolerancing.</strong> The water jet software compensates for the kerf. Draw the part at nominal size.</li>
-        <li>We use 1/16, 1/8, 3/16, and 1/4 in aluminum. 1/8 in is the workhorse for plates and brackets.</li>
-        <li>Part must fit the bed; on ours the cut area is under 12 × 12 in. Check the machine you are using.</li>
+        <li>We use 1.6, 3.2, 4.8, and 6.4 mm aluminum (1/16 to 1/4 in). 3.2 mm (1/8 in) is the workhorse for plates and brackets.</li>
+        <li>Part must fit the bed; on ours the cut area is under 305 × 305 mm (12 × 12 in). Check the machine you are using.</li>
         <li>Export a DXF of the flat face from Onshape. Include the holes; drilling later is where the misalignment comes from.</li>
       </ul>
     </div>
@@ -191,7 +193,7 @@
       <ul>
         <li>Use Onshape's sheet metal mode so the flat pattern accounts for bend allowance (the K-factor). A hand-drawn flat will be the wrong length.</li>
         <li>Bend on a brake or in a vise with a hardwood block. Bend radius about equal to the thickness. Minimum flange about four times thickness.</li>
-        <li><strong>Tap the sheet</strong> instead of adding nuts: M4 in 1/8 in aluminum gives about 3 mm of thread, which is enough for a bracket. Use a tap guide and cutting fluid.</li>
+        <li><strong>Tap the sheet</strong> instead of adding nuts: M4 in 3.2 mm (1/8 in) aluminum gives about 3 mm of thread, which is enough for a bracket. Use a tap guide and cutting fluid.</li>
         <li>Deburr every edge with a file or deburring tool. Inspectors check for sharp edges, and so does your hand.</li>
       </ul>
     </div>
@@ -201,7 +203,7 @@
     <div class="body">
       <ul>
         <li>Solid plate is heavy. Cut triangles or hexagons out of areas that are not on a load path.</li>
-        <li>Keep a minimum web (the material between holes) of about 0.1 in in 1/8 in aluminum. Thinner webs flex and tear on the water jet.</li>
+        <li>Keep a minimum web (the material between holes) of about 2.5 mm (0.1 in) in 3.2 mm plate. Thinner webs flex and tear on the water jet.</li>
         <li>Do not lighten around bearing bores or motor mounts. Leave a solid ring at least one hole-diameter wide.</li>
         <li>Onshape: sketch pattern of triangles, one extrude-remove. Drive the count with a variable so you can dial it back if the part flexes.</li>
       </ul>
@@ -218,7 +220,7 @@
         <li>Hacksaw or miter saw with a non-ferrous blade for channel and extrusion. Deburr after.</li>
         <li>Drill press with a center punch beats a hand drill every time for accuracy.</li>
         <li>Step drill for polycarbonate; regular bits grab and crack it.</li>
-        <li>Score-and-snap polycarbonate up to about 1/8 in with a utility knife and a straightedge.</li>
+        <li>Score-and-snap polycarbonate up to about 3 mm (1/8 in) with a utility knife and a straightedge.</li>
         <li>Metal ruler, calipers, and a marker. Measure twice; aluminum is not free.</li>
       </ul>
     </div>
@@ -228,15 +230,15 @@
         <li>Polycarbonate, acrylic, plywood, and cardboard. Not PVC, ever. Not metal unless it is a fiber laser.</li>
         <li>Kerf 0.1–0.3 mm. Let the cutter software offset, or design tab-and-slot joints with thickness plus 0.1 mm.</li>
         <li>Mask the material to avoid burn marks. Test a small cut first.</li>
-        <li>Great for intake side plates, sponsor panels, and quick prototype brackets in 1/4 in plywood.</li>
+        <li>Great for intake side plates, sponsor panels, and quick prototype brackets in 6 mm (1/4 in) plywood.</li>
       </ul>
     </div>
     <div class="card">
       <h3>CNC router or mill</h3>
       <ul class="small">
         <li>Fusion 360 or Onshape CAM generates the toolpath from your CAD. A sponsor's shop can run it if you have a STEP and a drawing.</li>
-        <li>Inside corners get a radius at least equal to the end mill. Design 1/8 in fillets and you can use a 1/4 in tool.</li>
-        <li>Tolerance ±0.005 in is normal for aluminum. Press-fit bearings want a proper bore, not a drilled hole.</li>
+        <li>Inside corners get a radius at least equal to the end mill. Design 3 mm fillets and you can use a 6 mm (1/4 in) end mill.</li>
+        <li>Tolerance ±0.13 mm (0.005 in) is normal for aluminum. Press-fit bearings want a proper bore, not a drilled hole.</li>
         <li>6061 for nearly everything. 7075 for hubs and high-stress parts.</li>
       </ul>
     </div>
@@ -306,13 +308,13 @@
     <div class="mission">
       <div class="head"><span class="eyebrow">Mission M1</span><span class="lvl"><i class="on"></i><i></i><i></i></span></div>
       <h3>Tolerance test coupon</h3>
-      <ul><li>Print a plate with 5 mm hex pockets at 0.005, 0.01, and 0.02 in total clearance.</li><li>Test-fit a real hex shaft in each.</li><li>Record which fit is which for your printer and filament.</li></ul>
+      <ul><li>Print a plate with 5 mm hex pockets at 0.13, 0.25, and 0.5 mm total clearance.</li><li>Test-fit a real hex shaft in each.</li><li>Record which fit is which for your printer and filament.</li></ul>
       <div class="done"><strong>Done when</strong> the team has a printed reference card taped to the printer.</div>
     </div>
     <div class="mission">
       <div class="head"><span class="eyebrow">Mission M2</span><span class="lvl"><i class="on"></i><i class="on"></i><i></i></span></div>
       <h3>Bracket, three ways</h3>
-      <ul><li>Design one motor bracket. Make it in PETG, in polycarbonate by hand, and in 1/8 in aluminum (water jet or SendCutSend).</li><li>Weigh each and load-test each until it fails or deforms.</li></ul>
+      <ul><li>Design one motor bracket. Make it in PETG, in polycarbonate by hand, and in 3.2 mm (1/8 in) aluminum (water jet or SendCutSend).</li><li>Weigh each and load-test each until it fails or deforms.</li></ul>
       <div class="done"><strong>Done when</strong> you have a table of weight, cost, time, and failure load for all three.</div>
     </div>
     <div class="mission">
@@ -338,6 +340,7 @@
   </div>
 </footer>
 <script src="assets/js/glossary.js"></script>
+<script src="assets/js/graphics.js"></script>
 <script src="assets/js/sims.js"></script>
 <script src="assets/js/app.js"></script>
 </body>

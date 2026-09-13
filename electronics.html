@@ -18,7 +18,7 @@
 <header class="site-header">
   <div class="header-inner">
     <a class="brand" href="index.html"><span class="brand-mark">FTC</span><span>Everything FTC<small>Broncobots handbook</small></span></a>
-    <nav class="main-nav" id="main-nav" aria-label="Main"></nav>
+    <div class="main-nav-wrap"><nav class="main-nav" id="main-nav" aria-label="Main"></nav></div>
     <div class="header-actions">
       <button class="icon-btn" type="button" data-open-search aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="txt">Search</span><kbd>/</kbd></button>
       <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
@@ -39,9 +39,9 @@
   <div class="media">
     <div>
       <div class="grid cols-2 tight">
-        <div class="card"><span class="eyebrow">Robot</span><h4>REV Control Hub (REV-31-1595)</h4><p class="small">An Android computer plus motor, servo, and sensor ports. Runs your code, hosts its own Wi-Fi, talks to the Driver Station. The only officially supported Robot Controller (R701).</p></div>
-        <div class="card"><span class="eyebrow">Robot</span><h4>REV Expansion Hub (REV-31-1153)</h4><p class="small">The same ports without the computer. Connects to the Control Hub over RS485. You may add at most one (R701). Needed past four motors.</p></div>
-        <div class="card"><span class="eyebrow">Driver</span><h4>REV Driver Hub (REV-31-1596)</h4><p class="small">Handheld Android device running the Driver Station app. Gamepads plug in by USB. Any Android device is allowed, but the Driver Hub is the only supported one (R901).</p></div>
+        <div class="card"><span class="eyebrow">Robot</span><h4>REV Control Hub (REV-31-1595)</h4><ul class="small compact"><li>An Android computer plus motor, servo, and sensor ports.</li><li>Runs your code, hosts its own Wi-Fi, talks to the Driver Station.</li><li>The only officially supported Robot Controller (R701).</li></ul></div>
+        <div class="card"><span class="eyebrow">Robot</span><h4>REV Expansion Hub (REV-31-1153)</h4><ul class="small compact"><li>The same ports without the computer.</li><li>Connects to the Control Hub over RS485.</li><li>You may add at most one (R701).</li><li>Needed past four motors.</li></ul></div>
+        <div class="card"><span class="eyebrow">Driver</span><h4>REV Driver Hub (REV-31-1596)</h4><ul class="small compact"><li>Handheld Android device running the Driver Station app.</li><li>Gamepads plug in by USB.</li><li>Any Android device is allowed, but the Driver Hub is the only supported one (R901).</li></ul></div>
         <div class="card"><span class="eyebrow">Driver</span><h4>Gamepads</h4><p class="small">Wired only (R904). Logitech F310, Xbox, PS4 and PS5 controllers all work. Two per team, plus a spare.</p></div>
       </div>
     </div>
@@ -108,12 +108,12 @@
   <div class="grid cols-3">
     <div class="card accent">
       <span class="eyebrow">Most common</span><h3>goBILDA Yellow Jacket (5203 / 5204)</h3>
-      <p class="small">One motor, ten gearbox ratios. 5 mm hex output on 5203 (8 mm REX on 5204), built-in encoder, mounts on the goBILDA pattern. Stall current 9.2 A.</p>
+      <ul class="small compact"><li>One motor, ten gearbox ratios.</li><li>5 mm hex output on 5203 (8 mm REX on 5204), built-in encoder, mounts on the goBILDA pattern.</li><li>Stall current 9.2 A.</li></ul>
       <ul class="small"><li><strong>312 rpm (19.2:1)</strong>: mecanum drivetrain on 96–104 mm wheels.</li><li><strong>435 rpm (13.7:1)</strong>: faster drivetrain, intake rollers, slide spools.</li><li><strong>117 or 84 rpm</strong>: arm pivots with an extra external stage.</li><li><strong>1150 or 1620 rpm</strong>: flywheels, fast intakes.</li></ul>
     </div>
     <div class="card">
       <span class="eyebrow">REV</span><h3>HD Hex + UltraPlanetary</h3>
-      <p class="small">6000 rpm bare motor with snap-together 3:1, 4:1, and 5:1 cartridges. Build 12:1 (500 rpm) to 60:1 (100 rpm). 5 mm hex output, 8.5 A stall.</p>
+      <ul class="small compact"><li>6000 rpm bare motor with snap-together 3:1, 4:1, and 5:1 cartridges.</li><li>Build 12:1 (500 rpm) to 60:1 (100 rpm).</li><li>5 mm hex output, 8.5 A stall.</li></ul>
       <ul class="small"><li>Cheaper and lighter than a Yellow Jacket at the same ratio.</li><li>Cartridges wear under drivetrain shock loads; carry spares.</li><li>Nominal ratios are approximate (a "20:1" is 18.9:1). Use the real number for encoder math.</li></ul>
     </div>
     <div class="card">
@@ -166,13 +166,13 @@
   <div class="grid cols-3">
     <div class="card">
       <span class="eyebrow">$37</span><h4>goBILDA Dual Mode (Torque / Speed / Super Speed)</h4>
-      <p class="small">300° travel, or continuous rotation via the programmer. Torque: 21.6 kg·cm at 0.20 s/60°. Speed: 9.3 kg·cm at 0.09 s. Super Speed: 4.7 kg·cm at 230 rpm equivalent.</p>
-      <p class="small">The default FTC servo. The 5-turn version (1800°) is the same servo geared for winches and long-travel wrists.</p>
+      <ul class="small compact"><li>300° travel, or continuous rotation via the programmer.</li><li>Torque: 21.6 kg·cm at 0.20 s/60°.</li><li>Speed: 9.3 kg·cm at 0.09 s.</li><li>Super Speed: 4.7 kg·cm at 230 rpm equivalent.</li></ul>
+      <ul class="small compact"><li>The default FTC servo.</li><li>The 5-turn version (1800°) is the same servo geared for winches and long-travel wrists.</li></ul>
     </div>
     <div class="card accent">
       <span class="eyebrow">$100</span><h4>Axon MAX / MINI (MK2)</h4>
-      <p class="small">MAX: 34 kg·cm at 0.12 s/60°, 78 g, brushless, steel gears, analog position feedback wire, 350°. MINI: 25 kg·cm at 0.09 s, 67 g, low profile.</p>
-      <p class="small">Fast and strong inside the rule. The feedback wire (analog port) lets code know where the claw actually is. Worth it on the claw and wrist; overkill on a flap.</p>
+      <ul class="small compact"><li>MAX: 34 kg·cm at 0.12 s/60°, 78 g, brushless, steel gears, analog position feedback wire, 350°.</li><li>MINI: 25 kg·cm at 0.09 s, 67 g, low profile.</li></ul>
+      <ul class="small compact"><li>Fast and strong inside the rule.</li><li>The feedback wire (analog port) lets code know where the claw actually is.</li><li>Worth it on the claw and wrist; overkill on a flap.</li></ul>
     </div>
     <div class="card">
       <span class="eyebrow">$30</span><h4>REV Smart Robot Servo</h4>
@@ -180,11 +180,11 @@
     </div>
     <div class="card">
       <span class="eyebrow">Power</span><h4>REV Servo Power Module (REV-11-1144)</h4>
-      <p class="small">Six channels with their own 6 V, 15 A supply from the battery. Use it when high-torque servos twitch or reset because the hub's 6 V rail sags. Legal power device (R505).</p>
+      <ul class="small compact"><li>Six channels with their own 6 V, 15 A supply from the battery.</li><li>Use it when high-torque servos twitch or reset because the hub's 6 V rail sags.</li><li>Legal power device (R505).</li></ul>
     </div>
     <div class="card">
       <span class="eyebrow">Power</span><h4>REV Servo Hub (REV-11-1855)</h4>
-      <p class="small">Six channels, configurable 5–7.4 V (6 V default), 15 A total, connected over RS485 or USB. Legal (R505). The SDK exposes basic servo control; you still count these toward the eight.</p>
+      <ul class="small compact"><li>Six channels, configurable 5–7.4 V (6 V default), 15 A total, connected over RS485 or USB.</li><li>Legal (R505).</li><li>The SDK exposes basic servo control; you still count these toward the eight.</li></ul>
     </div>
     <div class="card">
       <span class="eyebrow">Also legal</span><h4>goBILDA Servo Power Injector, Studica Servo Power Block</h4>
@@ -251,6 +251,7 @@
 
 <section id="power">
   <h2>Power</h2>
+  <p class="muted">Where the battery's energy actually goes is on the <a href="design.html#losses">Design page</a>. Short version: heat in stalled motors, then friction.</p>
   <div class="grid cols-2">
     <div class="card">
       <h3>Battery and main power</h3>
@@ -295,7 +296,7 @@
     <div class="card">
       <h3>Good practice</h3>
       <ul>
-        <li><strong>Strain relief everything.</strong> A zip tie or cable anchor within two inches of every connector. Most match disconnects are a JST pulled loose by a moving wire.</li>
+        <li><strong>Strain relief everything.</strong> A zip tie or cable anchor within 50 mm (2 in) of every connector. Most match disconnects are a JST pulled loose by a moving wire.</li>
         <li><strong>Service loops</strong> on anything that moves. Move the mechanism by hand through full travel and watch every wire.</li>
         <li><strong>Label both ends</strong> of every cable with the port name from the configuration. Tape and a fine marker.</li>
         <li><strong>Route signal wires away from motor power</strong> where you can. Twisted encoder cables pick up less noise.</li>
@@ -393,6 +394,7 @@
   </div>
 </footer>
 <script src="assets/js/glossary.js"></script>
+<script src="assets/js/graphics.js"></script>
 <script src="assets/js/sims.js"></script>
 <script src="assets/js/app.js"></script>
 </body>

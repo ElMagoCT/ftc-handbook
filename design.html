@@ -18,7 +18,7 @@
 <header class="site-header">
   <div class="header-inner">
     <a class="brand" href="index.html"><span class="brand-mark">FTC</span><span>Everything FTC<small>Broncobots handbook</small></span></a>
-    <nav class="main-nav" id="main-nav" aria-label="Main"></nav>
+    <div class="main-nav-wrap"><nav class="main-nav" id="main-nav" aria-label="Main"></nav></div>
     <div class="header-actions">
       <button class="icon-btn" type="button" data-open-search aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="txt">Search</span><kbd>/</kbd></button>
       <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
@@ -31,7 +31,7 @@
 <div class="hero">
   <span class="eyebrow">Design &amp; Mechanisms</span>
   <h1>Build the simplest robot that scores.</h1>
-  <p class="lede">A catalog of every mechanism type you will see in FTC, what each is good for, and what breaks. Plus the design rules we learned the hard way. Start with the principles, then use the filters to find the mechanism you need.</p>
+  <p class="lede">A catalog of every mechanism type you will see in FTC, what each is good for, and what breaks.</p><ul class="lede-list"><li>Plus the design rules we learned the hard way.</li><li>Start with the principles, then use the filters to find the mechanism you need.</li></ul>
 </div>
 
 <section id="principles">
@@ -58,7 +58,7 @@
       <span class="eyebrow">03</span><h3>Buildability</h3>
       <ul>
         <li>Design the robot so it is possible to assemble, and to take apart again. Nobody remembers this, and entire days get lost reassembling mechanisms for no reason.</li>
-        <li>Screw access: if you cannot fit a finger in the gap, redesign. A 0.2-inch clearance turns a 20-minute install into an hour.</li>
+        <li>Screw access: if you cannot fit a finger in the gap, redesign. A 5 mm (0.2 in) clearance turns a 20-minute install into an hour.</li>
         <li>Make an exploded view of anything tightly packed so the builders can see where that one hyper-specific gear goes before they forget to install it.</li>
         <li>Include every spacer and washer in the CAD. Guessing at 30 spacer combinations to stop a wheel wobbling is not a good afternoon.</li>
       </ul>
@@ -66,7 +66,8 @@
     <div class="card">
       <span class="eyebrow">04</span><h3>Material science</h3>
       <ul>
-        <li>3D-printed plastic wears out under normal use: swerve gears, custom pulleys on hex shafts, slide clamps. Use nylon or metal where it matters.</li>
+        <li>Printed parts are structural when you design them for it: 4+ walls, load running along the layers, PETG or nylon, fillets on every corner. Top teams print drive plates, gearboxes, and whole intakes.</li>
+        <li>Where prints do lose: high-cycle sliding wear. Swerve gears, pulleys on hex shafts under shock, slide clamps. Nylon or metal there.</li>
         <li>Lubricate high-torque gears to slow wear. Do not lubricate high-speed mechanisms; it just flings off and collects grit.</li>
         <li>Do not overdo it either. A heavy aluminum plate for a sign holder is dead weight.</li>
       </ul>
@@ -87,16 +88,26 @@
         <li>There is no weight limit in FTC, but weight still costs acceleration, tipping stability, and battery. Lighten what is not on a load path.</li>
       </ul>
     </div>
+    <div class="card accent">
+      <span class="eyebrow">07</span><h3>Innovate on purpose</h3>
+      <ul>
+        <li>KISS is about execution, not about ideas. The best robots are simple <em>and</em> have one thing nobody else thought of.</li>
+        <li>Pick one bold mechanism per robot. Give it the pre-season, cardboard, and a real test rig. Everything else stays boring and reliable.</li>
+        <li>Copy the best teams' architecture, then improve one thing about it. That is how most FTC innovation actually happens.</li>
+        <li>A creative mechanism that works is an Innovate Award. A creative mechanism that almost works is a Think Award story. Both count.</li>
+        <li>Keep an ideas list in the notebook all season. Weird ideas from October become the pre-season project in June.</li>
+      </ul>
+    </div>
   </div>
-  <div class="callout story"><span class="ico">Story</span><div><p>Two days before the last qualifier one season, team 26983's Control Hub got wiped. At the same time, a code library that formed the backbone of their code had a dependency removed from the internet, so they could not reinstall it. Two lessons: commit working code to Git after every event, and keep dependencies boring.</p></div></div>
+  <div class="callout story"><span class="ico">Story</span><div><ul><li>Two days before the last qualifier one season, team 26983's Control Hub got wiped.</li><li>At the same time, a code library that formed the backbone of their code had a dependency removed from the internet, so they could not reinstall it.</li><li>Two lessons: commit working code to Git after every event, and keep dependencies boring.</li></ul></div></div>
 </section>
 
 <section id="priorities">
   <h2>What to optimize, in order</h2>
   <div class="grid cols-3">
-    <div class="card"><span class="eyebrow">1</span><h4>Robustness</h4><p class="small">A season is 20 to 30 matches plus hundreds of practice cycles. Bearings on every loaded shaft, metal or nylon gears, fasteners with lock nuts or thread locker. A mechanism that works 80 percent of the time is a mechanism that loses matches.</p></div>
-    <div class="card"><span class="eyebrow">2</span><h4>Cycle time</h4><p class="small">Under two seconds from intake to release is the target for a scoring mechanism. Gear ratios, motor choice, and doing two motions at once in code all feed into this. See <a href="season.html#cycle">cycle time</a>.</p></div>
-    <div class="card"><span class="eyebrow">3</span><h4>Efficiency</h4><p class="small">Friction is current. Bearings, Delrin or UHMW sliders, and aligned shafts keep motors cool and the battery from sagging. A binding slide can pull more current than the drivetrain.</p></div>
+    <div class="card"><span class="eyebrow">1</span><h4>Robustness</h4><ul class="small compact"><li>A season is 20 to 30 matches plus hundreds of practice cycles.</li><li>Bearings on every loaded shaft, metal or nylon gears, fasteners with lock nuts or thread locker.</li><li>A mechanism that works 80 percent of the time is a mechanism that loses matches.</li></ul></div>
+    <div class="card"><span class="eyebrow">2</span><h4>Cycle time</h4><ul class="small compact"><li>Under two seconds from intake to release is the target for a scoring mechanism.</li><li>Gear ratios, motor choice, and doing two motions at once in code all feed into this.</li><li>See <a href="season.html#cycle">cycle time</a>.</li></ul></div>
+    <div class="card"><span class="eyebrow">3</span><h4>Efficiency</h4><ul class="small compact"><li>Friction is current.</li><li>Bearings, Delrin or UHMW sliders, and aligned shafts keep motors cool and the battery from sagging.</li><li>A binding slide can pull more current than the drivetrain.</li></ul></div>
   </div>
 </section>
 
@@ -119,54 +130,55 @@
   </div>
 
   <h3 id="drivetrains">Drivetrains</h3>
+  <div class="graphic wide" data-graphic="map-drivetrain"></div>
   <div class="grid">
     <div class="card mech" data-tags="drivetrain">
-      <div class="fig"><img src="assets/img/mech/mecanum-drive.jpg" alt="Mecanum drivetrain CAD with four angled-roller wheels" loading="lazy"></div>
+      <div class="fig graphic" data-graphic="mecanum-drive"></div>
       <div class="chips"><span class="chip acc">Default choice</span><span class="chip">4 motors</span><span class="chip">holonomic</span></div>
       <h4>Mecanum</h4>
-      <p class="small">Four wheels with 45° rollers. Drives, strafes, and spins. Simple to build and code, and every vendor sells a kit.</p>
+      <ul class="small compact"><li>Four wheels with 45° rollers.</li><li>Drives, strafes, and spins.</li><li>Simple to build and code, and every vendor sells a kit.</li></ul>
       <div class="procon"><div class="pro"><ul><li>Easy to code (four lines of math)</li><li>Lines up on goals fast</li><li>Off-the-shelf everything</li></ul></div><div class="con"><ul><li>Weaker pushing than tank</li><li>Bulky wheels, needs a flat rigid frame</li><li>Slips on dusty tiles</li></ul></div></div>
-      <details class="more quiet"><summary>Build notes</summary><div class="body"><ul><li>Roller pattern must form an X when viewed from the top. Get one wheel backwards and it will not strafe.</li><li>All four wheels must touch the floor. A twisted frame lifts one wheel and the robot crabs. Rigid chassis or a flexible mount.</li><li>Gear for about 3 to 5 ft/s free speed. The 312 rpm Yellow Jacket on 96 mm wheels is the common starting point.</li><li>Keep the center of mass low and centered so strafing does not lift a corner.</li></ul></div></details>
+      <details class="more quiet"><summary>Build notes</summary><div class="body"><ul><li>Roller pattern must form an X when viewed from the top. Get one wheel backwards and it will not strafe.</li><li>All four wheels must touch the floor. A twisted frame lifts one wheel and the robot crabs. Rigid chassis or a flexible mount.</li><li>Gear for about 1 to 1.5 m/s (3–5 ft/s) free speed. The 312 rpm Yellow Jacket on 96 mm wheels is the common starting point.</li><li>Keep the center of mass low and centered so strafing does not lift a corner.</li></ul></div></details>
     </div>
     <div class="card mech" data-tags="drivetrain">
-      <div class="fig"><img src="assets/img/mech/tank-drive.jpg" alt="Tank drivetrain render" loading="lazy"></div>
+      <div class="fig graphic" data-graphic="tank-drive"></div>
       <div class="chips"><span class="chip">2–4 motors</span><span class="chip">not holonomic</span></div>
       <h4>Tank (skid steer)</h4>
       <p class="small">Left side and right side driven separately. The simplest drivetrain that exists.</p>
       <div class="procon"><div class="pro"><ul><li>Best pushing power and traction</li><li>Fewest parts, smallest footprint with 2 motors</li><li>Trivial code</li></ul></div><div class="con"><ul><li>Has to turn to line up, which costs seconds every cycle</li><li>Six-wheel versions need a dropped center wheel to turn well</li></ul></div></div>
-      <details class="more quiet"><summary>Build notes</summary><div class="body"><ul><li>Four traction wheels on a rectangle will fight you when turning. Use omni wheels on the corners or drop the center wheel about 1/8 inch.</li><li>Good choice for a rookie team's first month or a defensive strategy.</li></ul></div></details>
+      <details class="more quiet"><summary>Build notes</summary><div class="body"><ul><li>Four traction wheels on a rectangle will fight you when turning. Use omni wheels on the corners or drop the center wheel about 3 mm (1/8 in).</li><li>Good choice for a rookie team's first month or a defensive strategy.</li></ul></div></details>
     </div>
     <div class="card mech" data-tags="drivetrain">
-      <div class="fig"><img src="assets/img/mech/h-drive.jpg" alt="H-drive chassis with a center strafing wheel" loading="lazy"></div>
+      <div class="fig graphic" data-graphic="h-drive"></div>
       <div class="chips"><span class="chip">3–5 motors</span><span class="chip">holonomic-ish</span></div>
       <h4>H-drive</h4>
       <p class="small">Tank drive on omni wheels plus one or two perpendicular wheels in the middle for strafing.</p>
       <div class="procon"><div class="pro"><ul><li>Simple code</li><li>Uses traction wheels for driving straight</li></ul></div><div class="con"><ul><li>Center wheel eats the middle of the robot</li><li>Strafe wheel has weak traction; motion is not truly holonomic</li></ul></div></div>
     </div>
     <div class="card mech" data-tags="drivetrain">
-      <div class="fig"><img src="assets/img/mech/x-drive.jpg" alt="X-drive with four omni wheels at 45 degrees" loading="lazy"></div>
+      <div class="fig graphic" data-graphic="x-drive"></div>
       <div class="chips"><span class="chip">4 motors</span><span class="chip">holonomic</span></div>
       <h4>X-drive</h4>
       <p class="small">Four omni wheels at 45°. Very fast in any direction.</p>
       <div class="procon"><div class="pro"><ul><li>Fast, smooth holonomic motion</li><li>Cheap wheels</li></ul></div><div class="con"><ul><li>Low traction, easy to push around</li><li>Awkward frame shape, wastes cube volume</li><li>More math than mecanum for little gain</li></ul></div></div>
     </div>
     <div class="card mech" data-tags="drivetrain">
-      <div class="fig"><img src="assets/img/mech/kiwi-drive.jpg" alt="Kiwi drive robot with three omni wheels" loading="lazy"></div>
+      <div class="fig graphic" data-graphic="kiwi-drive"></div>
       <div class="chips"><span class="chip">3 motors</span><span class="chip">holonomic</span></div>
       <h4>Kiwi drive</h4>
       <p class="small">Three omni wheels in a triangle. Compact and agile, mostly a curiosity in FTC.</p>
       <div class="procon"><div class="pro"><ul><li>Saves a motor</li><li>Small footprint</li></ul></div><div class="con"><ul><li>Three wheels of traction</li><li>Round frame wastes the cube</li><li>Unusual kinematics to code</li></ul></div></div>
     </div>
     <div class="card mech" data-tags="drivetrain">
-      <div class="fig"><img src="assets/img/mech/differential-swerve.jpg" alt="Differential swerve module CAD" loading="lazy"></div>
+      <div class="fig graphic" data-graphic="swerve-drive"></div>
       <div class="chips"><span class="chip bad">Expert only</span><span class="chip">1 motor + 1 servo per module</span></div>
       <h4>Swerve (coaxial)</h4>
-      <p class="small">Each wheel steers independently. The fastest, most precise drivetrain, and the one most likely to break mid-season.</p>
+      <ul class="small compact"><li>Each wheel steers independently.</li><li>The fastest, most precise drivetrain, and the one most likely to break mid-season.</li></ul>
       <div class="procon"><div class="pro"><ul><li>Fast, precise, traction wheels in every direction</li><li>Genuinely impressive</li></ul></div><div class="con"><ul><li>Hard to make, code, and maintain</li><li>Bulky modules, custom parts</li><li>Will break at some point mid-season</li></ul></div></div>
       <details class="more quiet"><summary>Differential swerve, specifically</summary><div class="body"><ul><li>Two motors per module drive a differential: same direction steers, opposite directions drive. Uses your motor budget fast (eight motors for four modules).</li><li>Needs about four months of pre-season work. It will still break.</li><li>Gear wear was the killer on ours. PLA, ASA, and ABS all wore out; nylon resin lasted longest. Lubricate the gears.</li><li>If you want one anyway, look at the 201 differential swerve on CAD Crowd and the FTC Discord showcase before drawing your own.</li></ul></div></details>
     </div>
     <div class="card mech" data-tags="drivetrain">
-      <div class="fig"><img src="assets/img/mech/ball-drive.jpg" alt="Ball drive concept render" loading="lazy"></div>
+      <div class="fig graphic" data-graphic="ball-drive"></div>
       <div class="chips"><span class="chip bad">Do not</span></div>
       <h4>Ball drive, wobble drive, and friends</h4>
       <p class="small">Experimental drivetrains exist. They are fun engineering. They are not competition drivetrains.</p>
@@ -193,9 +205,10 @@
   </details>
 
   <h3 id="intakes">Intakes</h3>
+  <div class="graphic wide" data-graphic="map-intake"></div>
   <div class="grid">
     <div class="card mech" data-tags="intake">
-      <div class="fig"><img src="assets/img/mech/compliant-wheel-intake.jpg" alt="Compliant wheel intake test rig" loading="lazy"></div>
+      <div class="fig graphic" data-graphic="compliant-intake"></div>
       <div class="chips"><span class="chip acc">Default choice</span><span class="chip">active</span></div>
       <h4>Compliant wheel intake</h4>
       <p class="small">Squishy wheels spinning toward the robot. They deform around the element and pull it in. Touch it, own it.</p>
@@ -203,27 +216,28 @@
       <details class="more quiet"><summary>Build notes</summary><div class="body"><ul><li>Surface speed matters more than torque. Gear for the wheels to move faster than the robot drives.</li><li>Leave a gap slightly smaller than the element so the wheel compresses about 20 percent.</li><li>A color or distance sensor behind the wheels stops the motor and tells the driver you have it.</li></ul></div></details>
     </div>
     <div class="card mech" data-tags="intake">
-      <div class="fig"><img src="assets/img/mech/counter-roller-intake.jpg" alt="Counter-roller intake on a competition robot" loading="lazy"></div>
+      <div class="fig graphic" data-graphic="counter-roller"></div>
       <div class="chips"><span class="chip">active</span><span class="chip">high control</span></div>
       <h4>Counter rollers</h4>
       <p class="small">Two rollers spinning toward each other. The element gets pulled between them and cannot escape.</p>
       <div class="procon"><div class="pro"><ul><li>Most control of any intake</li><li>Can center the element</li></ul></div><div class="con"><ul><li>Two rollers to drive (belt one off the other)</li><li>Bulkier, needs precise spacing</li></ul></div></div>
     </div>
     <div class="card mech" data-tags="intake">
-      <div class="fig"><img src="assets/img/mech/ramp-intake.jpg" alt="Ramp intake CAD" loading="lazy"></div>
+      <div class="fig graphic" data-graphic="ramp-intake"></div>
       <div class="chips"><span class="chip">passive</span></div>
       <h4>Ramp</h4>
       <p class="small">Drive into the element and a low-angle ramp guides it up and in. Often paired with a roller on top.</p>
       <div class="procon"><div class="pro"><ul><li>No motor</li><li>Nothing to break</li></ul></div><div class="con"><ul><li>Angle-sensitive; lower is better</li><li>Little control once the element is in</li></ul></div></div>
     </div>
     <div class="card mech" data-tags="intake">
-      <div class="fig contain"><img src="assets/img/mech/motor-in-wheel.jpg" alt="Mecanum wheel used as a self-centering intake roller" loading="lazy"></div>
+      <div class="fig graphic" data-graphic="mecanum-roller"></div>
       <div class="chips"><span class="chip">active</span><span class="chip">self-centering</span></div>
       <h4>Mecanum wheel roller</h4>
       <p class="small">A mecanum wheel spun as an intake roller pushes the element sideways toward the center as it pulls it in.</p>
       <div class="procon"><div class="pro"><ul><li>Auto-centers without extra parts</li><li>Durable</li></ul></div><div class="con"><ul><li>Heavy and expensive for a roller</li></ul></div></div>
     </div>
     <div class="card mech" data-tags="intake">
+      <div class="fig graphic" data-graphic="wrist"></div>
       <div class="chips"><span class="chip">active</span></div>
       <h4>Other roller surfaces</h4>
       <ul class="small">
@@ -241,7 +255,7 @@
   <h3 id="grabbing">Grabbing and placing</h3>
   <div class="grid">
     <div class="card mech" data-tags="grab">
-      <div class="fig contain"><img src="assets/img/mech/pincher-claw.jpg" alt="Servo pincher claw CAD" loading="lazy"></div>
+      <div class="fig graphic" data-graphic="pincher-claw"></div>
       <div class="chips"><span class="chip">1–2 servos</span></div>
       <h4>Pincher claw</h4>
       <p class="small">Two fingers driven by a servo. Precise placement, simple to build.</p>
@@ -249,23 +263,24 @@
       <details class="more quiet"><summary>Build notes</summary><div class="body"><ul><li>Print fingers in TPU or add TPU pads for grip. Rigid PLA fingers slip.</li><li>Use a servo with feedback (Axon or a REV Smart Servo with analog) so the code knows when it is closed.</li><li>Compliant fingers (flexible printed) forgive a bad approach angle.</li></ul></div></details>
     </div>
     <div class="card mech" data-tags="grab intake">
-      <div class="fig"><img src="assets/img/mech/roller-claw.jpg" alt="Roller claw on a competition robot" loading="lazy"></div>
+      <div class="fig graphic" data-graphic="roller-claw"></div>
       <div class="chips"><span class="chip">1 motor or CR servo</span></div>
       <h4>Roller claw</h4>
       <p class="small">Rollers built into the end effector. Intake by spinning in, place by spinning out. No aiming.</p>
       <div class="procon"><div class="pro"><ul><li>Continuous intake and release</li><li>Forgiving approach</li></ul></div><div class="con"><ul><li>Heavier at the end of an arm</li><li>Needs power out to the end effector</li></ul></div></div>
     </div>
     <div class="card mech" data-tags="grab intake">
-      <div class="fig contain"><img src="assets/img/mech/hybrid-claw.jpg" alt="Hybrid roller and pincher claw" loading="lazy"></div>
+      <div class="fig graphic" data-graphic="hybrid-claw"></div>
       <div class="chips"><span class="chip">hybrid</span></div>
       <h4>Hybrid claw</h4>
       <p class="small">Rollers to pull the element in, fingers to lock it. Best of both, at the cost of weight and complexity.</p>
       <div class="procon"><div class="pro"><ul><li>Grabs on contact and holds precisely</li></ul></div><div class="con"><ul><li>Large, heavy, more actuators</li><li>Two things to tune</li></ul></div></div>
     </div>
     <div class="card mech" data-tags="grab">
+      <div class="fig graphic" data-graphic="pivot-arm"></div>
       <div class="chips"><span class="chip">1 servo</span></div>
       <h4>Wrist and rotation</h4>
-      <p class="small">A servo between the arm and the claw to tilt or spin the element. Adds a degree of freedom to place at odd angles.</p>
+      <ul class="small compact"><li>A servo between the arm and the claw to tilt or spin the element.</li><li>Adds a degree of freedom to place at odd angles.</li></ul>
       <ul class="small"><li>Use a servo with 300° range (goBILDA or Axon) so you are not fighting the limits.</li><li>Keep the wrist close to the pivot; every gram out there multiplies torque on the arm.</li></ul>
     </div>
   </div>
@@ -273,6 +288,7 @@
   <h3 id="arms">Arms and linkages</h3>
   <div class="grid">
     <div class="card mech" data-tags="arm">
+      <div class="fig graphic" data-graphic="four-bar"></div>
       <div class="chips"><span class="chip acc">Common</span></div>
       <h4>Pivot arm</h4>
       <p class="small">One motor, one pivot, a claw on the end. The simplest way to reach up and over.</p>
@@ -280,18 +296,21 @@
       <details class="more quiet"><summary>Build notes</summary><div class="body"><ul><li>Gear down hard: 100:1 or more total for a long arm. Use the torque calculator below.</li><li>Worm gear or a ratchet holds position with the motor off. Otherwise use feedforward in code.</li><li>Put a through-bore encoder or potentiometer on the pivot shaft itself, not the motor, to dodge backlash.</li><li>Counter-balance with rubber bands or gas springs to cut motor load.</li></ul></div></details>
     </div>
     <div class="card mech" data-tags="arm">
+      <div class="fig graphic" data-graphic="virtual-four-bar"></div>
       <div class="chips"><span class="chip">level end effector</span></div>
       <h4>Four-bar linkage</h4>
       <p class="small">Two parallel arms. The end plate stays level through the whole swing, so the element does not tilt.</p>
       <div class="procon"><div class="pro"><ul><li>Level carry with no wrist servo</li><li>Stable, well-understood</li></ul></div><div class="con"><ul><li>Limited range of motion</li><li>Two arms means twice the bearings</li></ul></div></div>
     </div>
     <div class="card mech" data-tags="arm">
+      <div class="fig graphic" data-graphic="segmented-arm"></div>
       <div class="chips"><span class="chip">compact</span></div>
       <h4>Virtual four-bar</h4>
-      <p class="small">One arm, plus a belt or chain from a pulley fixed to the base to a pulley fixed to the claw. Same leveling effect, fewer parts.</p>
+      <ul class="small compact"><li>One arm, plus a belt or chain from a pulley fixed to the base to a pulley fixed to the claw.</li><li>Same leveling effect, fewer parts.</li></ul>
       <div class="procon"><div class="pro"><ul><li>Compact, light</li><li>Change the pulley ratio to tilt on purpose</li></ul></div><div class="con"><ul><li>Belt tension is critical</li><li>Harder to explain to judges (which is fine, it is a good Innovate story)</li></ul></div></div>
     </div>
     <div class="card mech" data-tags="arm">
+      <div class="fig graphic" data-graphic="linear-slides"></div>
       <div class="chips"><span class="chip warn">Heavy</span></div>
       <h4>Segmented / articulated arm</h4>
       <p class="small">Two or more joints. Reaches anywhere, and every joint is another motor, another encoder, and more code.</p>
@@ -304,19 +323,22 @@
   <h3 id="linear">Linear motion</h3>
   <div class="grid">
     <div class="card mech" data-tags="linear">
+      <div class="fig graphic" data-graphic="rack-pinion"></div>
       <div class="chips"><span class="chip acc">Default choice</span></div>
       <h4>Linear slides</h4>
-      <p class="small">Telescoping rails on bearings (goBILDA Viper, REV, MiSUMI). The FTC lift. Driven by string on a spool, belt, or rack.</p>
+      <ul class="small compact"><li>Telescoping rails on bearings (goBILDA Viper, REV, MiSUMI).</li><li>The FTC lift. Driven by string on a spool, belt, or rack.</li></ul>
       <div class="procon"><div class="pro"><ul><li>Long reach from a small package</li><li>Kits exist, well documented</li></ul></div><div class="con"><ul><li>Rigging is fiddly the first time</li><li>Sag and wobble with long extension</li></ul></div></div>
       <details class="more quiet"><summary>Build notes</summary><div class="body"><ul><li>String: use braided spectra or Dyneema fishing line, not paracord. Route it so it cannot rub on an edge.</li><li>Retract with a constant-force spring or a second string on the same spool so the slide comes down under power.</li><li>A limit switch at the bottom for homing. Every time.</li><li>Two parallel slides for anything that carries a claw off-center, or it racks and binds.</li><li>Grease the bearings lightly and keep the rails clean. Tile dust is sandpaper.</li></ul></div></details>
     </div>
     <div class="card mech" data-tags="linear">
+      <div class="fig graphic" data-graphic="linear-actuator"></div>
       <div class="chips"><span class="chip">high force</span></div>
       <h4>Rack and pinion</h4>
       <p class="small">A gear on a toothed bar. Direct, strong, no string to stretch.</p>
       <div class="procon"><div class="pro"><ul><li>Positive drive both directions</li><li>Simple to position with the motor encoder</li></ul></div><div class="con"><ul><li>Travel limited to rack length</li><li>Backlash, and the rack is heavy</li></ul></div></div>
     </div>
     <div class="card mech" data-tags="linear">
+      <div class="fig graphic" data-graphic="scissor-lift"></div>
       <div class="chips"><span class="chip">small</span></div>
       <h4>Linear servo / actuator</h4>
       <p class="small">A servo or motor driving a lead screw. Short stroke, high force, slow.</p>
@@ -325,7 +347,7 @@
     <div class="card mech" data-tags="linear">
       <div class="chips"><span class="chip bad">Avoid</span></div>
       <h4>Scissor lift</h4>
-      <p class="small">It looks great in CAD. It wobbles, it binds, and the motor works hardest exactly when the lift is at its lowest.</p>
+      <ul class="small compact"><li>It looks great in CAD.</li><li>It wobbles, it binds, and the motor works hardest exactly when the lift is at its lowest.</li></ul>
     </div>
   </div>
   <figure class="sim" data-sim="slides"></figure>
@@ -333,17 +355,20 @@
   <h3 id="launching">Launching and aiming</h3>
   <div class="grid">
     <div class="card mech" data-tags="launch">
+      <div class="fig graphic" data-graphic="flywheel"></div>
       <h4>Flywheel</h4>
       <p class="small">A wheel spinning fast flings the element. Repeatable if wheel speed is controlled.</p>
       <div class="procon"><div class="pro"><ul><li>Fast fire rate</li><li>Adjustable range through speed</li></ul></div><div class="con"><ul><li>Needs velocity control (encoder + PID or feedforward)</li><li>Compression and wheel wear change the shot</li><li>Power hungry at spin-up</li></ul></div></div>
       <details class="more quiet"><summary>Build notes</summary><div class="body"><ul><li>Add mass to the wheel so it does not slow down between shots.</li><li>A hood (curved backplate) and a fixed compression gap make shots consistent.</li><li>Feed with an indexer so one element goes in at a time.</li></ul></div></details>
     </div>
     <div class="card mech" data-tags="launch">
+      <div class="fig graphic" data-graphic="catapult"></div>
       <h4>Catapult / puncher</h4>
       <p class="small">Stored energy (rubber bands, a spring, or a motor-wound arm) released all at once.</p>
       <div class="procon"><div class="pro"><ul><li>Simple, powerful</li></ul></div><div class="con"><ul><li>Slow to reload</li><li>Inconsistent as bands stretch</li><li>Big and violent inside an 18-inch cube</li></ul></div></div>
     </div>
     <div class="card mech" data-tags="launch">
+      <div class="fig graphic" data-graphic="turret"></div>
       <h4>Turret</h4>
       <p class="small">A rotating platform (usually a big lazy-susan bearing or a printed ring gear) so the shooter or arm aims without turning the robot.</p>
       <div class="procon"><div class="pro"><ul><li>Aim while driving</li><li>Great Control Award story with vision</li></ul></div><div class="con"><ul><li>Heavy, needs a bearing that does not wobble</li><li>Wires to the turret need a slip ring or a limit on rotation</li></ul></div></div>
@@ -353,63 +378,77 @@
   <h3 id="gearing">Power transmission</h3>
   <div class="grid">
     <div class="card mech" data-tags="transmission">
-      <div class="fig contain"><img src="assets/img/mech/direct-drive.jpg" alt="Wheel mounted directly on a motor" loading="lazy"></div>
+      <div class="fig graphic" data-graphic="direct-drive"></div>
       <h4>Direct drive</h4>
       <p class="small">Wheel or mechanism straight on the motor shaft.</p>
       <div class="procon"><div class="pro"><ul><li>Zero backlash, no parts</li></ul></div><div class="con"><ul><li>Every impact goes into the gearbox</li><li>Ratio fixed by the motor</li></ul></div></div>
     </div>
     <div class="card mech" data-tags="transmission">
-      <div class="fig contain"><img src="assets/img/mech/spur-gears.jpg" alt="Spur gears" loading="lazy"></div>
+      <div class="fig graphic" data-graphic="spur-gears"></div>
       <h4>Spur gears</h4>
       <p class="small">Flat gears with straight teeth. Efficient, cheap, and exact about center distance.</p>
       <div class="procon"><div class="pro"><ul><li>Efficient (about 95% per stage)</li><li>Vendor gears in every tooth count</li></ul></div><div class="con"><ul><li>Backlash</li><li>Center distance must be exact or they skip</li></ul></div></div>
     </div>
     <div class="card mech" data-tags="transmission">
-      <div class="fig contain"><img src="assets/img/mech/bevel-gears.jpg" alt="Bevel gears" loading="lazy"></div>
+      <div class="fig graphic" data-graphic="bevel-gears"></div>
       <h4>Bevel / miter gears</h4>
       <p class="small">Turn rotation 90°. Miter gears are a 1:1 bevel pair.</p>
       <div class="procon"><div class="pro"><ul><li>Compact right-angle drive</li></ul></div><div class="con"><ul><li>Alignment is critical in two axes</li><li>Thrust loads need bearings that take them</li></ul></div></div>
     </div>
     <div class="card mech" data-tags="transmission">
-      <div class="fig contain"><img src="assets/img/mech/worm-gear.jpg" alt="Worm gear set" loading="lazy"></div>
+      <div class="fig graphic" data-graphic="worm-gear"></div>
       <h4>Worm gear</h4>
-      <p class="small">A screw drives a gear. Huge reduction in one stage and it cannot be back-driven, so an arm holds position with the motor off.</p>
+      <ul class="small compact"><li>A screw drives a gear.</li><li>Huge reduction in one stage and it cannot be back-driven, so an arm holds position with the motor off.</li></ul>
       <div class="procon"><div class="pro"><ul><li>Self-locking</li><li>20:1 or more in one stage</li></ul></div><div class="con"><ul><li>Low efficiency (heat)</li><li>Wears, especially printed</li></ul></div></div>
     </div>
     <div class="card mech" data-tags="transmission">
-      <div class="fig contain"><img src="assets/img/mech/chain-drive.jpg" alt="Chain and sprockets on a slide" loading="lazy"></div>
+      <div class="fig graphic" data-graphic="chain-drive"></div>
       <h4>Chain and sprockets</h4>
       <p class="small">Strong, forgiving about center distance, easy to change ratios.</p>
       <div class="procon"><div class="pro"><ul><li>Robust, adjustable</li><li>Half-links and tensioners fix any spacing</li></ul></div><div class="con"><ul><li>Stretches, needs a tensioner</li><li>Derails if sprockets are not coplanar</li><li>Noisy, greasy</li></ul></div></div>
     </div>
     <div class="card mech" data-tags="transmission">
-      <div class="fig contain"><img src="assets/img/mech/belt-drive.jpg" alt="Timing belt and pulley" loading="lazy"></div>
+      <div class="fig graphic" data-graphic="belt-drive"></div>
       <h4>Timing belts</h4>
-      <p class="small">GT2 or HTD toothed belts. Quiet, low backlash, and they slip on a hard stop instead of stripping your gearbox.</p>
+      <ul class="small compact"><li>GT2 or HTD toothed belts.</li><li>Quiet, low backlash, and they slip on a hard stop instead of stripping your gearbox.</li></ul>
       <div class="procon"><div class="pro"><ul><li>Smooth, protects motors</li><li>Light</li></ul></div><div class="con"><ul><li>Center distance set by belt length; design in a tensioner</li><li>Slips under very high torque</li></ul></div></div>
     </div>
     <div class="card mech" data-tags="transmission">
+      <div class="fig graphic" data-graphic="planetary"></div>
       <h4>Planetary gearbox</h4>
       <p class="small">Sun, planets, ring. Compact and strong; it is what is inside every Yellow Jacket and UltraPlanetary.</p>
       <div class="procon"><div class="pro"><ul><li>High torque in a small package</li><li>Buy it, do not build it</li></ul></div><div class="con"><ul><li>Fixed ratios per cartridge</li></ul></div></div>
     </div>
     <div class="card mech" data-tags="transmission">
+      <div class="fig graphic" data-graphic="herringbone"></div>
       <h4>Helical and herringbone</h4>
-      <p class="small">Angled teeth mesh gradually, so they run smoother and quieter than spur gears. Herringbone cancels the side thrust. Printable with FeatureScript generators.</p>
+      <ul class="small compact"><li>Angled teeth mesh gradually, so they run smoother and quieter than spur gears.</li><li>Herringbone cancels the side thrust.</li><li>Printable with FeatureScript generators.</li></ul>
     </div>
     <div class="card mech" data-tags="transmission">
+      <div class="fig graphic" data-graphic="cycloidal"></div>
       <h4>Cycloidal drive</h4>
-      <p class="small">A lobed disc rolling inside pins. Very high reduction with almost no backlash. A cool pre-season project, not a mid-season fix.</p>
+      <ul class="small compact"><li>A lobed disc rolling inside pins.</li><li>Very high reduction with almost no backlash.</li><li>A cool pre-season project, not a mid-season fix.</li></ul>
     </div>
     <div class="card mech" data-tags="transmission">
+      <div class="fig graphic" data-graphic="capstan"></div>
       <h4>Capstan drive</h4>
-      <p class="small">Cable wrapped around two drums. Zero backlash and very light. Limited travel, so it suits arm pivots and wrists. Watch the Aaed Musa video linked in resources.</p>
+      <ul class="small compact"><li>Cable wrapped around two drums.</li><li>Zero backlash and very light.</li><li>Limited travel, so it suits arm pivots and wrists.</li><li>Watch the Aaed Musa video linked in resources.</li></ul>
     </div>
   </div>
   <figure class="sim" data-sim="gear-ratio"></figure>
   <div class="grid cols-2">
     <figure class="sim" data-sim="gear-train"></figure>
     <figure class="sim" data-sim="center-distance"></figure>
+  </div>
+  <h3 id="losses">Where the energy goes</h3>
+  <div class="graphic wide" data-graphic="energy-losses"></div>
+  <div class="grid cols-3">
+    <div class="card"><span class="eyebrow">Biggest</span><h4>Motor heat</h4><ul class="small compact"><li>Copper loss is I²R: double the current, four times the heat.</li><li>Near stall, almost all the power becomes heat. A stalled Yellow Jacket is a 100 W heater.</li><li>Gear so the motor runs near half of free speed, where it is most efficient.</li></ul></div>
+    <div class="card"><span class="eyebrow">Per stage</span><h4>Gears, chain, belt</h4><ul class="small compact"><li>Spur gears lose about 2–5% per mesh. Planetary stages about 3–5% each.</li><li>Chain 5–10%, worse when misaligned or dry. Belt 2–4%.</li><li>Worm gears 30–60%. That inefficiency is also why they hold position.</li><li>Fewer stages beats more stages. A 3.7:1 motor with one external stage beats a 188:1 motor.</li></ul></div>
+    <div class="card"><span class="eyebrow">Sneaky</span><h4>Friction and slip</h4><ul class="small compact"><li>A shaft in a drilled hole instead of a bearing can eat 10–20% by itself.</li><li>A slide that racks, a chain rubbing a plate, a wheel dragging on a frame: each one is a motor working for nothing.</li><li>Mecanum rollers slip on every strafe. Expect 30–40% less pushing force sideways than forward.</li></ul></div>
+    <div class="card"><span class="eyebrow">Electrical</span><h4>Battery and wiring</h4><ul class="small compact"><li>A NiMH pack has internal resistance. Pull 30 A and the voltage sags a volt or two before any motor sees it.</li><li>Thin or long wires drop voltage. That is why the rules set gauges, and why 22 AWG servo extensions make servos slow.</li><li>Worn XT30 pins heat up. If a connector is warm, replace it.</li></ul></div>
+    <div class="card"><span class="eyebrow">Fix list</span><h4>Cheap efficiency wins</h4><ul class="small compact"><li>Bearings on every loaded shaft.</li><li>Align sprockets and pulleys coplanar; tension chains and belts.</li><li>Grease slow gears, keep fast ones dry and clean.</li><li>Never let the drivetrain stall against a wall. Cap drive power in code near obstacles.</li><li>Measure: motor current in telemetry tells you which mechanism is fighting you.</li></ul></div>
+    <div class="card"><span class="eyebrow">Judges</span><h4>Why it matters beyond the robot</h4><ul class="small compact"><li>"We measured 4.2 A on the lift and cut it to 2.1 A by adding bearings" is a Think Award sentence.</li><li>Efficiency is also battery life across a 30-match day.</li></ul></div>
   </div>
   <details class="more">
     <summary>Which transmission for which job <span class="hint">reference</span></summary>
@@ -431,11 +470,16 @@
 
   <h3 id="other">Other mechanisms</h3>
   <div class="grid">
-    <div class="card mech" data-tags="other"><h4>Differentials</h4><p class="small">Split or combine power between two outputs. Used in differential swerve and in "two motors, two functions" arms. Metal gears, lubricated.</p></div>
-    <div class="card mech" data-tags="other"><h4>Ratchets and sprag clutches</h4><p class="small">Spin one way, lock the other. Lets one motor drive two mechanisms if each only spins one direction, or holds a lift with no motor power.</p></div>
-    <div class="card mech" data-tags="other"><h4>Brake cable (Bowden cable)</h4><p class="small">A bike brake cable in a sheath actuates something far from the servo. Lightweight, low friction, limited force. Great for a claw at the end of a long slide.</p></div>
-    <div class="card mech" data-tags="other"><h4>Constant-force springs</h4><p class="small">Coiled steel tape that pulls with the same force at any extension. The clean way to retract slides or counterbalance an arm.</p></div>
-    <div class="card mech" data-tags="other"><h4>Passive hooks and hangers</h4><p class="small">Endgame climbs are often a shaped hook on a slide plus a ratchet. No new motor. Study past endgame mechanisms in <a href="history.html">Past Games</a>.</p></div>
+    <div class="card mech" data-tags="other">
+      <div class="fig graphic" data-graphic="differential"></div><h4>Differentials</h4><ul class="small compact"><li>Split or combine power between two outputs.</li><li>Used in differential swerve and in "two motors, two functions" arms.</li><li>Metal gears, lubricated.</li></ul></div>
+    <div class="card mech" data-tags="other">
+      <div class="fig graphic" data-graphic="ratchet"></div><h4>Ratchets and sprag clutches</h4><ul class="small compact"><li>Spin one way, lock the other.</li><li>Lets one motor drive two mechanisms if each only spins one direction, or holds a lift with no motor power.</li></ul></div>
+    <div class="card mech" data-tags="other">
+      <div class="fig graphic" data-graphic="bowden"></div><h4>Brake cable (Bowden cable)</h4><ul class="small compact"><li>A bike brake cable in a sheath actuates something far from the servo.</li><li>Lightweight, low friction, limited force.</li><li>Great for a claw at the end of a long slide.</li></ul></div>
+    <div class="card mech" data-tags="other">
+      <div class="fig graphic" data-graphic="constant-force"></div><h4>Constant-force springs</h4><ul class="small compact"><li>Coiled steel tape that pulls with the same force at any extension.</li><li>The clean way to retract slides or counterbalance an arm.</li></ul></div>
+    <div class="card mech" data-tags="other">
+      <div class="fig graphic" data-graphic="hook"></div><h4>Passive hooks and hangers</h4><ul class="small compact"><li>Endgame climbs are often a shaped hook on a slide plus a ratchet.</li><li>No new motor.</li><li>Study past endgame mechanisms in <a href="history.html">Past Games</a>.</li></ul></div>
   </div>
 </section>
 
@@ -486,17 +530,17 @@
     <div class="card">
       <h4>Backlash and skipping gears</h4>
       <p class="small"><strong>Cause:</strong> loose tolerances on printed gears, wrong center distance, long gear trains.</p>
-      <p class="small"><strong>Fix:</strong> tighten printed tolerances (about -0.005 in on the gear), use metal or nylon gears, put the encoder on the output shaft. That last one hides backlash from the code but does not remove it.</p>
+      <p class="small"><strong>Fix:</strong> tighten printed tolerances (about 0.13 mm / 0.005 in on the gear), use metal or nylon gears, put the encoder on the output shaft. That last one hides backlash from the code but does not remove it.</p>
     </div>
     <div class="card">
       <h4>Printed parts that do not fit</h4>
       <p class="small"><strong>Cause:</strong> designing to nominal dimensions. Printed holes come out small.</p>
-      <p class="small"><strong>Fix:</strong> loose fit -0.02 in, tight -0.01 in, very tight -0.005 in, halved for enclosed shapes. Details in <a href="manufacturing.html#tolerance">Manufacturing</a>.</p>
+      <ul class="small compact"><li><strong>Fix:</strong> loose 0.5 mm, tight 0.25 mm, very tight 0.13 mm total clearance (0.02 / 0.01 / 0.005 in), split across both sides of a hole.</li><li>Details in <a href="manufacturing.html#tolerance">Manufacturing</a>.</li></ul>
     </div>
     <div class="card">
       <h4>Random disconnects</h4>
       <p class="small"><strong>Cause:</strong> static discharge from the tiles into the Control Hub through the frame, or a brownout from stalled motors, or a loose XT30.</p>
-      <p class="small"><strong>Fix:</strong> ground per FIRST's ESD guide with an approved resistive strap, check battery sag under load, strain-relieve power connectors. See <a href="electronics.html#esd">ESD</a>.</p>
+      <ul class="small compact"><li><strong>Fix:</strong> ground per FIRST's ESD guide with an approved resistive strap, check battery sag under load, strain-relieve power connectors.</li><li>See <a href="electronics.html#esd">ESD</a>.</li></ul>
     </div>
     <div class="card">
       <h4>Chain derailing</h4>
@@ -532,8 +576,8 @@
   <div class="grid cols-2">
     <div class="card">
       <dl class="kv">
-        <dt>R102 Start size</dt><dd>18 × 18 × 18 inches, self-contained. Preloaded game elements may stick out.</dd>
-        <dt>R105 Expansion</dt><dd>After the match starts: 18 × 24 inches horizontally, 29 inches tall. Must be limited mechanically, not by software.</dd>
+        <dt>R102 Start size</dt><dd>457 × 457 × 457 mm (18 in cube), self-contained. Preloaded game elements may stick out.</dd>
+        <dt>R105 Expansion</dt><dd>After the match starts: 457 × 610 mm (18 × 24 in) horizontally, 737 mm (29 in) tall. Must be limited mechanically, not by software.</dd>
         <dt>R104 Weight</dt><dd>No limit. Design light anyway.</dd>
         <dt>R503 Actuators</dt><dd>8 motors and 8 servos total across all configurations.</dd>
         <dt>R204</dt><dd>No grabbing the floor or suction to the field.</dd>
@@ -601,6 +645,7 @@
   </div>
 </footer>
 <script src="assets/js/glossary.js"></script>
+<script src="assets/js/graphics.js"></script>
 <script src="assets/js/sims.js"></script>
 <script src="assets/js/app.js"></script>
 </body>

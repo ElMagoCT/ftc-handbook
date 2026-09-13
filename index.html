@@ -18,7 +18,7 @@
 <header class="site-header">
   <div class="header-inner">
     <a class="brand" href="index.html"><span class="brand-mark">FTC</span><span>Everything FTC<small>Broncobots handbook</small></span></a>
-    <nav class="main-nav" id="main-nav" aria-label="Main"></nav>
+    <div class="main-nav-wrap"><nav class="main-nav" id="main-nav" aria-label="Main"></nav></div>
     <div class="header-actions">
       <button class="icon-btn" type="button" data-open-search aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="txt">Search</span><kbd>/</kbd></button>
       <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
@@ -62,7 +62,7 @@
 <section>
   <h2 data-no-num>The numbers that shape every robot</h2>
   <div class="stats">
-    <div class="stat"><div class="v">18<small> in cube</small></div><div class="k">starting size (R102)</div></div>
+    <div class="stat"><div class="v">457<small> mm cube</small></div><div class="k">starting size, 18 in (R102)</div></div>
     <div class="stat"><div class="v">8 + 8</div><div class="k">motors + servos max (R503)</div></div>
     <div class="stat"><div class="v">0:30 + 2:00</div><div class="k">autonomous + driver-controlled</div></div>
     <div class="stat"><div class="v">12 V</div><div class="k">one NiMH battery, 20 A fuse</div></div>
@@ -116,14 +116,15 @@
 
 <section>
   <h2 data-no-num>The house rules</h2>
-  <p class="muted">Five ideas that show up on every page of this site. They come from a lot of broken robots.</p>
+  <p class="muted">Seven ideas that show up on every page of this site. They come from a lot of broken robots and a few great ones.</p>
   <div class="grid cols-3">
-    <div class="card"><span class="eyebrow">01</span><h4>Keep it simple</h4><p class="small">Functionality over coolness. If a part needs five custom brackets to mount, the design is wrong, not the brackets.</p></div>
-    <div class="card"><span class="eyebrow">02</span><h4>Touch it, own it</h4><p class="small">An intake should have full control of the game element the moment it makes contact. Every second lining up is a second not scoring.</p></div>
-    <div class="card"><span class="eyebrow">03</span><h4>Design for the builders</h4><p class="small">If you cannot fit a finger where a screw goes, redesign it. Nobody remembers this and whole days get lost to it.</p></div>
-    <div class="card"><span class="eyebrow">04</span><h4>Think of your coders</h4><p class="small">A fully articulated arm sounds neat. Code takes time and experience. Put the Driver Hub port somewhere a cable can reach.</p></div>
-    <div class="card"><span class="eyebrow">05</span><h4>Strategy first</h4><p class="small">Decide what the robot needs to do before deciding how. A simpler mechanism that fits the strategy beats a capable one that does not.</p></div>
-    <div class="card"><span class="eyebrow">06</span><h4>Write it down</h4><p class="small">Every test, every failure, every number. The portfolio writes itself if the notebook is honest. Judges can tell when it was made up in April.</p></div>
+    <div class="card"><span class="eyebrow">01</span><h4>Keep it simple</h4><ul class="small compact"><li>Functionality over coolness.</li><li>If a part needs five custom brackets to mount, the design is wrong, not the brackets.</li></ul></div>
+    <div class="card"><span class="eyebrow">02</span><h4>Touch it, own it</h4><ul class="small compact"><li>An intake should have full control of the game element the moment it makes contact.</li><li>Every second lining up is a second not scoring.</li></ul></div>
+    <div class="card"><span class="eyebrow">03</span><h4>Design for the builders</h4><ul class="small compact"><li>If you cannot fit a finger where a screw goes, redesign it.</li><li>Nobody remembers this and whole days get lost to it.</li></ul></div>
+    <div class="card"><span class="eyebrow">04</span><h4>Think of your coders</h4><ul class="small compact"><li>A fully articulated arm sounds neat.</li><li>Code takes time and experience.</li><li>Put the Driver Hub port somewhere a cable can reach.</li></ul></div>
+    <div class="card"><span class="eyebrow">05</span><h4>Strategy first</h4><ul class="small compact"><li>Decide what the robot needs to do before deciding how.</li><li>A simpler mechanism that fits the strategy beats a capable one that does not.</li></ul></div>
+    <div class="card"><span class="eyebrow">06</span><h4>Innovate on purpose</h4><ul class="small compact"><li>Simple is how you finish. Creative is how you win.</li><li>One bold mechanism per robot, prototyped early, and the rest boring and reliable.</li></ul></div>
+    <div class="card"><span class="eyebrow">07</span><h4>Write it down</h4><ul class="small compact"><li>Every test, every failure, every number.</li><li>The portfolio writes itself if the notebook is honest.</li><li>Judges can tell when it was made up in April.</li></ul></div>
   </div>
 </section>
 
@@ -158,6 +159,7 @@
   </div>
 </footer>
 <script src="assets/js/glossary.js"></script>
+<script src="assets/js/graphics.js"></script>
 <script src="assets/js/sims.js"></script>
 <script src="assets/js/app.js"></script>
 </body>
