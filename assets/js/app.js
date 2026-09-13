@@ -191,7 +191,8 @@
     const list = el("ul", { class: "toc" });
     for (const h of heads) {
       const li = el("li", { class: h.tagName === "H3" ? "lvl3" : "lvl2" });
-      const a = el("a", { href: "#" + h.id }, h.textContent.replace(/^\d+(\.\d+)*\s*/, ""));
+      const clean = h.cloneNode(true); clean.querySelectorAll(".chip, .num").forEach(x => x.remove());
+      const a = el("a", { href: "#" + h.id }, clean.textContent.trim().replace(/^\d+(\.\d+)*\s*/, ""));
       li.appendChild(a); list.appendChild(li);
     }
     const tools = el("div", { class: "toc-tools" });
