@@ -1,5 +1,7 @@
 # Everything FTC — Broncobots handbook
 
+**Live site: https://elmagoct.github.io/ftc-handbook/**
+
 A static, collaborative handbook for FIRST Tech Challenge teams: season strategy, mechanism design, Onshape, materials and manufacturing, electronics, code, judging, missions, past games, and a clickable glossary.
 
 Rebuilt in September 2026 from the team's "FTC Everything Doc" (a multi-tab Google Doc), brought up to the 2026–27 Competition Manual, and reorganized so it is not tied to any one season's game.
@@ -52,6 +54,6 @@ Rule numbers and season facts were checked against the 2026–27 Competition Man
 
 ## Hosting
 
-Static site; deploys anywhere (Netlify, GitHub Pages, Cloudflare Pages). `netlify.toml` is included with `publish = "."` and no build command.
+Published with GitHub Pages from the `main` branch root; every push to `main` goes live within a minute or two. `netlify.toml` is also included (`publish = "."`, no build command) in case the site ever moves.
 
 Not affiliated with *FIRST*. When this site and the Competition Manual disagree, the manual wins.
